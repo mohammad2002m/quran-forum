@@ -64,16 +64,15 @@
 @section('scripts')
     <script>
         function validateBeforeSubmit() {
-            return true;
             var announcementTitle = document.getElementById("announcement-title").value;
             var announcementDescription = document.getElementById("announcement-descrpition").value;
             var announcementType = document.getElementById("announcement-type").value;
-            var announcementMedia = document.getElementById("announcement-media").files;
+            var announcementImages = document.getElementById("announcement-images").files;
             var selectedImage = document.querySelector('input[name="main_image_name"]:checked');
             if (announcementTitle === "" || announcementDescription === "" || announcementType === null || annoucementType === "") {
                 alert("جميع الحقول مطلوبة")
                 return false;
-            } else if (announcementMedia.length === 0) {
+            } else if (announcementImages.length === 0) {
                 alert("يجب إضافة صورة واحدة على الأقل")
                 return false;
             } else if (selectedImage === null){
@@ -84,12 +83,12 @@
         }
 
         function renderGrid(files) {
-            var mediaGrid = document.getElementById('grid')
+            var ImageGrid = document.getElementById('grid')
             var numberOfFiles = files.length;
-            mediaGrid.innerHTML = '';
+            ImageGrid.innerHTML = '';
             for (let i = 0; i < numberOfFiles; i++) {
                 const file = files[i];
-                mediaGrid.innerHTML += gridElement(file.name, URL.createObjectURL(file))
+                ImageGrid.innerHTML += gridElement(file.name, URL.createObjectURL(file))
             }
         }
         

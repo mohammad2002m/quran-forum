@@ -19,5 +19,4 @@ class ViewController extends Controller
         }
         return view('auth.register');
     }
-
 }

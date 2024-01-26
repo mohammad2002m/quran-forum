@@ -31,7 +31,7 @@
 
 
 @section('content')
-    <div class="container  pt-4 bg-white shadow-md" style="padding-bottom: 50px;">
+    <div class="container pt-4">
         <div class="col">
             <div class="d-flex border-bottom mb-3">
                 <div class="bg-primary py-1 px-4 text-center">

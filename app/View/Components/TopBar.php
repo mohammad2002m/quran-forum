@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
+use QF\Constants;
 
 class TopBar extends Component
 {
@@ -20,7 +21,10 @@ class TopBar extends Component
     public function shouldRender()
     {
         $route = Route::currentRouteName();
-        $hideHeaderRoutes = ['login', 'attemptLogin', 'register'];
+        $hideHeaderRoutes = [
+            Constants::ROUTE_NAME_LOGIN_PAGE,
+            Constants::ROUTE_NAME_REGISTER_PAGE
+        ];
         if (in_array($route, $hideHeaderRoutes)){
             return false;
         }

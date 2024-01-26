@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AboutUs;
 use App\Http\Controllers\AnnouncementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ContactUs;
+use App\Http\Controllers\ForumRules;
 use QF\Constants;
 
 /*
@@ -31,5 +34,12 @@ Route::group([], function() {
 
     Route::get('/register', [ViewController::class, 'register']) -> name(Constants::ROUTE_NAME_REGISTER_PAGE);
     Route::get('/login', [ViewController::class, 'login']) -> name(Constants::ROUTE_NAME_LOGIN_PAGE);
+    
+
+    Route::get('/about_us', [AboutUs::class, 'index']) -> name(Constants::ROUTE_NAME_ABOUT_PAGE);
+    Route::get('/forum_rules', [ForumRules::class, 'index']) -> name(Constants::ROUTE_NAME_RULES_PAGE);
+    Route::get('/contact_us', [ContactUs::class, 'index']) -> name(Constants::ROUTE_NAME_ABOUT_PAGE);
+
+
 
 });
