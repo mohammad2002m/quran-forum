@@ -30,6 +30,9 @@ class Constants {
     const ROUTE_NAME_LOGIN_PAGE = 'login';
     const ROUTE_NAME_STORE_ANNOUNCEMENT = 'store.announcement';
     const ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE = 'create.announcement';
+    const ROUTE_NAME_ABOUT_PAGE = 'about';
+    const ROUTE_NAME_RULES_PAGE = 'rules';
+    const ROUTE_NAME_CONTACTS_US_PAGE = 'contacts_us';
 
 
     /******** ANNOUNCEMENT STATUSES ********/
@@ -44,6 +47,8 @@ class Constants {
     const ANNOUNCEMENT_TYPE_CONTEST = 3;
     const ANNOUNCEMENT_TYPE_SEMINAR = 4;
 
+    /******** ERROR MESSAGES ********/
+    const ERROR_MESSAGE_INVALID_CREDINTIALS = 'كلمة المرور أو البريد الإلكتروني خاطئ';
 
     /******** STUDENTS STATUSES ********/
     const STUDENT_STATUS_ACTIVE = 1;

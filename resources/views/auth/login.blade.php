@@ -50,8 +50,12 @@
                                     <a href="#" tabindex="-1"> نسيت كلمة المرور </a>
                                 </div>
                                 <input type="password" placeholder="كلمة المرور" class="form-control p-2" name="password">
-                                @if (isset($isIncorrect))
+                                
+                                @foreach ($errors as $error)
                                     <div class="text-danger mt-2"> كلمة المرور أو المستخدم خاطئة </div>
+                                @endforeach
+                                @if ($errors -> any())
+                                    <div class="text-danger mt-2">{{$errors -> all()[0]}}</div>
                                 @endif
                             </div>
                             <div class="mb-4">
