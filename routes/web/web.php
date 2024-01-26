@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnouncementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\AuthenticationController;
+use QF\Constants;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,21 +20,16 @@ use App\Http\Controllers\AuthenticationController;
 
 Route::group([], function() {
 
-    Route::post('/attemptLogin',  [AuthenticationController::class, 'attemptLogin']) -> name('attempt-login');
-    Route::get('/attemptLogout', [AuthenticationController::class, 'attemptLogout']) -> name('attempt-logout');
+    Route::post('/attemptLogin',  [AuthenticationController::class, 'attemptLogin']) -> name(Constants::ROUTE_NAME_ATTEMPT_LOGIN);
+    Route::get('/attemptLogout', [AuthenticationController::class, 'attemptLogout']) -> name(Constants::ROUTE_NAME_ATTEMPT_LOGOUT);
 
 
-    Route::get('/', [AnnouncementController::class, 'index'])  -> name('home');
+    Route::get('/', [AnnouncementController::class, 'index'])  -> name(Constants::ROUTE_NAME_HOME_PAGE);
 
-    Route::get('/announcement/create', [AnnouncementController::class, 'create']) -> name('create-announcement');
-    Route::post('/announcement/store', [AnnouncementController::class, 'store']) -> name('store-announcement');
+    Route::get('/announcement/create', [AnnouncementController::class, 'create']) -> name(Constants::ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE);
+    Route::post('/announcement/store', [AnnouncementController::class, 'store']) -> name(Constants::ROUTE_NAME_STORE_ANNOUNCEMENT);
 
-    Route::get('/register', [ViewController::class, 'register']) -> name('register');
-    Route::get('/login', [ViewController::class, 'login']) -> name('login');
-
-});
-
-Route::group(['authenticate', 'authorize'], function() {
-
+    Route::get('/register', [ViewController::class, 'register']) -> name(Constants::ROUTE_NAME_REGISTER_PAGE);
+    Route::get('/login', [ViewController::class, 'login']) -> name(Constants::ROUTE_NAME_LOGIN_PAGE);
 
 });

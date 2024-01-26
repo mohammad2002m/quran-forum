@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('media', function (Blueprint $table) {
+        Schema::create('images', function ($table) {
             $table->id();
             $table->timestamps();
             $table->string('original_file_name') -> nullable(false);
-            $table->string('path') -> nullable(false);
-            $table->enum('type', ['image', 'video']) -> nullable(false);
-            $table->boolean('thumbnail') -> default(false) -> nullable(false);
+            $table->string('full_path') -> nullable(false);
+            $table->boolean('is_main_image') -> default(false) -> nullable(false);
 
             $table-> unsignedBigInteger('announcement_id') -> nullable(false);
             $table->foreign('announcement_id') -> references('id') -> on('announcements');
-
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('images');
     }
 };

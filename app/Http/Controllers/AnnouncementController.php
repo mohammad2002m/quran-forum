@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementType;
-use App\Models\Media;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use QF\Constants;
-use QF\Validations\MainImageTypeIsAnImage;
 
 class AnnouncementController extends Controller
 {
@@ -24,64 +20,31 @@ class AnnouncementController extends Controller
 
     public function store(Request $request)
     {
-        // $request -> $_FILES;
+        /** TODO  **/
         /* authenticate */
         /* authorize */
+        /* fix uploaded file vulnerability */
+
         /* validate */
         $request -> validate([
             'title' => ['required'],
             'description' => ['required'],
-            'typeId' => ['required', 'integer' , Rule::in(AnnouncementType::all()->pluck('id')), ],
-            'medias.*' => ['required', 'mimes:mp4,mov,avi,wmv,jpg,jpeg,png'],
-            'mainImageName' => ['required', new MainImageTypeIsAnImage($request -> medias)],
+            'type_id' => ['required', 'integer' , Rule::in(AnnouncementType::all()->pluck('id')), ],
+            'images.*' => ['required', 'mimes:jpg,jpeg,png'],
+            'main_image_name' => ['required', Rule::in(array_map(fn($image) => $image->getClientOriginalName(), $request->images))],
         ]);
 
-        return response('ok', 200);
+        $images = $request->file('images');
 
-        // have exaxtly one image
-        // the thumbnail is an image
-
-
-        /// continue validation for thumbnail and others if there is
-
-        function createAnnouncementFromTheRequest(Request $request): Announcement
-        {
-            $announcement = new Announcement();
-            $announcement->title = $request->title;
-            $announcement->description = $request->description;
-            $announcement->type_id = $request->type_id;
-            $announcement->date = date("Y-m-d H:i:s");
-            $announcement->status = Constants::ANNOUNCEMENT_STATUS_PENDING;
-            $announcement->user_id = Auth::user()->id;
-            return $announcement;
-        }
-
-        $announcement = createAnnouncementFromTheRequest($request);
-        $announcement->save();
+        $announcement = storeAnnouncement(
+            title: $request -> title,
+            description: $request -> description,
+            type_id: $request -> type_id,
+        );
 
 
-        $files = $request->file('medias');
+        storeImagesForAnnouncement($images, $announcement->id, $request->main_image_name);
 
-        if (!$files -> isValid()){
-
-        }
-
-        foreach ($files as $file) {
-            $newFileName = getNewFileNameWithExtension($file->getClientOriginalExtension());
-            $originalFileName = $file->getClientOriginalName();
-
-            $file->storeAs('/announcements', $newFileName);
-
-            $media = new Media();
-            $media->original_file_name = $originalFileName;
-            $media->path = '/announcements' .  $newFileName;
-            $media->type = 'image'; // needs fix
-            // $media->announcement_id = $announcement_id;
-            $media->save();
-        }
-
-        // saveMediaForAnnouncement($request, $announcement->id);
-
-        return response()->json($request)->header('Content-Type', 'application/json');
+        return redirect()->route(Constants::ROUTE_NAME_HOME_PAGE);
     }
 }

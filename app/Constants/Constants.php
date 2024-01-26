@@ -23,7 +23,13 @@ class Constants {
     const ROLE_MONITORING_COMMITTE_MANAGER = 16;
 
     /******** ROUTE NAMES ********/
-    const ROUTE_NAME_CREATE_ANNOUNCEMENT = 'create-announcement';
+    const ROUTE_NAME_ATTEMPT_LOGIN = 'attempt.login';
+    const ROUTE_NAME_ATTEMPT_LOGOUT = 'attempt.logout';
+    const ROUTE_NAME_HOME_PAGE = 'home';
+    const ROUTE_NAME_REGISTER_PAGE = 'register';
+    const ROUTE_NAME_LOGIN_PAGE = 'login';
+    const ROUTE_NAME_STORE_ANNOUNCEMENT = 'store.announcement';
+    const ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE = 'create.announcement';
 
 
     /******** ANNOUNCEMENT STATUSES ********/
@@ -49,14 +55,11 @@ class Constants {
     const ACTIVITY_CREATE_ANNOUNCEMENT = 1;
     const ACTIVITY_APPROVE_ANNOUNCEMENT = 2;
 
-    /******** MEDIA TYPES ********/
-    const MEDIA_TYPE_IMAGE = 'image';
-    const MEDIA_TYPE_VIDEO = 'video';
-
+    /******** IMAGES TYPES ********/
     const SUPPORTED_IMAGES_EXTENSIONS = ['jpg', 'jpeg', 'png'];
-    const SUPPORTED_VIDEOS_EXTENSIONS = ['mp4', 'mov', 'avi', 'wmv'];
-    
 
+    /******** ANNOUNCEMENT IMAGES STORE PATH ********/
+    const ANNOUNCEMENT_IMAGES_STORE_PATH = '/images/announcements';
 
     /******** PERMISSIONS ********/
     const PERMISSIONS = [

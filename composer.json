@@ -29,7 +29,10 @@
         },
         "files": [
             "app/Helpers/GeneralHelpers.php",
-            "app/Validation/CustomValidations.php",
+            "app/Helpers/FileHelpers.php",
+            "app/Helpers/ImageHelpers.php",
+            "app/Helpers/UserHelpers.php",
+            "app/Helpers/AnnouncementHelpers.php",
             "app/Constants/Constants.php"
         ]
     },

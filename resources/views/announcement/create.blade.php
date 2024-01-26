@@ -28,7 +28,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="mb-1"> نوع الإعلان </label>
-                    <select id="announcement-type" class="form-control" name="typeId">
+                    <select id="announcement-type" class="form-control" name="type_id">
                         @foreach ($announcementTypes as $announcementType)
                             <option value="{{ $announcementType->id }}"> {{ $announcementType->name }} </option>
                         @endforeach
@@ -43,14 +43,14 @@
                     <label class="mb-1"> صور الإعلان </label>
                     <div class="d-flex gap-2">
                         <div class="flex-grow-1">
-                            <input id="announcement-media" type="file" accept="image/*,videos/*" class="form-control" name="medias[]" multiple />
+                            <input id="announcement-images" type="file" accept="image/*" class="form-control" name="images[]" multiple />
                         </div>
                         <div>
                             <button type="submit" class="btn btn-primary"> نشر الإعلان </button>
                         </div>
                     </div>
                 </div>
-                <input id="mainImageName" type="text" name="mainImageName" hidden>
+                <input id="mainImageName" type="text" name="main_image_name" hidden>
             </form>
         </section>
         <section>
@@ -69,8 +69,8 @@
             var announcementDescription = document.getElementById("announcement-descrpition").value;
             var announcementType = document.getElementById("announcement-type").value;
             var announcementMedia = document.getElementById("announcement-media").files;
-            var selectedImage = document.querySelector('input[name="mainImageName"]:checked');
-            if (announcementTitle === "" || announcementDescription === "" || announcementType === null) {
+            var selectedImage = document.querySelector('input[name="main_image_name"]:checked');
+            if (announcementTitle === "" || announcementDescription === "" || announcementType === null || annoucementType === "") {
                 alert("جميع الحقول مطلوبة")
                 return false;
             } else if (announcementMedia.length === 0) {
@@ -89,11 +89,7 @@
             mediaGrid.innerHTML = '';
             for (let i = 0; i < numberOfFiles; i++) {
                 const file = files[i];
-                if (file.type.startsWith('image/')) {
-                    mediaGrid.innerHTML += gridElement(file.name, 'image', URL.createObjectURL(file))
-                } else if (file.type.startsWith('video/')) {
-                    mediaGrid.innerHTML += gridElement(file.name, 'video', URL.createObjectURL(file))
-                }
+                mediaGrid.innerHTML += gridElement(file.name, URL.createObjectURL(file))
             }
         }
         
@@ -101,32 +97,22 @@
             document.getElementById('mainImageName').value = name;
         }
 
-        function gridElement(name, type, src) {
-            var element = type === 'image' ?
-                `<img src="${src}"  class="w-100 h-100">` :
-                `<video class="w-100 h-100" controls>
-            <source src="${src}" class="w-100" type="video/mp4">
-                Your browser does not support the video tag </video>`;
-
-            var addRadioOrNot = type === 'image' ? `<input type="radio" class="position-absolute" name="mainImageRadio" onchange="setMainImage('${name}')" style="left: 8px; bottom: 8px; width: 15px; height: 15px;">` : ``;
-
-            return `
-            <div class="col-lg-2 col-md-4 col-sm-6">
+        function gridElement(name, src) {
+            return `<div class="col-lg-2 col-md-4 col-sm-6">
                 <div class="overflow-hidden position-relative rounded-1 mb-3" style="aspect-ratio: 1;">
-                    ${element}
-                    ${addRadioOrNot}
+                    <img src="${src}" class="w-100 h-100">
+                    <input type="radio" class="position-absolute" name="mainImageRadio" onchange="setMainImage('${name}')" style="left: 8px; bottom: 8px; width: 15px; height: 15px;">
                 </div>
             </div> `;
         }
-        var media = document.getElementById('announcement-media')
-        media.onchange = function(e) {
+
+        var images = document.getElementById('announcement-images')
+        images.onchange = function(e) {
             var files = e.target.files;
             var numberOfFiles = files.length;
             for (let i = 0; i < numberOfFiles; i++) {
                 const file = files[i];
-                file.id = i;
             }
-            console.log(files);
             renderGrid(files);
         }
     </script>

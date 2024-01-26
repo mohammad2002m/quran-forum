@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use QF\CONSTANTS;
+use QF\Constants;
 
 return new class extends Migration
 {
@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_roles', function (Blueprint $table) {
+        Schema::create('user_role', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table-> unsignedBigInteger('role_id') -> default(CONSTANTS::ROLES::STUDENT);
+            $table-> unsignedBigInteger('role_id') -> default(Constants::ROLE_STUDENT);
             $table-> unsignedBigInteger('user_id') -> nullable(false);
 
             //$table-> foreign('action_type_id') -> references('id') -> on('action_types') -> cascadeOnDelete() -> cascadeOnUpdate();
