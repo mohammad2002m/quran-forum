@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use AnnouncementValidator;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementType;
 use Illuminate\Validation\Rule;
 use QF\Constants;
 
+
 class AnnouncementController extends Controller
 {
+    use AnnouncementValidator;
     public function index()
     {
         return view('announcement.index') -> with('announcements', Announcement::all());
@@ -27,13 +30,11 @@ class AnnouncementController extends Controller
         /* fix uploaded file vulnerability */
 
         /* validate */
-        $request -> validate([
-            'title' => ['required'],
-            'description' => ['required'],
-            'type_id' => ['required', 'integer' , Rule::in(AnnouncementType::all()->pluck('id')), ],
-            'images.*' => ['required', 'mimes:jpg,jpeg,png'],
-            'main_image_name' => ['required', Rule::in(array_map(fn($image) => $image->getClientOriginalName(), $request->images))],
-        ]);
+        [$status, $messages] = $this->isValidAnnouncementStore($request);
+        
+        if ($status == 'failed'){
+            return redirect()->back()->withErrors($messages);
+        }
 
         $images = $request->file('images');
 
