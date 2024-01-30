@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementType;
 use Illuminate\Validation\Rule;
@@ -11,7 +12,7 @@ class AnnouncementController extends Controller
 {
     public function index()
     {
-        return view('announcement.index');
+        return view('announcement.index') -> with('announcements', Announcement::all());
     }
     public function create()
     {

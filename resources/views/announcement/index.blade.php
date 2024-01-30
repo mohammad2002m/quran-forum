@@ -2,38 +2,101 @@
 
 @section('head')
     <title> الرئيسية </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+
+
     <style>
+        .sized-image {
+            display: block;
+            object-fit: cover;
+        }
+        .x {
+            font-family: "Noto Kufi Arabic", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+
+        .y {
+            font-family: "Tajawal", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        * {
+            font-family: "Rubik", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+
         .bg-img {
             background-image: url('assets/images/wallpaper.jpg');
             background-size: cover;
         }
-        .parent {
-            overflow: hidden;
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 220px 220px;
+            gap: 5px;
         }
-        .child {
-            transition: all 0.5s;
+
+        .item-1 {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
         }
-        .parent:hover .child, .parent:focus .child {
-            -ms-transform: scale(1.2);
-            -moz-transform: scale(1.2);
-            -webkit-transform: scale(1.2);
-            -o-transform: scale(1.2);
-            transform: scale(1.2);
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: 220px 220px 220px 220px;
+                grid-template-areas:
+                    "item-1 item-1"
+                    "item-1 item-1"
+                    "item-2 item-3"
+                    "item-4 item-5";
+                gap: 0px;
+            }
+
+            .item-1 {
+                grid-area: 'item-1'
+            }
+
+            .item-2 {
+                grid-area: 'item-2'
+            }
+
+            .item-3 {
+                grid-area: 'item-3'
+            }
+
+            .item-4 {
+                grid-area: 'item-4'
+            }
+
+            .item-5 {
+                grid-area: 'item-5'
+            }
         }
-        .clear-margin {
-            margin: 0px;
-        }
-        .clear-padding {
-            padding: 0px;
+
+        .grid-cont {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 400px;
+            gap: 25px;
         }
     </style>
 @endsection
 
 
 @section('content')
-    <div class="container pt-4">
-        <div class="col">
-            <div class="d-flex border-bottom mb-3">
+    <div class="container pt-4" style="padding-bottom: 100px;">
+        <section class="mb-3">
+            <div class="d-flex border-bottom">
                 <div class="bg-primary py-1 px-4 text-center">
                     <span class="text-light"> تجويد </span>
                 </div>
@@ -41,7 +104,7 @@
                     <div class="d-flex justify-content-between align-items-center h-100">
                         <div class="ms-2">
                             <div>
-                                من قرأ القرآن؛ فله بكل حرف حسنة، والحسنة بعشر أمثالها 
+                                من قرأ القرآن؛ فله بكل حرف حسنة، والحسنة بعشر أمثالها
                             </div>
                         </div>
                         <div>
@@ -52,32 +115,161 @@
 
                 </div>
             </div>
-        </div>
+        </section>
 
+        <section class="mb-4">
+            <div class="grid-container">
+                <div class="bg-img item-1"></div>
+                <div class="bg-img item-2"></div>
+                <div class="bg-img item-3"></div>
+                <div class="bg-img item-4"></div>
+                <div class="bg-img item-5"></div>
+            </div>
+        </section>
 
-        <div class="row clear-margin">
-            <div class="col-md-6 clear-padding parent">
-                <div class="child bg-img" style="height: 470px;">
-                     <div class="d-flex w-100 h-100 p-4 align-items-end">
-                        <div>
-                            <span class="align-text-bottom text-white fs-3 fw-bold"> إعلان عن مسابقة لحفظ القرآن الكريم</span> <br>
-                            <span class="align-text-bottom text-white fs-6"> لجنة الإعلانات بتاريخ 1-8-2024 </span>
-                        </div>
-                     </div>
+        <section class="mb-4">
+            <div style="height: 400px;" class="border rounded p-5 bg-light">
+                <div class="border-bottom border-3 mb-3 border-primary">
+                    <div class="d-inline-block bg-primary text-light py-1 px-4"> المسابقات </div>
+                </div>
+                <div class="mt-3">
+                    قال رسول الله صلى الله عليه وسلم: (من قرأ حرفًا من كتابِ اللهِ فله به حسنةٌ والحسنةُ بعشرِ أمثالِها، لا أقولُ ألم حرفٌ، ولكن ألفٌ حرفٌ، ولامٌ حرفٌ، وميمٌ حرفٌ). قال رسول الله صلى الله عليه وسلم: (اقْرَؤُوا القُرْآنَ فإنَّه يَأْتي يَومَ القِيامَةِ شَفِيعًا لأَصْحابِهِ).
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mb-4">
+            <div class="border-bottom mb-3">
+                <div class="d-inline-block bg-primary text-light py-1 px-4"> المسابقات </div>
+            </div>
+            <div style="height: 400px;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image w-100 mb-3 h-50">
+                        <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                        <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                        <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image w-100 mb-3 h-50">
+                        <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                        <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                        <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image w-100 mb-3 h-50">
+                        <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                        <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                        <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 clear-padding">
-                <div class="bg-img" style="height: 270px;"> text </div>
-                <div class="row clear-margin">
-                    <div class="col-md clear-padding img-container">
-                        <div class="bg-img" style="height: 200px;"> text1 </div>
-                    </div>
-                    <div class="col-md clear-padding img-container">
-                        <div class="bg-img" style="height: 200px;"> text2 </div>
-                    </div>
-                </div>
+        </section>
+        
+        <div class="grid-cont">
+            @php
+                echo strval(count($announcements));
+            @endphp
+            @php
+                /*
+                foreach ($announcements as $announcement) {
+                    $title = $announcement -> title;
+                    $description = $announcement -> description;
+                    $date = $announcement -> date;
+
+                    $images = $announcement -> images();
+                    $main_image = array_filter($images, function($image) {
+                        return $image['is_main_image'] == 1;
+                    })[1];
+
+                    $main_image_full_path = $main_image -> full_path;
+
+                    echo "
+                        <x-announcement :title=$title :description=$description :date=$date :main_image_full_path=$full_path />
+                    ";
+                }
+                */
+            @endphp
+            <div>
+                <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image mb-3 w-100" style="height: 200px;">
+                <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
+            </div>
+            <div>
+                <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image mb-3 w-100" style="height: 200px;">
+                <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
+            </div>
+            <div>
+                <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image mb-3 w-100" style="height: 200px;">
+                <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
+            </div>
+            <div>
+                <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image mb-3 w-100" style="height: 200px;">
+                <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
+            </div>
+            <div>
+                <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image mb-3 w-100" style="height: 200px;">
+                <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
+            </div>
+            <div>
+                <img src="{{ asset('assets/images/wallpaper.jpg') }}" class="sized-image mb-3 w-100" style="height: 200px;">
+                <h5> إعلان عن مسابقة قنادل النور ملتقى القرآن الكريم </h5>
+                <p class="text-secondary"><strong class="text-primary"> لجنة الإعلانات </strong> بتاريخ 2023-1-4 </p>
+                <p class=text-secondary> قام ملتقى القرآن الكريم بتنسيق مسابقة على مستوى الجامعات الفلسطينية لحفظ القرآن الكريم </p>
             </div>
         </div>
+                                   
+        <!-- PAGE MAIN IMAGES -->
+        <!--
+                        <section class="mb-3">
+                            <div class="row clear-margin">
+                                <div class="col-md-6 clear-padding">
+                                    <div class="child bg-img" style="height: 550px;">
+                                        <div class="d-flex w-100 h-100 p-4 align-items-end">
+                                            <div>
+                                                <span class="align-text-bottom text-white fs-3 fw-bold"> إعلان عن مسابقة لحفظ القرآن
+                                                    الكريم</span> <br>
+                                                <span class="align-text-bottom text-white fs-6"> لجنة الإعلانات بتاريخ 1-8-2024 </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="p-0 m-0">
+                                            <div class="col clear-padding"> <div class="bg-img" style="height: 275px;"> text </div> </div>
+                                        </div>
+                                        <div class="p-0 m-0">
+                                            <div class="col clear-padding"> <div class="bg-img" style="height: 275px;"> text </div> </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gap-1">
+                                        <div class="p-0 m-0">
+                                            <div class="col clear-padding"> <div class="bg-img" style="height: 275px;"> text </div> </div>
+                                        </div>
+                                        <div class="p-0 m-0">
+
+                                            <div class="col clear-padding"> <div class="bg-img" style="height: 275px;"> text </div> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        -->
+
+        <!-- PAGE BODY -->
+
 
 
     </div>

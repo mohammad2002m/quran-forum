@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class AnnouncementImage extends Model
 {
     use HasFactory;
+    function announcement(){
+        return $this -> belongsTo(Announcement::class);
+    }
 }

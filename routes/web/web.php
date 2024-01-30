@@ -7,6 +7,7 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ContactUs;
 use App\Http\Controllers\ForumRules;
+use App\Http\Controllers\WeekController;
 use QF\Constants;
 
 /*
@@ -39,6 +40,10 @@ Route::group([], function() {
     Route::get('/about_us', [AboutUs::class, 'index']) -> name(Constants::ROUTE_NAME_ABOUT_PAGE);
     Route::get('/forum_rules', [ForumRules::class, 'index']) -> name(Constants::ROUTE_NAME_RULES_PAGE);
     Route::get('/contact_us', [ContactUs::class, 'index']) -> name(Constants::ROUTE_NAME_ABOUT_PAGE);
+
+
+    Route::get('/week/create', [WeekController::class, 'create']);
+    // Route::post('/week/store', [WeekController::class, 'store']);
 
 
 

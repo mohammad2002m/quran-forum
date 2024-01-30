@@ -42,6 +42,9 @@
                             <a class="nav-link" href="/announcement/create"> نشر إعلان </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/week/create"> إدخال الأسابيع </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#"> الأرشيف </a>
                         </li>
                     </ul>
@@ -70,10 +73,13 @@
                 <div class="collapse navbar-collapse" id="menu-authed">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> الصفحة الرئيسية </a>
+                            <a class="nav-link" href="/"> الصفحة الرئيسية </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"> الأرشيف </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/week/create"> إدخال الأسابيع </a>
                         </li>
                     </ul>
 

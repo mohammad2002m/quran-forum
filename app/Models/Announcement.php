@@ -12,4 +12,7 @@ class Announcement extends Model
     function user(){
         return $this -> belongsTo(User::class);
     }
+    function images(){
+        return $this -> hasMany(Image::class) -> get() -> toArray();
+    }
 }

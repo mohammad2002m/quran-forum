@@ -1,13 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use QF\Constants;
 
-class WeekController extends Controller
-{
+trait WeekValidator {
     function validateWeekStore(Request $request){
         $validator = Validator::make($request->all(), [
             'week_number' => ['required', 'integer', 'min:1', 'max:52'],
@@ -16,17 +12,5 @@ class WeekController extends Controller
             'week_report' => ['required', 'string'],
             'week_report_images.*' => ['required', 'mimes:jpg,jpeg,png'],
         ]);
-    }
-    function create(){
-        return view('week.create');
-    }
-    function store(Request $request){
-        // weeks validation
-        if (!$this -> validateWeekStore($request)){
-
-        }
-        // store weeks
-        // return response
-        return redirect()->route(Constants::ROUTE_NAME_HOME_PAGE);
     }
 }
