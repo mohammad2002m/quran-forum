@@ -44,7 +44,7 @@
                         <button class="btn btn-primary" onclick="addTheWeeks()"> أضف الأسابيع </button>
                     </div>
                     <div class="mb-3 me-3">
-                        <form action="/week/store" method="POST" class="m-0" onsubmit="return validateBeforeSubmit()">
+                        <form action="/week/store" method="POST" class="m-0" onsubmit="return validateBeforeSubmitAndPluckWeeks()">
                             @csrf
                             <input id="weeks" name="weeks" type="text" hidden>
                             <button type="submit" class="btn btn-primary"> حفظ </button>
@@ -54,6 +54,8 @@
             </div>
             
 
+
+            <!--
             <table class="table">
                 <thead>
                     <tr>
@@ -68,6 +70,7 @@
                 <tbody id="table-body">
                 </tbody>
             </table>
+        -->
         </section>
     </div>
 @endsection
@@ -260,12 +263,24 @@
             });
         }
 
-        function validateBeforeSubmit(){
+        function validateBeforeSubmitAndPluckWeeks(){
          if (!weeksAddedAndValid){
                 alert("يجب إضافة الأسابيع أولاً");
                 return false;
+            } else {
+                var pluckedWeeks = weeks.map(week => {
+                    return {
+                        week_sequence_number: week.week_sequence_number,
+                        start_date: week.start_date,
+                        year: week.year,
+                    }
+                });
+
+                console.log(pluckedWeeks);
+                var weeksInput = document.getElementById("weeks");
+                weeksInput.value = JSON.stringify(pluckedWeeks);
+                return true;
             }
-            return true;
         }
     </script>
 @endsection

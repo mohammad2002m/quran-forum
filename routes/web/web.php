@@ -42,9 +42,8 @@ Route::group([], function() {
     Route::get('/contact_us', [ContactUs::class, 'index']) -> name(Constants::ROUTE_NAME_ABOUT_PAGE);
 
 
-    Route::get('/week/create', [WeekController::class, 'create']);
-    // Route::post('/week/store', [WeekController::class, 'store']);
-
-
+    Route::get('/week/edit', [WeekController::class, 'edit']) -> name(Constants::ROUTE_NAME_EDIT_WEEK_PAGE);
+    Route::post('/week/update', [WeekController::class, 'update']) -> name(Constants::ROUTE_NAME_UPDATE_WEEK);
+    Route::post('/week/store', [WeekController::class, 'store']) -> name(Constants::ROUTE_NAME_STORE_WEEK);
 
 });

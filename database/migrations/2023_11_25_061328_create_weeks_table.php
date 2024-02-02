@@ -15,9 +15,11 @@ return new class extends Migration
             $table-> id();
             $table-> timestamps();
             $table-> tinyText('name') -> nullable(false);
-            $table-> enum('semester' , [1 , 2 , 3]) -> nullable(false);
+            // $table-> enum('semester' , [1 , 2 , 3]) -> nullable(false);
             $table-> date('start_date') -> nullable(false);
-            $table-> year('year') -> nullable(false);
+            $table-> tinyInteger('sequence_number') -> nullable(false);
+            $table-> boolean('must') -> nullable(false);
+            // $table-> year('year') -> nullable(false);
         });
     }
 

@@ -24,7 +24,7 @@ class AuthenticationController extends Controller
             return redirect() -> route('home');
         }
         
-        return redirect(Constants::ROUTE_NAME_LOGIN_PAGE, 302) -> withErrors(Constants::ERROR_MESSAGE_INVALID_CREDINTIALS);
+        return redirect(Constants::ROUTE_NAME_LOGIN_PAGE, 302) -> with('error', Constants::ERROR_MESSAGE_INVALID_CREDINTIALS);
     }
 
     public function attemptLogout(Request $request){

@@ -33,6 +33,7 @@
             "app/Helpers/ImageHelpers.php",
             "app/Helpers/UserHelpers.php",
             "app/Helpers/AnnouncementHelpers.php",
+            "app/Helpers/WeekHelpers.php",
 
             "app/Validators/WeekValidator.php",
             "app/Validators/AnnouncementValidator.php",

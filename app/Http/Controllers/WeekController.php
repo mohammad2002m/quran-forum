@@ -2,31 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Week;
+use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use QF\Constants;
+use QF\Constants as QFConstants;
+use WeekValidators;
 
 class WeekController extends Controller
 {
-    function validateWeekStore(Request $request){
-        $validator = Validator::make($request->all(), [
-            'week_number' => ['required', 'integer', 'min:1', 'max:52'],
-            'week_start_date' => ['required', 'date'],
-            'week_end_date' => ['required', 'date'],
-            'week_report' => ['required', 'string'],
-            'week_report_images.*' => ['required', 'mimes:jpg,jpeg,png'],
-        ]);
+    use WeekValidators;
+    function edit(Request $request){
+        $currentYear = (new DateTime()) -> format('Y');
+        return view('week.edit')
+                -> with('weeksByYear', getYearWeeksMap())
+                -> with('years', getWeeksYears())
+                -> with('currentYear', $currentYear);
     }
-    function create(){
-        return view('week.create');
-    }
-    function store(Request $request){
-        // weeks validation
-        if (!$this -> validateWeekStore($request)){
+    function update(Request $request){
+        [$status, $message] = $this -> isValidWeekUpdate($request);
 
+        if ($status === 'failed'){
+            return redirect() -> route(QFConstants::ROUTE_NAME_EDIT_WEEK_PAGE) -> with('error', $message);
         }
-        // store weeks
-        // return response
-        return redirect()->route(Constants::ROUTE_NAME_HOME_PAGE);
+
+        $weeksNamesChanges = json_decode($request -> weeks_names_changes, true);
+        $weeksMustsChanges = json_decode($request -> weeks_musts_changes, true);
+        
+        foreach ($weeksNamesChanges as $id => $name){
+            Week::where('id', $id) -> update(['name' => $name]);
+        }
+        foreach ($weeksMustsChanges as $id => $must){
+            Week::where('id', $id) -> update(['must' => $must]);
+        }
+
+        return redirect() -> route(QFConstants::ROUTE_NAME_EDIT_WEEK_PAGE) -> with('success', $message);
+    }
+
+    function store(Request $request){
+        
+        
+        // Add 53 week for 1 year
+        if (Week::exists()){
+            addNNextWeeks(QFConstants::NUMBER_OF_WEEKS_TO_ADD_IN_STORE);
+        } else {
+            $lastSequenceNumber = 1;
+            $lastDate = (new DateTime()) -> modify('next saturday') -> setTime(0,0,0);
+            addWeek( $lastSequenceNumber, $lastDate);
+            addNNextWeeks(QFConstants::NUMBER_OF_WEEKS_TO_ADD_IN_STORE - 1);
+        }
+        
+        return redirect() -> route(QFConstants::ROUTE_NAME_EDIT_WEEK_PAGE) -> with('success', QFConstants::SUCCESS_MESSAGE_WEEKS_ADDED);
+
     }
 }

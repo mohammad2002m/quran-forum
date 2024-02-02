@@ -79,7 +79,7 @@
                             <a class="nav-link" href="#"> الأرشيف </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/week/create"> إدخال الأسابيع </a>
+                            <a class="nav-link" href="/week/edit"> الأسابيع </a>
                         </li>
                     </ul>
 

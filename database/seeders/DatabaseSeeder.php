@@ -14,7 +14,10 @@ use App\Models\Week;
 use App\Globals\CONSTANTS;
 use App\Models\AnnouncementType;
 use App\Models\College;
+use DateInterval;
+use DateTime;
 use Illuminate\Database\Seeder;
+use QF\Constants as QFConstants;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +26,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        DatabaseSeeder::seedWeeks();
         DatabaseSeeder::seedActivites();
         // DatabaseSeeder::seedAccomplishments();
         DatabaseSeeder::seedColleges();
@@ -155,51 +157,6 @@ class DatabaseSeeder extends Seeder
             'tajweed_certificate' => false,
             'date' => '2022-12-12',
             'college_id' => 1,
-        ]);
-    }
-    public static function seedWeeks()
-    {
-        Week::factory()->create([
-            'name' => 'الأسبوع الأول',
-            'start_date' => '2023-1-1',
-            'year' => 2023,
-            'semester' => 1,
-        ]);
-        Week::factory()->create([
-            'name' => 'الأسبوع الثاني',
-            'start_date' => '2023-1-8',
-            'year' => 2023,
-            'semester' => 1,
-        ]);
-        Week::factory()->create([
-            'name' => 'الأسبوع الثالث',
-            'start_date' => '2023-1-15',
-            'year' => 2023,
-            'semester' => 1,
-        ]);
-        Week::factory()->create([
-            'name' => 'الأسبوع الرابع',
-            'start_date' => '2023-1-22',
-            'year' => 2023,
-            'semester' => 1,
-        ]);
-        Week::factory()->create([
-            'name' => 'الأسبوع الأول',
-            'start_date' => '2024-2-1',
-            'year' => 2024,
-            'semester' => 2,
-        ]);
-        Week::factory()->create([
-            'name' => 'الأسبوع الثاني',
-            'start_date' => '2023-2-8',
-            'year' => 2024,
-            'semester' => 2,
-        ]);
-        Week::factory()->create([
-            'name' => 'الأسبوع الثالث',
-            'start_date' => '2024-2-15',
-            'year' => 2024,
-            'semester' => 2,
         ]);
     }
     public static function seedAnnouncementTypes()

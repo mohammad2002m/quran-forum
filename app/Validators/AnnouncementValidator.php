@@ -5,19 +5,19 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-trait AnnouncementValidator {
+trait AnnouncementValidators {
     function isValidAnnouncementStore(Request $request){
         $validator = Validator::make($request->all(), [
             'title' => ['required'],
             'description' => ['required'],
-            'type_id' => ['required', 'integer' , Rule::in(AnnouncementType::all()->pluck('id')), ],
+            'type_id' => ['required', 'integer' , Rule::exists('announcement_types', 'id')],
             'images.*' => ['required', 'mimes:jpg,jpeg,png'],
             'main_image_name' => ['required', Rule::in(array_map(fn($image) => $image->getClientOriginalName(), $request->images))],
         ]);
 
         $status = $validator -> passes() ? 'passed' : 'failed';
-        $messages = $validator -> messages();
+        $message = $validator -> messages() -> first();
 
-        return [$status, $messages];
+        return [$status, $message];
     }
 }

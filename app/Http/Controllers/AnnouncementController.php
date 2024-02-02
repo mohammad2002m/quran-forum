@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use AnnouncementValidator;
+use AnnouncementValidators;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementType;
@@ -12,7 +12,7 @@ use QF\Constants;
 
 class AnnouncementController extends Controller
 {
-    use AnnouncementValidator;
+    use AnnouncementValidators;
     public function index()
     {
         return view('announcement.index') -> with('announcements', Announcement::all());
@@ -30,10 +30,10 @@ class AnnouncementController extends Controller
         /* fix uploaded file vulnerability */
 
         /* validate */
-        [$status, $messages] = $this->isValidAnnouncementStore($request);
+        [$status, $message] = $this->isValidAnnouncementStore($request);
         
         if ($status == 'failed'){
-            return redirect()->back()->withErrors($messages);
+            return redirect()->back()->with('error', $message);
         }
 
         $images = $request->file('images');
