@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'محمد الشريف',
-            'email' => 'a@gmail.com',
+            'email' => 'mohammed.alshareef2002@gmail.com',
             'phone_number' => '0569171474',
             'gender' => 'ذكر',
             'password' => bcrypt('mozart'),

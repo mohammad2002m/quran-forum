@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> تسجيل الدخول </title>
+    <title> نسيت كلمة المرور </title>
     <style>
         .box {
             margin: 0px;
@@ -27,7 +27,7 @@
         <div class="col-lg-7 vh-100 p-0">
             <div class="px-5 w-100 h-100">
                 <div class="d-flex align-items-center justify-content-center w-100 h-100">
-                    <form action="/attemptLogin" method="post" class="w-50">
+                    <form action="/forgot_password" method="post" class="w-50">
                         @csrf
                         <div class="mb-5">
                             <div class="mb-2">
@@ -35,30 +35,26 @@
                                     <img src="{{ asset('assets/images/logo.png') }}" width="110px;" alt="what is going on">
                                 </h1>
                             </div>
-                            <h5 class="text-center"> تسجيل الدخول </h5>
-                            <p class="text-secondary text-center"> مرحبا بك في ملتقى القرآن الكريم </p>
+                            <h5 class="text-center"> تغيير كلمة المرور </h5>
+                            <p class="text-secondary text-center"> أدخل البريد الإلكتروني الخاص بك </p>
                         </div>
                         <div>
                             <div class="mb-4">
                                 <label for="" class="mb-1"> البريد الإلكتروني </label>
-                                <input type="text" placeholder="البريد الإلكتروني" class="form-control p-2 bg-light-subtle"
-                                    name="email">
+                                <input type="text" placeholder="البريد الإلكتروني" class="form-control bg-light-subtle p-2" name="email">
                             </div>
+
+                            @if ($errors->any())
+                                <div> {{ $errors -> first()}} </div> 
+                            @else 
+                                <div> no </div> 
+                            @endif
+                            @foreach ($errors as $error)
+                                <div class="text-danger"> {{ $error }} </div>
+                            @endforeach
                             <div class="mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <label for="" class="mb-1"> كلمة المرور </label>
-                                    <a href="/forgot_password" tabindex="-1"> نسيت كلمة المرور </a>
-                                </div>
-                                <input type="password" placeholder="كلمة المرور" class="form-control p-2 bg-light-subtle" name="password">
-                                
-                                @if (Session::has('error'))
-                                    <div class="text-danger mt-2">{{session('error')}}</div>
-                                @endif
+                                <button type="submit" class="btn btn-primary prm w-100 p-2"> التالي </button>
                             </div>
-                            <div class="mb-4">
-                                <button type="submit" class="btn btn-primary prm w-100 p-2"> تسجيل الدخول </button>
-                            </div>
-                            <span>ليس لديك حساب؟ <a href="#">سجل هنا</a> </span>
                         </div>
                     </form>
                 </div>

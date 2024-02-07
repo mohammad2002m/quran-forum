@@ -23,12 +23,12 @@
                 @csrf
                 <div class="mb-3">
                     <label class="mb-1"> عنوان الإعلان </label>
-                    <input id="announcement-title" type="text" class="form-control" placeholder="عنوان الإعلان"
+                    <input id="announcement-title" type="text" class="form-control bg-light-subtle" placeholder="عنوان الإعلان"
                         name="title">
                 </div>
                 <div class="mb-3">
                     <label class="mb-1"> نوع الإعلان </label>
-                    <select id="announcement-type" class="form-control" name="type_id">
+                    <select id="announcement-type" class="form-control bg-light-subtle" name="type_id">
                         @foreach ($announcementTypes as $announcementType)
                             <option value="{{ $announcementType->id }}"> {{ $announcementType->name }} </option>
                         @endforeach
@@ -36,14 +36,14 @@
                 </div>
                 <div class="mb-3">
                     <label class="mb-1"> تفاصيل الإعلان </label>
-                    <textarea id="announcement-descrpition" class="form-control" name="description" rows="8"
+                    <textarea id="announcement-descrpition" class="form-control bg-light-subtle" name="description" rows="8"
                         placeholder="تفاصيل الإعلان"></textarea>
                 </div>
                 <div class="mb-4">
                     <label class="mb-1"> صور الإعلان </label>
                     <div class="d-flex gap-2">
                         <div class="flex-grow-1">
-                            <input id="announcement-images" type="file" accept="image/*" class="form-control" name="images[]" multiple />
+                            <input id="announcement-images" type="file" accept="image/*" class="form-control bg-light-subtle" name="images[]" multiple />
                         </div>
                         <div>
                             <button type="submit" class="btn btn-primary"> نشر الإعلان </button>

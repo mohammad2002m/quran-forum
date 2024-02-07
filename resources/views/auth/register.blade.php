@@ -1,48 +1,172 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+@extends('layouts.app')
+@section('head')
     <title> تسجيل حساب </title>
-    <style>
-        .prm {
-            background-color: rgb(0,93,84);
-        }
-        .prm:hover {
-            background-color: rgb(15,108,99)
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="row justify-content-center" style="margin-top: 150px;">
-            <div class="col-md-6 col-lg-4">
-                <div >
-                    <h3 class="mb-4 text-center"> تسجيل حساب </h3>
-                </div>
-                <form action="/attemptLogin" method="post">
-                    @csrf
-                    <div class="form-group mb-3">
-                        <label class="mb-1"> اسم المستخدم </label>
-                        <input type="text" class="form-control" placeholder="اسم المستخدم" name="username">
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="mb-1"> كلمة المرور </label>
-                        <input id="password-field" type="password" class="form-control" placeholder="كلمة المرور" name="password">
-                    </div>
-                    <div class="form-group mb-4">
-                        <label class="mb-1"> كلمة المرور مرة أخرى </label>
-                        <input id="password-field" type="password" class="form-control" placeholder="كلمة المرور" name="password">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="form-control btn btn-primary prm submit px-3"> تسجيل حساب </button>
-                    </div>
-                    
-                </form>
+@endsection
+@section('content')
+    <div class="bg-light">
+        <div class="container p-5 border bg-white shadow-sm">
+            <div class="text-center ">
+                <h3> فورم التسجيل لملتقى القرآن الكريم </h3>
+                <p class="text-secondary"> ملتقى القرآن الكريم جامعة الخليل </p>
             </div>
+            <div class="border-bottom  p-0 pb-1 mb-4">
+                <h5> المعلومات الشخصية </h5>
+            </div>
+
+            <div class="mb-3">
+                <label for="name" class="mb-1"> الاسم الكامل باللغة العربية </label>
+                <input type="text" class="form-control bg-light-subtle" placeholder="الاسم الكامل" name="name">
+            </div>
+
+            <div class="form-group mb-3 p-0">
+                <label for="email" class="mb-1"> البريد الإلكتروني </label>
+                <input type="text" class="form-control bg-light-subtle" placeholder="البريد الإلكتروني" name="email">
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="password" class="mb-1"> كلمة المرور </label>
+                    <input type="password" class="form-control bg-light-subtle" placeholder="كلمة المرور" name="passoword">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="passoword_confirmation" class="mb-1"> تأكيد كلمة المرور </label>
+                    <input type="password" class="form-control bg-light-subtle" placeholder="تأكيد كلمة المرور"
+                        name="password_confirmation">
+                </div>
+            </div>
+
+            <div class="form-group mb-4 p-0">
+                <label for="college" class="mb-1"> الجنس </label>
+                <select name="college" class="form-select bg-light-subtle">
+                    <option selected> ذكر </option>
+                    <option> أنثى </option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 form-group mb-4">
+                    <label for="phonenumber" class="mb-1"> رقم الهاتف </label>
+                    <input type="text" class="form-control bg-light-subtle" placeholder="رقم الهاتف" name="phonenumber">
+                </div>
+
+                <div class="col-md-6 form-group mb-4">
+                    <label for="college" class="mb-1"> الكلية </label>
+                    <select name="college" class="form-select bg-light-subtle">
+                        <option selected> كلية الطب </option>
+                        <option> كلية تكنولوجيا المعلومات </option>
+                        <option> كلية الزراعة </option>
+                        <option> كلية التمريض</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="border-bottom  p-0 pb-1 mb-4">
+                <h5> خاص بالملتقى </h5>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6 mb-3"> <!-- Question -->
+                    <label class="mb-1"> هل لديك إجازة في التجويد </label>
+                    <select class="form-select bg-light-subtle">
+                        <option> نعم </option>
+                        <option selected> لا </option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3"> <!-- Question -->
+                    <label class="mb-1"> هل لديك القدرة على أن تكون من محفظي القرآن </label>
+                    <select class="form-select bg-light-subtle">
+                        <option> نعم </option>
+                        <option selected> لا </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="m-0 p-0"> <!-- Question -->
+                <label class="mb-1"> كم عدد الأفراد الذين يمكنك الإشراف عليهم </label>
+                <div class="form-group mb-4 p-0">
+                    <select class="form-select bg-light-subtle">
+                        <option selected>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                </div>
+            </div>
+            <div class="m-0 p-0"> <!-- Question -->
+                <label class="mb-1"> كيف هي طبيعة دوامك بالجامعة ؟ </label>
+                <div class="form-group mb-4 p-0">
+                    <select class="form-select bg-light-subtle">
+                        <option value=""> مستقرة بالحرم الجامعي </option>
+                        <option value=""> أتدرب خارج الجامعة بالإضافة إلى محاضرات منتظمة </option>
+                        <option value=""> تدريب خارج الجامعة </option>
+                    </select>
+                </div>
+            </div>
+            <label class="mb-1"> ما هي الأجزاء الي تحفظها من القرآن الكريم </label>
+            <table id="parts-tbl" class="table table-sm table-striped table-bordered ">
+                <thead>
+                    <tr>
+                        <th class="text-start"> رقم الجزء </th>
+                        <th class="text-center"> هل تحفظ هذا الجزء </th>
+                        <th class="text-start"> رقم الجزء </th>
+                        <th class="text-center"> هل تحفظ هذا الجزء </th>
+
+                    </tr>
+                </thead>
+                <tbody id="tbl-data">
+                    <script>
+                        const names = [
+                            "الجزء الأول",
+                            "الجزء الثاني",
+                            "الجزء الثالث",
+                            "الجزء الرابع",
+                            "الجزء الخامس",
+                            "الجزء السادس",
+                            "الجزء السابع",
+                            "الجزء الثامن",
+                            "الجزء التاسع",
+                            "الجزء العاشر",
+                            "الجزء الحادي عشر",
+                            "الجزء الثاني عشر",
+                            "الجزء الثالث عشر",
+                            "الجزء الرابع عشر",
+                            "الجزء الخامس عشر",
+                            "الجزء السادس عشر",
+                            "الجزء السابع عشر",
+                            "الجزء الثامن عشر",
+                            "الجزء التاسع عشر",
+                            "الجزء العشرون",
+                            "الجزء الحادي والعشرون",
+                            "الجزء الثاني والعشرون",
+                            "الجزء الثالث والعشرون",
+                            "الجزء الرابع والعشرون",
+                            "الجزء الخامس والعشرون",
+                            "الجزء السادس والعشرون",
+                            "الجزء السابع والعشرون",
+                            "الجزء الثامن والعشرون",
+                            "الجزء التاسع والعشرون",
+                            "الجزء الثلاثون"
+                        ]
+                        for (let i = 0; i < names.length; i += 2) {
+                            document.getElementById("tbl-data").innerHTML += `
+                            <tr>
+                                <td> ${names[i]} </td>
+                                <td class="text-center"> <input type="checkbox" class="form-check-input"/> </td>
+                                <td> ${names[i + 1]} </td>
+                                <td class="text-center"> <input type="checkbox" class="form-check-input"/> </td>
+                            </tr>
+                        `
+                        }
+                    </script>
+                </tbody>
+            </table>
+
+
         </div>
     </div>
-</body>
-</html>
+@endsection

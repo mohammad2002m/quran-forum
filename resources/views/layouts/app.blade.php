@@ -16,7 +16,7 @@
     @yield('head')
 </head>
 
-<body dir="rtl" direction="rtl">
+<body dir="rtl">
 
     <x-top-bar />
     <x-nav-bar />

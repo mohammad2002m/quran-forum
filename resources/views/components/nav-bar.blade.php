@@ -42,7 +42,7 @@
                             <a class="nav-link" href="/announcement/create"> نشر إعلان </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/week/create"> إدخال الأسابيع </a>
+                            <a class="nav-link" href="/week/edit"> الأسابيع </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"> الأرشيف </a>
@@ -84,8 +84,8 @@
                     </ul>
 
                     <div class="d-flex gap-2">
-                        <a href="./register" class="btn btn-outline-primary"> إنشاء حساب </a>
-                        <a href="./login" class="btn btn-primary"> تسجيل دخول </a>
+                        <a href="/register" class="btn btn-outline-primary"> إنشاء حساب </a>
+                        <a href="/login" class="btn btn-primary"> تسجيل دخول </a>
                     </div>
                 </div>
             </div>

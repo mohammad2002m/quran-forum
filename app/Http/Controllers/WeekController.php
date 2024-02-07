@@ -40,7 +40,7 @@ class WeekController extends Controller
     }
 
     function store(Request $request){
-        
+        // FIXME : not allwoing to add weeks as many as the user wants
         
         // Add 53 week for 1 year
         if (Week::exists()){

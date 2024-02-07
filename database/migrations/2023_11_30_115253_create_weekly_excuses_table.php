@@ -17,14 +17,13 @@ return new class extends Migration
             
             $table-> mediumText('excuse') -> nullable(false);
             $table-> mediumText('notes');
+            $table-> enum('status', ['pending', 'approved', 'rejected']) -> default('pending');
 
-            $table-> unsignedBigInteger('status_id') -> nullable(false);
             $table-> unsignedBigInteger('user_id') -> nullable(false);
             $table-> unsignedBigInteger('week_id') -> nullable(false);
 
             $table-> foreign('user_id') -> references('id') -> on('users') -> cascadeOnDelete() -> cascadeOnUpdate();
             $table-> foreign('week_id') -> references('id') -> on('weeks') -> cascadeOnDelete() -> cascadeOnUpdate();
-            $table-> foreign('status_id') -> references('id') -> on('excuse_statuses') -> cascadeOnDelete() -> cascadeOnUpdate();
         });
     }
 

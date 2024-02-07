@@ -7,37 +7,37 @@
             white-space: nowrap;
             text-align: center;
         }
-
     </style>
 @endsection
 
 @section('content')
     <div class="container py-4">
         <section>
-            
+
             @if (Session::has('error'))
                 <x-alert type="alert-danger" :message="session('error')" />
             @elseif (Session::has('success'))
                 <x-alert type="alert-success" :message="session('success')" />
             @endif
 
-            <!-- Just to store the weeks from backend so that I can access them via js --> 
-            <input id="years" type="text" value="{{json_encode($years)}}" hidden>
-            <input id="weeks" type="text" value="{{json_encode($weeksByYear)}}" hidden>
-            
+            <!-- Just to store the weeks from backend so that I can access them via js -->
+            <input id="years" type="text" value="{{ json_encode($years) }}" hidden>
+            <input id="weeks" type="text" value="{{ json_encode($weeksByYear) }}" hidden>
+
             <div class="mb-3">
                 <div class="d-flex align-items-end">
                     <div class="w-100">
-                        <select name="years" id="years-select" class="form-control w-100" onchange="createTableWithPagination()">
+                        <select name="years" id="years-select" class="form-control bg-light-subtle"
+                            onchange="createTableWithPagination()">
                             @foreach ($years as $year)
-                                <option value="{{$year}}"
-                                 @if ($currentYear == $year) selected @endif
-                                > {{$year}} </option>
+                                <option value="{{ $year }}" @if ($currentYear == $year) selected @endif>
+                                    {{ $year }} </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="ms-3">
-                        <form action="/week/update" method="POST" class="m-0 w-100" onsubmit="return validateAndAssignValues()">
+                        <form action="/week/update" method="POST" class="m-0 w-100"
+                            onsubmit="return validateAndAssignValues()">
                             @csrf
                             <input id="weeks-names-changes" name="weeks_names_changes" type="text" hidden>
                             <input id="weeks-musts-changes" name="weeks_musts_changes" type="text" hidden>
@@ -46,8 +46,8 @@
                     </div>
                 </div>
             </div>
-        
-            <table id="weeks-tbl" class="table table-striped table-bordered">
+
+            <table id="weeks-tbl" class="table table-striped table-bordered ">
                 <thead>
                     <tr>
                         <th name="name" class="text-start"> اسم الأسبوع </th>
@@ -60,6 +60,7 @@
                 </tbody>
             </table>
             
+
             <div class="d-flex justify-content-between">
                 <form action="/week/store" method="POST">
                     @csrf
@@ -77,7 +78,7 @@
 @endsection
 @section('scripts')
     <script>
-        function getCurrentSelectedYear(){
+        function getCurrentSelectedYear() {
             return parseInt($('#years-select').val());
         }
         const pagination = {
@@ -95,28 +96,29 @@
         weeksNamesChanges = {};
         weeksMustsChanges = {};
 
-        function changeWeekNamebyId(id, name){
+        function changeWeekNamebyId(id, name) {
             weeksNamesChanges[id] = name;
             var weeks = weeksByYear[getCurrentSelectedYear()];
-            for (let i = 0; i < weeks.length; i++){
-                if (weeks[i].id === id){
+            for (let i = 0; i < weeks.length; i++) {
+                if (weeks[i].id === id) {
                     weeks[i].name = name;
                     break;
                 }
             }
         }
-        function changeWeekMustbyId(id, must){
+
+        function changeWeekMustbyId(id, must) {
             weeksMustsChanges[id] = must;
             var weeks = weeksByYear[getCurrentSelectedYear()];
-            for (let i = 0; i < weeks.length; i++){
-                if (weeks[i].id === id){
+            for (let i = 0; i < weeks.length; i++) {
+                if (weeks[i].id === id) {
                     weeks[i].must = must;
                     break;
                 }
             }
         }
 
-        function setCurrentPageTo(page){
+        function setCurrentPageTo(page) {
             if (pagination.currentPage === page) return;
             if (page < pagination.firstPage || page > pagination.lastPage) return;
             var tableData = $('#tbl-data');
@@ -124,7 +126,7 @@
             pagination.currentPage = page;
             var startIndex = (page - 1) * pagination.pageLength;
             var endIndex = Math.min(page * pagination.pageLength, pagination.data.length);
-            for (let row = startIndex; row < endIndex; row++){
+            for (let row = startIndex; row < endIndex; row++) {
                 var week = pagination.data[row];
                 tableData.append(`
                     <tr>
@@ -137,11 +139,11 @@
 
                 var nameColumn = $(`#name-${week.id}`);
                 var mustCheckboxColumn = $(`#must-${week.id}`);
-                nameColumn.on('input', function(e){
+                nameColumn.on('input', function(e) {
                     var idFromIdTag = parseInt(e.target.id.split('-')[1]);
                     changeWeekNamebyId(idFromIdTag, e.target.innerText);
                 });
-                mustCheckboxColumn.on('change', function(e){
+                mustCheckboxColumn.on('change', function(e) {
                     var idFromIdTag = parseInt(e.target.id.split('-')[1]);
                     changeWeekMustbyId(idFromIdTag, e.target.checked);
                 });
@@ -151,14 +153,15 @@
             $(`#page-${page}`).addClass('active');
         }
 
-        function goToNextPage(){
+        function goToNextPage() {
             setCurrentPageTo(pagination.currentPage + 1);
         }
-        function goToPreviousPage(){
+
+        function goToPreviousPage() {
             setCurrentPageTo(pagination.currentPage - 1);
         }
-        
-        function createTableWithPagination(){
+
+        function createTableWithPagination() {
             var data = weeksByYear[getCurrentSelectedYear()];
 
             var pageLength = 14;
@@ -171,21 +174,27 @@
 
 
             $('.pagination').empty();
-            $('.pagination').append(`<li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#" onclick="goToPreviousPage()"> السابق </a></li>`);
+            $('.pagination').append(
+                `<li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#" onclick="goToPreviousPage()"> السابق </a></li>`
+                );
             for (let page = pagination.firstPage; page <= pagination.lastPage; page++) {
-                $('.pagination').append(`<li class="page-item" id="page-${page}"><a class="page-link" href="#" onclick="setCurrentPageTo(${page})">${page}</a></li>`);
+                $('.pagination').append(
+                    `<li class="page-item" id="page-${page}"><a class="page-link" href="#" onclick="setCurrentPageTo(${page})">${page}</a></li>`
+                    );
             }
-            $('.pagination').append(`<li class="page-item"><a class="page-link d-none d-sm-inline-block" href="#" onclick="goToNextPage()"> التالي </a></li>`);
+            $('.pagination').append(
+                `<li class="page-item"><a class="page-link d-none d-sm-inline-block" href="#" onclick="goToNextPage()"> التالي </a></li>`
+                );
 
             setCurrentPageTo(1);
         }
-        
-        function validateAndAssignValues(){
+
+        function validateAndAssignValues() {
             // check if weekNameChanges has empty values
-            const hasEmptyNames = Object.values(weeksNamesChanges).some(function(value){
+            const hasEmptyNames = Object.values(weeksNamesChanges).some(function(value) {
                 return value === "";
             });
-            if (hasEmptyNames){
+            if (hasEmptyNames) {
                 alert('لا يمكن ترك اسم الأسبوع فارغاً');
                 return false;
             } else {
@@ -194,10 +203,9 @@
                 return true;
             }
         }
-
     </script>
     <script>
-        if (getCurrentSelectedYear()){
+        if (getCurrentSelectedYear()) {
             createTableWithPagination()
         }
     </script>

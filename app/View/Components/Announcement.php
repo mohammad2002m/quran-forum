@@ -16,8 +16,8 @@ class Announcement extends Component
     public function __construct(
         public string $title,
         public string $description,
-        public string $main_image_full_path,
-        public string $path,
+        public string $date,
+        public string $src,
     ) { }
 
     /**
