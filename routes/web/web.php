@@ -8,6 +8,8 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ContactUs;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ForumRules;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\WeekController;
@@ -27,8 +29,7 @@ use QF\Constants as QFConstants;
 
 Route::group([], function () {
 
-    Route::post('/attemptLogin',  [AuthenticationController::class, 'attemptLogin'])->name(QFConstants::ROUTE_NAME_ATTEMPT_LOGIN);
-    Route::get('/attemptLogout', [AuthenticationController::class, 'attemptLogout'])->name(QFConstants::ROUTE_NAME_ATTEMPT_LOGOUT);
+    Route::get('/logout', [LogoutController::class, 'logout'])->name(QFConstants::ROUTE_NAME_ATTEMPT_LOGOUT);
 
 
     Route::get('/', [AnnouncementController::class, 'index'])->name(QFConstants::ROUTE_NAME_HOME_PAGE);
@@ -44,7 +45,8 @@ Route::group([], function () {
     Route::post('/registration/student', [RegistrationController::class, 'registerStudentSubmit']);
     Route::post('/registration/volunteer', [RegistrationController::class, 'registerVolunteerSubmit']);
 
-    Route::get('/login', [ViewController::class, 'login'])->name(QFConstants::ROUTE_NAME_LOGIN_PAGE);
+    Route::get('/login', [LoginController::class, 'login'])->name(QFConstants::ROUTE_NAME_LOGIN_PAGE);
+    Route::post('/login',  [LoginController::class, 'attemptLogin'])->name(QFConstants::ROUTE_NAME_ATTEMPT_LOGIN);
 
 
     // get reset password with token

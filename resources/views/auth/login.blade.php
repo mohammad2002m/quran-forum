@@ -27,7 +27,7 @@
         <div class="col-lg-7 vh-100 p-0">
             <div class="px-5 w-100 h-100">
                 <div class="d-flex align-items-center justify-content-center w-100 h-100">
-                    <form action="/attemptLogin" method="post" class="w-50">
+                    <form action="/login" method="post" class="w-50">
                         @csrf
                         <div class="mb-5">
                             <div class="mb-2">
@@ -53,6 +53,8 @@
                                 
                                 @if (Session::has('error'))
                                     <div class="text-danger mt-2">{{session('error')}}</div>
+                                @elseif (Session::has('success'))
+                                    <div class="text-success mt-2">{{session('success')}}</div>
                                 @endif
                             </div>
                             <div class="mb-4">

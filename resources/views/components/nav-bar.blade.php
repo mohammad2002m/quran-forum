@@ -28,7 +28,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item" href="/attemptLogout"> تسجيل خروج </a>
+                            <a class="dropdown-item" href="/logout"> تسجيل خروج </a>
                         </li>
                     </ul>
                 </div>

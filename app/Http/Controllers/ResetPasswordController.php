@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Validator;
 
 class ResetPasswordController extends Controller
 {
@@ -13,12 +15,24 @@ class ResetPasswordController extends Controller
         return view('auth.reset_password', ['token' => $token, 'email' => $request-> input('email')]);
     }
     function resetPasswordSubmit(Request $request){
-        $request->validate([
+        $validator = Validator::make($request-> all(), [
             'email' => 'required|email',
             'token' => 'required',
             'password' => 'required|min:8|confirmed',
-        ]);
+        ],
+        [
+            'email.required' => 'البريد الإلكتروني مطلوب',
+            'email.email' => 'البريد الإلكتروني يجب أن يكون صالح',
+            'token.required' => 'الرمز المميز مطلوب',
+            'password.required' => 'كلمة المرور مطلوبة',
+            'password.min' => 'كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل',
+            'password.confirmed' => 'كلمتا المرور غير متطابقتان'
+        ]
+        );
 
+        if ($validator -> fails() === 'failed'){
+            return redirect() -> back() -> with('error', $validator -> messages() -> first());
+        }
 
         $credentials = $request->only(
             'email', 'password', 'password_confirmation', 'token'
@@ -32,11 +46,9 @@ class ResetPasswordController extends Controller
                 ]);
     
                 $user->save();
+                event(new PasswordReset($user));
             }
         );
-    
-        return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+        return redirect()->route('login')->with('success', 'تم تغيير كلمة المرور بنجاح');
     }
 }
