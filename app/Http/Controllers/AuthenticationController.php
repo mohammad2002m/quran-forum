@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use QF\Constants;
 
+// FIXME: Make this Login Controller
 class AuthenticationController extends Controller
 {
 
@@ -24,7 +25,7 @@ class AuthenticationController extends Controller
             return redirect() -> route('home');
         }
         
-        return redirect(Constants::ROUTE_NAME_LOGIN_PAGE, 302) -> with('error', Constants::ERROR_MESSAGE_INVALID_CREDINTIALS);
+        return redirect() -> back() -> with('error', Constants::ERROR_MESSAGE_INVALID_CREDINTIALS);
     }
 
     public function attemptLogout(Request $request){

@@ -84,7 +84,7 @@
                     </ul>
 
                     <div class="d-flex gap-2">
-                        <a href="/register" class="btn btn-outline-primary"> إنشاء حساب </a>
+                        <a href="/registration/guide" class="btn btn-outline-primary"> إنشاء حساب </a>
                         <a href="/login" class="btn btn-primary"> تسجيل دخول </a>
                     </div>
                 </div>

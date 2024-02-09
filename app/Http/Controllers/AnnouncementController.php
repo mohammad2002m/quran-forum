@@ -17,6 +17,9 @@ class AnnouncementController extends Controller
     {
         return view('announcement.index') -> with('announcements', Announcement::all());
     }
+    public function indexArchived(){
+        return view('announcement.index_archived');
+    }
     public function create()
     {
         return view('announcement.create')->with('announcementTypes', AnnouncementType::all());

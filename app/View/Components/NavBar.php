@@ -23,7 +23,7 @@ class NavBar extends Component
         $route = Route::currentRouteName();
         $hideHeaderRoutes = [
             QFConstants::ROUTE_NAME_LOGIN_PAGE,
-            QFConstants::ROUTE_NAME_REGISTER_PAGE,
+            // QFConstants::ROUTE_NAME_REGISTER_PAGE,
             QFConstants::ROUTE_NAME_RESET_PASSWORD_PAGE,
             QFConstants::ROUTE_NAME_FORGOT_PASSWORD_PAGE
 

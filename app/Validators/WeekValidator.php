@@ -9,8 +9,10 @@ trait WeekValidators {
     function isValidWeekUpdate(Request $request){
         $params = $request->all();
         $validator = Validator::make($params, [
-            "weeks_names_changes" => ['present'],
-            "weeks_musts_changes" => ['present'],
+            "weeks_names_changes" => ['required'],
+            "weeks_musts_changes" => ['required'],
+        ],[
+            "weeks_names_changes.required" => "لا يمكن ترك حقل تغيير أسماء الأسابيع فارغًا",
         ]);
 
         if ($validator -> fails()){

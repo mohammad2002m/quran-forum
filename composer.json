@@ -38,6 +38,7 @@
 
             "app/Validators/WeekValidator.php",
             "app/Validators/AnnouncementValidator.php",
+            "app/Validators/RegistrationValidator.php",
 
             "app/Constants/Constants.php"
         ]

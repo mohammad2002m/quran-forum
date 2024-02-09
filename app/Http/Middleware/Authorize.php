@@ -15,14 +15,14 @@ class Authorize
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
+
+    const ROUTE_AUTHORIZER_MAPPER = [
+
+    ];
     public function handle(Request $request, Closure $next): Response
     {
-        $this -> basic_premission_authoization($request , $next);
+        $this -> basicPremissionAuthoization($request , $next);
 
-        $routeName = $request -> route() -> getName();
-        if ($routeName === Constants::ROUTE_NAME_CREATE_ANNOUNCEMENT){
-            
-        }
 
         
         // after authorization we shouldn't reach this line
@@ -33,10 +33,15 @@ class Authorize
         ], 401);
     }
 
-    private function basic_premission_authoization(Request $request): bool
+    private function basicPremissionAuthoization(Request $request): bool
     {
+        // $user = Auth::user();
+        // $roles = $user -> roles;
 
-        $user = Auth::user();
+        // $allowedPermissions = [];
+        // foreach ($roles as $role){
+        //     $rolePermissions = $role -> permissions;
+        // }
 
         return false;
     }
