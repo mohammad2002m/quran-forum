@@ -22,7 +22,7 @@
                         <img src="https://github.com/mdo.png" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"> الصفحة الشخصية </a></li>
+                        <li><a class="dropdown-item" href="/profile/index"> الصفحة الشخصية </a></li>
                         <li><a class="dropdown-item" href="#"> الإعدادات </a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -34,12 +34,19 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="menu">
+                    <!-- FIXME: should show choices based on the role -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="/"> الصفحة الرئيسية </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/announcement/create"> نشر إعلان </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/messages/index"> الرسائل </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/management/index"> الإدارة </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/week/edit"> الأسابيع </a>

@@ -60,7 +60,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group mb-4">
                             <label for="phone_number" class="mb-1"> رقم الهاتف </label>
-                            <input type="text" class="form-control bg-light-subtle" placeholder="رقم الهاتف"
+                            <input type="number" class="form-control bg-light-subtle" placeholder="رقم الهاتف"
                                 name="phone_number">
                         </div>
 
@@ -165,11 +165,11 @@
                                             document.getElementById("tbl-data").innerHTML += `
                                                     <tr>
                                                         <td> ${names[i]} </td>
-                                                        <td class="text-center"> <input type="checkbox" name="parts_before[]" value=${i + 1} class="form-check-input"/> </td>
+                                                        <td class="text-center"> <input type="checkbox" name="previous_parts[]" value=${i + 1} class="form-check-input"/> </td>
                                                         <td> ${names[i + 10]} </td>
-                                                        <td class="text-center"> <input type="checkbox" name="parts_before[]" value=${i + 1} class="form-check-input"/> </td>
+                                                        <td class="text-center"> <input type="checkbox" name="previous_parts[]" value=${i + 1} class="form-check-input"/> </td>
                                                         <td> ${names[i + 20]} </td>
-                                                        <td class="text-center"> <input type="checkbox" name="parts_before[]" value=${i + 1} class="form-check-input"/> </td>
+                                                        <td class="text-center"> <input type="checkbox" name="previous_parts[]" value=${i + 1} class="form-check-input"/> </td>
                                                     </tr>`;
                                         }
                                     } else {
@@ -177,9 +177,9 @@
                                             document.getElementById("tbl-data").innerHTML += `
                                                     <tr>
                                                         <td> ${names[i]} </td>
-                                                        <td class="text-center"> <input type="checkbox" name="parts_before[]" value=${i + 1} class="form-check-input"/> </td>
+                                                        <td class="text-center"> <input type="checkbox" name="previous_parts[]" value=${i + 1} class="form-check-input"/> </td>
                                                         <td> ${names[i + 15]} </td>
-                                                        <td class="text-center"> <input type="checkbox" name="parts_before[]" value=${i + 1} class="form-check-input"/> </td>
+                                                        <td class="text-center"> <input type="checkbox" name="previous_parts[]" value=${i + 1} class="form-check-input"/> </td>
                                                     </tr>`;
                                         }
                                     }

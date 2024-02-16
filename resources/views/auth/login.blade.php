@@ -60,7 +60,7 @@
                             <div class="mb-4">
                                 <button type="submit" class="btn btn-primary prm w-100 p-2"> تسجيل الدخول </button>
                             </div>
-                            <span>ليس لديك حساب؟ <a href="#">سجل هنا</a> </span>
+                            <span>ليس لديك حساب؟ <a href="/registration/guide">سجل هنا</a> </span>
                         </div>
                     </form>
                 </div>

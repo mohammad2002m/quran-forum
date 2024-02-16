@@ -5,25 +5,15 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Auth\Notifications\CustomPasswordResetNotification;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,16 +34,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    /** it's ok because I don't user mass assignment from the requets  **/
+    protected $guarded = [];
 
     function announcements(){
         return $this -> hasMany(Announcement::class);
     }
     function roles(){
-        return $this -> hasMany(Role::class);
+        return $this -> belongsToMany(Role::class);
     }
 
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new CustomPasswordResetNotification($token));
+    }
+    function parts(){
+        return $this -> hasMany(Part::class);
+    }
+    function previous_parts(){
+        return $this -> hasMany(PreviousPart::class);
     }
 }

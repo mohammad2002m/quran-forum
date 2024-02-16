@@ -19,23 +19,23 @@ return new class extends Migration
             $table-> tinyText('name') -> nullable(false);
             $table-> tinyText('phone_number') -> nullable(false);
             $table-> enum('gender', ['ذكر', 'أنثى']) -> nullable(false);
-            $table-> year('year') -> nullable(false);
-            $table-> integer('parts_before') -> nullable(false);
-            $table-> integer('parts') -> nullable(false);
+            $table-> enum('year', ['أولى', 'ثانية', 'ثالثة', 'رابعة', 'خامسة', 'سادسة', 'خريج']) -> nullable(false);
+            $table-> enum("status", ["active", "freezed", "stopped", "left"]) -> default("active") -> nullable(true);
 
-            $table-> boolean('locked') -> nullable(false);
+            $table-> tinyText('schedule') -> nullable(false);
             $table-> boolean('can_be_teacher') -> nullable(false);
-            $table-> boolean('first_login') -> nullable(false);
             $table-> boolean('tajweed_certificate') -> nullable(false);
 
-            $table-> date('date');
+            $table-> boolean('locked') -> nullable(false);
+            $table-> boolean('first_login') -> nullable(false);
+
+            $table-> date('email_verified_at') -> nullable(true);
 
             $table-> unsignedBigInteger('college_id') -> nullable(false);
             $table-> unsignedBigInteger('group_id') -> nullable(true);
-            $table-> enum("status", ["active", "freezed", "stopped", "left"]) -> default("active") -> nullable(true);
 
             $table-> foreign('college_id') -> references('id') -> on('colleges') -> cascadeOnDelete() -> cascadeOnUpdate();
-            //$table-> foreign('status_id') -> references('id') -> on('student_statuses') -> cascadeOnDelete() -> cascadeOnUpdate();
+            // group relationship was added inside cyclic_refercnes
 
         });
     }

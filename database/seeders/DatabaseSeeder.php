@@ -6,18 +6,12 @@ namespace Database\Seeders;
 
 use App\Models\Accomplishment;
 use App\Models\Activity;
-use App\Models\AnnouncementStatus;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\UserRole;
-use App\Models\Week;
-use App\Globals\CONSTANTS;
+use App\Models\RoleUser;
 use App\Models\AnnouncementType;
 use App\Models\College;
-use DateInterval;
-use DateTime;
 use Illuminate\Database\Seeder;
-use QF\Constants as QFConstants;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,11 +28,11 @@ class DatabaseSeeder extends Seeder
         DatabaseSeeder::seedAnnouncementTypes();
     }
     public static function seedUsersRoles(){
-        UserRole::factory() -> create([
+        RoleUser::factory() -> create([
             'user_id' => 1,
             'role_id' => 1,
         ]);
-        UserRole::factory() -> create([
+        RoleUser::factory() -> create([
             'user_id' => 2,
             'role_id' => 6,
         ]);
@@ -111,19 +105,17 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'محمد الشريف',
-            'email' => 'mohammed.alshareef2002@gmail.com',
+            'email' => 'a@gmail.com',
             'phone_number' => '0569171474',
             'gender' => 'ذكر',
             'password' => bcrypt('mozart'),
             'locked' => false,
-            'year' => 2022,
-            'parts_before' => 200,
-            'parts' => 30000,
+            'year' => 'أولى',
             'status' => 1,
+            'schedule' => 'خارج الجامعة',
             'can_be_teacher' => false,
             'first_login' => false,
             'tajweed_certificate' => false,
-            'date' => '2022-12-12',
             'college_id' => 1,
         ]);
         User::factory()->create([
@@ -133,13 +125,11 @@ class DatabaseSeeder extends Seeder
             'gender' => 'ذكر',
             'password' => bcrypt('mozart'),
             'locked' => false,
-            'year' => 2022,
-            'parts_before' => 200,
-            'parts' => 30000,
+            'year' => 'خريج',
+            'schedule' => 'خارج الجامعة',
             'can_be_teacher' => false,
             'first_login' => false,
             'tajweed_certificate' => false,
-            'date' => '2022-12-12',
             'college_id' => 1,
         ]);
         User::factory()->create([
@@ -149,13 +139,11 @@ class DatabaseSeeder extends Seeder
             'gender' => 'ذكر',
             'password' => bcrypt('mozart'),
             'locked' => false,
-            'year' => 2022,
-            'parts_before' => 200,
-            'parts' => 30000,
+            'year' => 'ثالثة',
+            'schedule' => 'خارج الجامعة',
             'can_be_teacher' => false,
             'first_login' => false,
             'tajweed_certificate' => false,
-            'date' => '2022-12-12',
             'college_id' => 1,
         ]);
     }

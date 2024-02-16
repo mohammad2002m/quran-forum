@@ -10,14 +10,14 @@ trait RegistrationValidators {
         $validator = Validator::make($request->all(),
             [
                 'name' => ['required'],
-                'email' => ['required', 'email'],
+                'email' => ['required', 'email', Rule::unique('users', 'email')],
                 'password' => ['required', 'confirmed'],
                 'gender' => ['required', Rule::in(['ذكر', 'أنثى'])],
                 'phone_number' => ['required'], // FIXME: Add validator to be a phonenumber
                 'college_id' => ['required', 'integer', Rule::exists('colleges', 'id')],
                 'year' => ['required', Rule::in($yearValues)], // FIXME: Maybe bette way
                 'schedule' => ['required'], // FIXME: add more validation on this 
-                'parts_before[]' => ['numeric', 'min:1', 'max:30'],
+                'previous_parts[]' => ['numeric', 'min:1', 'max:30'],
             ],
             [
                 'name.required' => 'حقل الاسم مطلوب',
@@ -28,9 +28,10 @@ trait RegistrationValidators {
                 'college_id.required' => 'حقل الكلية مطلوب',
                 'year.required' => 'حقل السنة مطلوب',
                 'schedule.required' => 'حقل طبيعة الدوام مطلوب',
-                'parts_before[].required' => 'حقل الأجزاء المحفوظة مطلوب',
+                'previous_parts[].required' => 'حقل الأجزاء المحفوظة مطلوب',
 
                 'email.email' => 'البريد الإلكتروني غير صالح',
+                'email.unique' => 'البريد الإلكتروني مستخدم من قبل',
                 'password.confirmed' => 'يجب تأكيد كلمة المرور',
             ]
         );

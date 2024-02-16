@@ -8,17 +8,19 @@ use QF\Constants as QFConstants;;
 
 trait LoginValidator {
     function isValidLoginAttempt(Request $request) {
-        $validator = Validator::make([
-            'email' => 'required',
-            'password' => 'required'
+        $validator = Validator::make($request -> all(), [
+            'email' => ['required','email', Rule::exists('users', 'email')],
+            'password' => ['required']
         ],[
             'email.required' => QFConstants::ERROR_MESSAGE_INVALID_CREDINTIALS,
+            'email.email' => 'البريد المدخل ليس صالحًا',
+            'email.exists' => 'هذا البريد الإلكتروني غير مسجل لدينا',
             'password.required' => QFConstants::ERROR_MESSAGE_INVALID_CREDINTIALS,
         ]);
-
+        
         if ($validator -> fails()){
-            ['failed', $validator -> messages() -> first()];
+            return ['error', $validator -> messages() -> first()];
         }
-        return ['passed', 'تمت عملية تسجيل الدخول بنجاح'];
+        return ['success', 'تمت عملية تسجيل الدخول بنجاح'];
     }
 }
