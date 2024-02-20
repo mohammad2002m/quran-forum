@@ -44,6 +44,15 @@ class WeekController extends Controller
         
         // Add 53 week for 1 year
         if (Week::exists()){
+            $lastWeek = Week::orderBy('id', 'desc') -> first();
+            
+            $currentYear = intval(date("Y"));
+            $lastWeekYear = intval(date("Y", strtotime($lastWeek -> start_date)));
+
+            if ($lastWeekYear - $currentYear >= QFConstants::MAX_WEEKS_ALLOWED){
+                return redirect() -> back() -> with('error', 'لا يمكن إضافة المزيد من الأسابيع الآن');
+            }
+
             addNNextWeeks(QFConstants::NUMBER_OF_WEEKS_TO_ADD_IN_STORE);
         } else {
             $lastSequenceNumber = 1;

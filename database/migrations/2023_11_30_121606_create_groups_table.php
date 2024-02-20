@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->tinyText('name');
-            $table->date('date');
 
-            $table->unsignedBigInteger('supervisor_id');
-            $table->unsignedBigInteger('monitor_id');
-            $table->unsignedBigInteger('examiner_id');
-            $table->unsignedBigInteger('tajweed_monitor_id');
+            $table->unsignedBigInteger('supervisor_id') -> nullable(true);
+            $table->unsignedBigInteger('monitor_id') -> nullable(true);
+            $table->unsignedBigInteger('examiner_id') -> nullable(true);
+            $table->unsignedBigInteger('tajweed_monitor_id') -> nullable(true);
 
 
         });

@@ -11,16 +11,17 @@
 @endsection
 
 @section('content')
+    
     <div class="container py-4">
         <section>
             <div>
                 <h3 class="mb-4"> إدخال الأسابيع</h3>
             </div>
             <!--
-            @if (count($errors))
-                <div class="text-danger"> {{ $errors }} </div>
-            @endif
-            -->
+                @if (count($errors))
+    <div class="text-danger"> {{ $errors }} </div>
+    @endif
+                -->
 
             <div>
                 <div class="d-flex align-items-end">
@@ -44,7 +45,8 @@
                         <button class="btn btn-primary" onclick="addTheWeeks()"> أضف الأسابيع </button>
                     </div>
                     <div class="mb-3 me-3">
-                        <form action="/week/store" method="POST" class="m-0" onsubmit="return validateBeforeSubmitAndPluckWeeks()">
+                        <form action="/week/store" method="POST" class="m-0"
+                            onsubmit="return validateBeforeSubmitAndPluckWeeks()">
                             @csrf
                             <input id="weeks" name="weeks" type="text" hidden>
                             <button type="submit" class="btn btn-primary"> حفظ </button>
@@ -52,25 +54,25 @@
                     </div>
                 </div>
             </div>
-            
+
 
 
             <!--
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th> رقم الأسبوع </th>
-                        <th> اسم الأسبوع </th>
-                        <th> تاريخ بداية الأسبوع </th>
-                        <th> تاريخ نهاية الأسبوع </th>
-                        <th> يوم بداية الأسبوع </th>
-                        <th> السنة </th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                </tbody>
-            </table>
-        -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> رقم الأسبوع </th>
+                            <th> اسم الأسبوع </th>
+                            <th> تاريخ بداية الأسبوع </th>
+                            <th> تاريخ نهاية الأسبوع </th>
+                            <th> يوم بداية الأسبوع </th>
+                            <th> السنة </th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+            -->
         </section>
     </div>
 @endsection
@@ -80,10 +82,12 @@
         function isNullOrEmptyString(str) {
             return str === null || str === undefined || str === '';
         }
-        function getStringAsDate(str){
+
+        function getStringAsDate(str) {
             var date = new Date(str);
             return date;
         }
+
         function addDays(date, days) {
             var result = new Date(date);
             result.setDate(result.getDate() + days);
@@ -163,16 +167,16 @@
         document.getElementById("year").value = new Date().getFullYear();
         document.getElementById("week_sequence_number").value = 1;
         document.getElementById("number-of-weeks").value = 1;
-
     </script>
     <script>
         var weeksAddedAndValid = false;
         /* week: id, name, start_date, year  */
         var weeks = []
-        function addAWeek(offset){
+
+        function addAWeek(offset) {
 
 
-            var start_date = addDays(getStringAsDate(document.getElementById("start_date").value) , 7 * offset);
+            var start_date = addDays(getStringAsDate(document.getElementById("start_date").value), 7 * offset);
             var end_date = addDays(start_date, 6);
 
             var week_sequence_number = parseInt(document.getElementById("week_sequence_number").value);
@@ -187,45 +191,46 @@
                 day: dayNames[start_date.getDay() - 1],
                 year: year,
             }
-            
+
             weeks.push(week);
             renderWeeks(weeks);
         }
 
-        function validateInput(){
+        function validateInput() {
             var number_of_weeks_string = document.getElementById("number-of-weeks").value;
             var start_date_string = document.getElementById("start_date").value;
             var week_sequence_number_string = document.getElementById("week_sequence_number").value;
             var year_string = document.getElementById("year").value;
 
-            if (isNullOrEmptyString(number_of_weeks_string)){
+            if (isNullOrEmptyString(number_of_weeks_string)) {
                 alert("يجب إدخال عدد الأسابيع");
                 return false;
             }
-            if (isNullOrEmptyString(start_date_string)){
+            if (isNullOrEmptyString(start_date_string)) {
                 alert("يجب إدخال تاريخ بداية الأسابيع");
                 return false;
             }
-            if (isNullOrEmptyString(week_sequence_number_string)){
+            if (isNullOrEmptyString(week_sequence_number_string)) {
                 alert("يجب إدخال ترتيب الأسبوع");
                 return false;
             }
-            if (isNullOrEmptyString(year_string)){
+            if (isNullOrEmptyString(year_string)) {
                 alert("يجب إدخال السنة");
                 return false;
             }
-            
+
             var number_of_weeks = parseInt(document.getElementById("number-of-weeks").value);
             var week_sequence_number = parseInt(document.getElementById("week_sequence_number").value);
-            if (number_of_weeks <= 0 || number_of_weeks + week_sequence_number - 1 > 53){
+            if (number_of_weeks <= 0 || number_of_weeks + week_sequence_number - 1 > 53) {
                 alert("لا يمكن لعدد الأسابيع أن يكون أكثر من 53")
                 return false;
             }
             return true;
         }
-        function addTheWeeks(){
+
+        function addTheWeeks() {
             weeks = []
-            if (validateInput()){
+            if (validateInput()) {
                 var numberOfWeeks = parseInt(document.getElementById("number-of-weeks").value);
                 for (let i = 0; i < numberOfWeeks; i++) {
                     addAWeek(i);
@@ -234,7 +239,7 @@
             }
         }
 
-        function renderWeeks(weeks){
+        function renderWeeks(weeks) {
             document.getElementById("table-body").innerHTML = "";
             weeks.forEach(week => {
                 var row = document.createElement("tr");
@@ -258,13 +263,13 @@
                 row.appendChild(end_date);
                 row.appendChild(day);
                 row.appendChild(year);
-                
+
                 document.getElementById("table-body").appendChild(row);
             });
         }
 
-        function validateBeforeSubmitAndPluckWeeks(){
-         if (!weeksAddedAndValid){
+        function validateBeforeSubmitAndPluckWeeks() {
+            if (!weeksAddedAndValid) {
                 alert("يجب إضافة الأسابيع أولاً");
                 return false;
             } else {

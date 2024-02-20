@@ -1,10 +1,24 @@
 <?php
 
 use App\Models\Week;
-use QF\Constants;
+use QF\Constants as QFConstants;
+
+function getActiveWeeks(){
+
+    $lowerYear = intval(date("Y")) - QFConstants::WEEK_RANGE;
+    $upperYear = intval(date("Y")) + QFConstants::WEEK_RANGE;
+
+    $lowerDate = "$lowerYear-01-01";
+    $upperDate = "$upperYear-01-01";
+
+    $weeks = Week::whereBetween('start_date', [$lowerDate, $upperDate]) -> get();
+    return $weeks;
+}
 
 function getYearWeeksMap(){
-    $weeks = Week::all();
+    
+    $weeks = getActiveWeeks();
+
     $weeksByYear = [];
     foreach ($weeks as $week){
         $week_year = (new DateTime($week -> start_date)) -> format('Y');
@@ -22,7 +36,7 @@ function getYearWeeksMap(){
 }
 
 function getWeeksYears(){
-    $weeks = Week::all();
+    $weeks = getActiveWeeks();
     $years = [];
     foreach ($weeks as $week){
         $week_year = (new DateTime($week -> start_date)) -> format('Y');
@@ -57,7 +71,7 @@ function addWeek($sequenceNumber, $startDate){
     $week = new Week();
     $week -> sequence_number = $sequenceNumber;
     $week -> start_date = $startDate -> format('Y-m-d H:i:s');
-    $week -> name = Constants::WEEKS_NAMES[$sequenceNumber];
+    $week -> name = QFConstants::WEEKS_NAMES[$sequenceNumber];
     $week -> must = true;
     $week -> save();
 }

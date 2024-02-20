@@ -54,4 +54,8 @@ class User extends Authenticatable implements MustVerifyEmail
     function previous_parts(){
         return $this -> hasMany(PreviousPart::class);
     }
+    function group()
+    {
+        return $this -> belongsTo(Group::class);
+    }
 }

@@ -41,7 +41,7 @@
                         <div>
                             <div class="mb-4">
                                 <label for="" class="mb-1"> البريد الإلكتروني </label>
-                                <input type="text" placeholder="البريد الإلكتروني" class="form-control p-2 bg-light-subtle"
+                                <input type="text" class="form-control p-2"
                                     name="email">
                             </div>
                             <div class="mb-4">
@@ -49,13 +49,14 @@
                                     <label for="" class="mb-1"> كلمة المرور </label>
                                     <a href="/forgot_password" tabindex="-1"> نسيت كلمة المرور </a>
                                 </div>
-                                <input type="password" placeholder="كلمة المرور" class="form-control p-2 bg-light-subtle" name="password">
+                                <input type="password" class="form-control p-2" name="password">
                                 
                                 @if (Session::has('error'))
-                                    <div class="text-danger mt-2">{{session('error')}}</div>
+                                    <div class="text-danger"> {{ Session::get('error')}} </div>
                                 @elseif (Session::has('success'))
-                                    <div class="text-success mt-2">{{session('success')}}</div>
+                                    <div class="text-success"  > {{ Session::get('success')}} </div>
                                 @endif
+
                             </div>
                             <div class="mb-4">
                                 <button type="submit" class="btn btn-primary prm w-100 p-2"> تسجيل الدخول </button>

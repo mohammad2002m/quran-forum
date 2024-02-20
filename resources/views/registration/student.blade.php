@@ -26,32 +26,32 @@
 
                     <div class="mb-3">
                         <label for="name" class="mb-1"> الاسم الكامل باللغة العربية </label>
-                        <input type="text" class="form-control bg-light-subtle" placeholder="الاسم الكامل"
+                        <input type="text" class="form-control " placeholder="الاسم الكامل"
                             name="name">
                     </div>
 
                     <div class="form-group mb-3 p-0">
                         <label for="email" class="mb-1"> البريد الإلكتروني </label>
-                        <input type="text" class="form-control bg-light-subtle" placeholder="البريد الإلكتروني"
+                        <input type="text" class="form-control " placeholder="البريد الإلكتروني"
                             name="email">
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="password" class="mb-1"> كلمة المرور </label>
-                            <input type="password" class="form-control bg-light-subtle" placeholder="كلمة المرور"
+                            <input type="password" class="form-control " placeholder="كلمة المرور"
                                 name="password">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="passoword_confirmation" class="mb-1"> تأكيد كلمة المرور </label>
-                            <input type="password" class="form-control bg-light-subtle" placeholder="تأكيد كلمة المرور"
+                            <input type="password" class="form-control " placeholder="تأكيد كلمة المرور"
                                 name="password_confirmation">
                         </div>
                     </div>
 
                     <div class="form-group mb-4 p-0">
                         <label for="gender" class="mb-1"> الجنس </label>
-                        <select name="gender" class="form-select bg-light-subtle">
+                        <select name="gender" class="form-select ">
                             <option selected> ذكر </option>
                             <option> أنثى </option>
                         </select>
@@ -60,13 +60,13 @@
                     <div class="row">
                         <div class="col-md-6 form-group mb-4">
                             <label for="phone_number" class="mb-1"> رقم الهاتف </label>
-                            <input type="number" class="form-control bg-light-subtle" placeholder="رقم الهاتف"
+                            <input type="number" class="form-control " placeholder="رقم الهاتف"
                                 name="phone_number">
                         </div>
 
                         <div class="col-md-6 form-group mb-4">
                             <label for="college_id" class="mb-1"> الكلية </label>
-                            <select name="college_id" class="form-select bg-light-subtle">
+                            <select name="college_id" class="form-select ">
                                 @foreach ($colleges as $college)
                                     <option value="{{ $college->id }}" {{ $loop->first ? 'selected' : '' }}>
                                         {{ $college->name }} </option>
@@ -78,7 +78,7 @@
 
                     <div class="form-group mb-4 p-0">
                         <label for="year" class="mb-1"> السنة الدراسية </label>
-                        <select name="year" class="form-select bg-light-subtle">
+                        <select name="year" class="form-select ">
                             <option selected> أولى </option>
                             <option> ثانية </option>
                             <option> ثالثة </option>
@@ -92,7 +92,7 @@
                     <div class="m-0 p-0"> <!-- Question -->
                         <label name="schedule" class="mb-1"> طبيعة الدوام بالجامعة </label>
                         <div class="form-group mb-4 p-0">
-                            <select name="schedule" class="form-select bg-light-subtle">
+                            <select name="schedule" class="form-select ">
                                 <!-- FIXME Do this a better way -->
                                 <option value="مستقرة بالحرم الجامعي "> مستقرة بالحرم الجامعي </option>
                                 <option value="أتدرب خارج الجامعة بالإضافة إلى محاضرات منتظمة "> أتدرب خارج الجامعة بالإضافة إلى محاضرات منتظمة </option>

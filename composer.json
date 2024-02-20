@@ -43,6 +43,7 @@
             "app/Validators/RegistrationValidator.php",
             "app/Validators/LoginValidator.php",
             "app/Validators/VerifyEmailValidator.php",
+            "app/Validators/GroupValidator.php",
 
             "app/Constants/Constants.php"
         ]

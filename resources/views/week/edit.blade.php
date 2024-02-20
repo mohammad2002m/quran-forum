@@ -9,71 +9,78 @@
         }
     </style>
 @endsection
-
+<!-- FIXME delete jquery usage from this page --> 
 @section('content')
-    <div class="container py-4">
-        <section>
+    <div class="container mt-4 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h5> الأسابيع </h5>
+            </div>
+            <div class="card-body">
 
-            @if (Session::has('error'))
-                <x-alert type="alert-danger" :message="session('error')" />
-            @elseif (Session::has('success'))
-                <x-alert type="alert-success" :message="session('success')" />
-            @endif
+                @if (Session::has('error'))
+                    <x-alert type="alert-danger" :message="session('error')" />
+                @elseif (Session::has('success'))
+                    <x-alert type="alert-success" :message="session('success')" />
+                @endif
 
-            <!-- Just to store the weeks from backend so that I can access them via js -->
-            <input id="years" type="text" value="{{ json_encode($years) }}" hidden>
-            <input id="weeks" type="text" value="{{ json_encode($weeksByYear) }}" hidden>
+                <div class="mb-3">
+                    <select name="years" id="years-select" class="form-control" onchange="createTableWithPagination()">
+                        @foreach ($years as $year)
+                            <option value="{{ $year }}" @if ($currentYear == $year) selected @endif>
+                                {{ $year }} </option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="mb-3">
-                <div class="d-flex align-items-end">
-                    <div class="w-100">
-                        <select name="years" id="years-select" class="form-control bg-light-subtle"
-                            onchange="createTableWithPagination()">
-                            @foreach ($years as $year)
-                                <option value="{{ $year }}" @if ($currentYear == $year) selected @endif>
-                                    {{ $year }} </option>
-                            @endforeach
-                        </select>
+                <div class="mb-3">
+                    <!-- Just to store the weeks from backend so that I can access them via js -->
+                    <input id="years" type="text" value="{{ json_encode($years) }}" hidden>
+                    <input id="weeks" type="text" value="{{ json_encode($weeksByYear) }}" hidden>
+
+
+
+                    <div class="table-responsive card" style="border-bottom: none;">
+                        <table id="weeks-tbl" class="table table-hover mb-0" style="transition: 1s;">
+                            <thead>
+                                <tr>
+                                    <th name="name" class="text-start"> اسم الأسبوع </th>
+                                    <th name="position" class="text-start"> بداية الأسبوع </th>
+                                    <th name="salary" class="text-start"> نهاية الأسبوع </th>
+                                    <th name="start_date" class="text-center"> تسميع إجباري </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-data"> </tbody>
+                        </table>
                     </div>
-                    <div class="ms-3">
-                        <form action="/week/update" method="POST" class="m-0 w-100"
-                            onsubmit="return validateAndAssignValues()">
-                            @csrf
-                            <input id="weeks-names-changes" name="weeks_names_changes" type="text" hidden>
-                            <input id="weeks-musts-changes" name="weeks_musts_changes" type="text" hidden>
-                            <button type="submit" class="btn btn-primary w-100 px-4"> حفظ </button>
-                        </form>
-                    </div>
+
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <form action="/week/store" method="POST" class="mb-0">
+                        @csrf
+                        <button class="btn btn-primary align-self-start"> إضافة أسابيع </button>
+                    </form>
+                    <nav>
+                        <ul class="pagination mb-0"> </ul>
+                    </nav>
                 </div>
             </div>
 
-            <table id="weeks-tbl" class="table table-striped table-bordered ">
-                <thead>
-                    <tr>
-                        <th name="name" class="text-start"> اسم الأسبوع </th>
-                        <th name="position" class="text-start"> بداية الأسبوع </th>
-                        <th name="salary" class="text-start"> نهاية الأسبوع </th>
-                        <th name="start_date" class="text-center"> تسميع إجباري </th>
-                    </tr>
-                </thead>
-                <tbody id="tbl-data">
-                </tbody>
-            </table>
-            
 
-            <div class="d-flex justify-content-between">
-                <form action="/week/store" method="POST">
-                    @csrf
-                    <button class="btn btn-secondary align-self-start"> إضافة أسابيع </button>
-                </form>
-                <nav>
-                    <ul class="pagination"> </ul>
-                </nav>
+            <div class="card-footer">
+                <div class="text-end">
+                    <form action="/week/update" method="POST" class="m-0 w-100"
+                        onsubmit="return validateAndAssignValues()">
+                        @csrf
+                        <input id="weeks-names-changes" name="weeks_names_changes" type="text" hidden>
+                        <input id="weeks-musts-changes" name="weeks_musts_changes" type="text" hidden>
+                        <button type="submit" class="btn btn-primary"> حفظ </button>
+                    </form>
+                </div>
             </div>
-        </section>
-
-        <section>
-        </section>
+        </div>
     </div>
 @endsection
 @section('scripts')
@@ -176,15 +183,15 @@
             $('.pagination').empty();
             $('.pagination').append(
                 `<li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#" onclick="goToPreviousPage()"> السابق </a></li>`
-                );
+            );
             for (let page = pagination.firstPage; page <= pagination.lastPage; page++) {
                 $('.pagination').append(
                     `<li class="page-item" id="page-${page}"><a class="page-link" href="#" onclick="setCurrentPageTo(${page})">${page}</a></li>`
-                    );
+                );
             }
             $('.pagination').append(
                 `<li class="page-item"><a class="page-link d-none d-sm-inline-block" href="#" onclick="goToNextPage()"> التالي </a></li>`
-                );
+            );
 
             setCurrentPageTo(1);
         }

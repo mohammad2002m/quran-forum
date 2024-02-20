@@ -52,6 +52,15 @@
                             <a class="nav-link" href="/week/edit"> الأسابيع </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="/group/index"> الحلقات </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/report/index"> التقارير  </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/registration/volunteer/index"> التطوع للإشراف </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#"> الأرشيف </a>
                         </li>
                     </ul>

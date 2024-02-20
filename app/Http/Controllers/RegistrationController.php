@@ -57,9 +57,9 @@ class RegistrationController extends Controller
 
         $user -> sendEmailVerificationNotification();
         
-        
         Session::put('email_for_verification', $user -> email);
         Session::put('password_for_verification', $user -> email);
+
         return redirect() -> route('verification.notice') -> with([$status => $message]);
     }
 

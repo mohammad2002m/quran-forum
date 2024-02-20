@@ -43,8 +43,14 @@ class Constants {
     const ROUTE_NAME_FORGOT_PASSWORD_PAGE = 'forgot.password';
     const ROUTE_NAME_FORGOT_PASSWORD_SUBMIT = 'forgot.password.submit';
 
+    const ROUTE_NAME_NOTIFICATION_NOTICE = 'verification.notice';
+    const ROUTE_NAME_VERIFY_EMAIL = 'verification.verify';
+    const ROUTE_NAME_RESEND_VERIFICATION_EMAIL = 'verification.send';
 
-
+    /******** EXTRA ********/
+    const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
+    const WEEK_RANGE = 3;
+    
     /******** ANNOUNCEMENT STATUSES ********/
     const ANNOUNCEMENT_STATUS_APPROVED = 1;
     const ANNOUNCEMENT_STATUS_REJECTED = 2;
@@ -73,6 +79,7 @@ class Constants {
     /******** ACTIVITIES:SHOULD MATCH THE DATABASE ********/
     const ACTIVITY_CREATE_ANNOUNCEMENT = 1;
     const ACTIVITY_APPROVE_ANNOUNCEMENT = 2;
+    const ACTIVITY_MANAGE_WEEKS = 3;
 
     /******** IMAGES TYPES ********/
     const SUPPORTED_IMAGES_EXTENSIONS = ['jpg', 'jpeg', 'png'];
