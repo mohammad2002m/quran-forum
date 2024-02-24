@@ -97,6 +97,9 @@ class Constants {
     
     /******** OTHER ********/
     // number of weeks to add in store
+    const DEFAULT_COVER_IMAGE_ID = 1;
+    const DEFAULT_PROFILE_IMAGE_ID = 2;
+
     const NUMBER_OF_WEEKS_TO_ADD_IN_STORE = 53;
 
     /******** WEEKS_NAMES ********/

@@ -10,6 +10,7 @@ use App\Http\Controllers\ForumRules;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SearchController;
@@ -71,6 +72,7 @@ Route::group([], function () {
     
     Route::post('/email/verify/resend', [VerifyEmailController::class, 'resendEmailVerification'])->middleware(['throttle:6,1'])->name(QFConstants::ROUTE_NAME_RESEND_VERIFICATION_EMAIL);
 
+    // FIXME: change name to about-us
     Route::get('/about_us', [AboutUs::class, 'index'])->name(QFConstants::ROUTE_NAME_ABOUT_PAGE);
     Route::get('/forum_rules', [ForumRules::class, 'index'])->name(QFConstants::ROUTE_NAME_RULES_PAGE);
     Route::get('/contact_us', [ContactUs::class, 'index'])->name(QFConstants::ROUTE_NAME_ABOUT_PAGE);
@@ -80,7 +82,9 @@ Route::group([], function () {
     Route::post('/week/update', [WeekController::class, 'update'])->name(QFConstants::ROUTE_NAME_UPDATE_WEEK) -> middleware('auth');
     Route::post('/week/store', [WeekController::class, 'store'])->name(QFConstants::ROUTE_NAME_STORE_WEEK) -> middleware('auth');
 
-    Route::get('/profile/index', [ViewController::class, 'profile'])->name('profile.index') -> middleware('auth');
+    Route::get('/profile/index', [ProfileController::class, 'index'])->name('profile.index') -> middleware('auth');
+    Route::get('/profile/change/cover-image', [ProfileController::class, 'changeCoverImage'])->name('profile.change.cover.image') -> middleware('auth');
+    Route::get('/profile/change/profile-image', [ProfileController::class, 'changeProfileImage'])->name('profile.change.profile.image') -> middleware('auth');
 
 
     Route::get('/management/index', function (){
@@ -88,6 +92,9 @@ Route::group([], function () {
     });
     Route::get('/messages/index', function (){
         return view('messages.index');
+    });
+    Route::get('/update/user/data', function (){
+        return view('update-user-data.index');
     });
 
     Route::get('/group/index', [GroupController::class, 'index']);

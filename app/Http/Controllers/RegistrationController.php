@@ -55,10 +55,9 @@ class RegistrationController extends Controller
 
         // FIXME: add exams to the table
 
-        $user -> sendEmailVerificationNotification();
-        
         Session::put('email_for_verification', $user -> email);
-        Session::put('password_for_verification', $user -> email);
+        Session::put('password_for_verification', Hash::make($user -> password));
+        $user -> sendEmailVerificationNotification();
 
         return redirect() -> route('verification.notice') -> with([$status => $message]);
     }

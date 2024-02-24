@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use LoginValidator;
 use QF\Constants as QFConstants;
@@ -42,10 +44,12 @@ class LoginController extends Controller
 
         if ($user -> email_verified_at === null){
             Session::put('email_for_verification' , $email);
-            Session::put('password_for_verification' , $password);
+            Session::put('password_for_verification' , Hash::make($password));
             $user->sendEmailVerificationNotification();
             return redirect() -> route('verification.notice');
         }
+
+        // FIXME : check if user updated his infomration, add that field to user database
 
         if ($user -> locked === true){
             return redirect() -> back() -> with('error', 'حسابك مقفل الرجاء مراجعة الإدارة');

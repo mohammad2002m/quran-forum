@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('images', function ($table) {
             $table->id();
             $table->timestamps();
-            $table->string('original_file_name') -> nullable(false);
             $table->string('full_path') -> nullable(false);
-            $table->boolean('is_main_image') -> default(false) -> nullable(false);
-
-            $table-> unsignedBigInteger('announcement_id') -> nullable(false);
-            $table->foreign('announcement_id') -> references('id') -> on('announcements');
+            $table->boolean('stored') -> default(true);
+            $table->enum('for', ['announcement', 'profile', 'cover']) -> default('announcement');
         });
     }
 

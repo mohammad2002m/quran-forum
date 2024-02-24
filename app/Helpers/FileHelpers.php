@@ -10,8 +10,7 @@ function getNewFileNameWithExtension(UploadedFile $file){
 
 function storeAFileOnDisk(UploadedFile $file , $path){
     $newFileName = getNewFileNameWithExtension($file);
-    $originalFileName = $file->getClientOriginalName();
     $file->storeAs($path , $newFileName);
     $fullPath = $path . '/' . $newFileName;
-    return [$originalFileName, $fullPath];
+    return $fullPath;
 }

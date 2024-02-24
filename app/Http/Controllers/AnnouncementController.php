@@ -6,6 +6,7 @@ use AnnouncementValidators;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementType;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use QF\Constants;
 
@@ -32,7 +33,7 @@ class AnnouncementController extends Controller
         /* authorize */
         /* fix uploaded file vulnerability */
 
-        /* validate */
+        /* validate */ 
         [$status, $message] = $this->isValidAnnouncementStore($request);
         
         if ($status == 'failed'){
@@ -41,14 +42,19 @@ class AnnouncementController extends Controller
 
         $images = $request->file('images');
 
-        $announcement = storeAnnouncement(
-            title: $request -> title,
-            description: $request -> description,
-            type_id: $request -> type_id,
-        );
+        /* STORE ANNOUNCEMENT */
+        $announcement = Announcement::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'type_id' => $request->type_id,
+            'date' => date("Y-m-d H:i:s"),
+            'status' => Constants::ANNOUNCEMENT_STATUS_PENDING,
+            'user_id' => Auth::user()->id,
+        ]);
 
+        $announcement -> save();
 
-        storeImagesForAnnouncement($images, $announcement->id, $request->main_image_name);
+        storeImagesForAnnouncement($images, $announcement, $request->main_image_name);
 
         return redirect()->route(Constants::ROUTE_NAME_HOME_PAGE);
     }

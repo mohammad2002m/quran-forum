@@ -51,14 +51,12 @@
                             <input type="text" value="{{$email}}" name="email" hidden>
                             <input type="text" value="{{$token}}" name="token" hidden>
                             
-                            @if ($errors->any())
-                                <div> {{ $errors -> first()}} </div> 
-                            @else 
-                                <div> no </div> 
+                            @if (Session::has('error'))
+                                <div class="text-danger"> {{ Session::get('error')}} </div>
+                            @elseif (Session::has('success'))
+                                <div class="text-success"  > {{ Session::get('success')}} </div>
                             @endif
-                            @foreach ($errors as $error)
-                                <div class="text-danger"> {{ $error }} </div>
-                            @endforeach
+
                             <div class="mb-4">
                                 <button type="submit" class="btn btn-primary prm w-100 p-2"> تغيير </button>
                             </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use VerifyEmailValidator;
 use function QF\Utilites\getUserWithCredentials;
+use function QF\Utilites\getUserWithEmailHashedPassword;
 
 class VerifyEmailController extends Controller
 {
@@ -36,7 +37,7 @@ class VerifyEmailController extends Controller
             return redirect() -> back() -> withInput();
         }
 
-        $user = getUserWithCredentials($request -> email_for_verification ,$request ->  password_for_verification);
+        $user = getUserWithEmailHashedPassword($request -> session() -> email_for_verification ,$request -> session() ->  password_for_verification);
         
         $user->sendEmailVerificationNotification();
     

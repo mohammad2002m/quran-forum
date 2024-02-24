@@ -6,6 +6,7 @@
                     <a href="/about_us" class="text-decoration-none text-light fs-6"> عن الملتقى </a>
                     <a href="/forum_rules" class="text-decoration-none text-light fs-6"> قوانين الملتقى </a>
                     <a href="/contact_us" class="text-decoration-none text-light fs-6"> اتصل بنا </a>
+                    <a href="/registration/volunteer/index" class="text-decoration-none text-light fs-6"> التطوع للإشراف </a>
                 </div>
                 <div class="d-flex justify-content-center align-items-center gap-2">
                     <a href="https://t.me/multaqaQHU"> <i class="bi bi-telegram text-light fs-6 "> </i> </a>

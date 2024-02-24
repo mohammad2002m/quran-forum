@@ -19,7 +19,7 @@
                     <a href="#"
                         class="d-block link-body-emphasis text-decoration-none dropdown-toggle dropdown-toggle"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" width="32" height="32" class="rounded-circle">
+                        <img src="{{ Auth::user() -> profile_image -> full_path}}" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end">
                         <li><a class="dropdown-item" href="/profile/index"> الصفحة الشخصية </a></li>
@@ -58,9 +58,6 @@
                             <a class="nav-link" href="/report/index"> التقارير  </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/registration/volunteer/index"> التطوع للإشراف </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="#"> الأرشيف </a>
                         </li>
                     </ul>
@@ -94,9 +91,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#"> الأرشيف </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/week/edit"> الأسابيع </a>
-                        </li>
+                        
                     </ul>
 
                     <div class="d-flex gap-2">

@@ -1,28 +1,25 @@
 <?php
 
 use App\Models\Image;
+use Illuminate\Support\Facades\Auth;
 use QF\Constants;
 
-function storeImagesForAnnouncement($files, $announcementId, $mainImageName)
+function storeImagesForAnnouncement($files, $announcement, $mainImageName)
 {
     foreach ($files as $file) {
-        [$originalFileName, $fileFullPath] = storeAFileOnDisk($file, Constants::ANNOUNCEMENT_IMAGES_STORE_PATH);
+        $fullPath = storeAFileOnDisk($file, Constants::ANNOUNCEMENT_IMAGES_STORE_PATH);
 
-        storeImage(
-            announcementId: $announcementId,
-            originalFileName: $file->getClientOriginalName(),
-            isMainImage: ($originalFileName == $mainImageName),
-            fullPath: $fileFullPath,
-        );
+        $image = Image::create([
+            'full_path' => $fullPath,
+        ]);
+        $image -> save();
+
+        $originalFileName = $file->getClientOriginalName();
+        
+        $announcement -> attatch($image -> id, [
+            'is_main_image' => ($originalFileName == $mainImageName),
+        ]);
+
     }
 }
 
-function storeImage($originalFileName, $fullPath, $announcementId, $isMainImage) : Image {
-    $image = new Image();
-    $image -> original_file_name = $originalFileName;
-    $image -> full_path = $fullPath;
-    $image -> announcement_id = $announcementId;
-    $image -> is_main_image = $isMainImage;
-    $image -> save();
-    return $image;
-}

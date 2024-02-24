@@ -16,6 +16,16 @@ function getUserPermissions(int $user_id){
     return array_unique($userRolesPermissions);
 }
 
+function getUserWithEmailHashedPassword($email, $hashedPassoword){
+    $user = User::where('email', $email) -> first();
+    if (!$user){
+        return null;
+    }
+    if (!Hash::check($hashedPassoword, $user -> password)){
+        return null;
+    }
+    return $user;
+}
 function getUserWithCredentials(string $email, string $password){
     $user = User::where('email', $email) -> first();
     if (!$user){
