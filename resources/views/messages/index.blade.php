@@ -83,6 +83,8 @@
 
                         </tbody>
                     </table>
+
+                    <a href="/messages/show"> عرض الرسالة </a>
                 </div>
 
 

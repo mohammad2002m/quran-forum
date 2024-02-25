@@ -15,6 +15,13 @@ class ProfileController extends Controller
     {
         return view('profile.index');
     }
+    function edit()
+    {
+        return view('profile.edit');
+    }
+    function update(){
+        return redirect() -> route('profile.index');
+    }
     function changeCoverImage()
     {
         $user = User::find(Auth::user()->id);

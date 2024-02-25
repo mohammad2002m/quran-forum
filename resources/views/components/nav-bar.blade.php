@@ -22,8 +22,10 @@
                         <img src="{{ Auth::user() -> profile_image -> full_path}}" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end">
-                        <li><a class="dropdown-item" href="/profile/index"> الصفحة الشخصية </a></li>
-                        <li><a class="dropdown-item" href="#"> الإعدادات </a></li>
+                        <li><a class="dropdown-item" href="/profile"> الصفحة الشخصية </a></li>
+                        <li>
+                            <a class="dropdown-item"  href="/announcement/create"> إنشاء إعلان جديد </a>
+                        </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -39,9 +41,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/"> الصفحة الرئيسية </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/announcement/create"> نشر إعلان </a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="/messages/index"> الرسائل </a>
                         </li>
@@ -54,6 +54,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/group/index"> الحلقات </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/supervising"> الإشراف </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="/report/index"> التقارير  </a>
                         </li>

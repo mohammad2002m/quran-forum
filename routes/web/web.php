@@ -16,9 +16,6 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\WeekController;
-use App\Models\User;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use QF\Constants as QFConstants;
 
 /*
@@ -82,7 +79,9 @@ Route::group([], function () {
     Route::post('/week/update', [WeekController::class, 'update'])->name(QFConstants::ROUTE_NAME_UPDATE_WEEK) -> middleware('auth');
     Route::post('/week/store', [WeekController::class, 'store'])->name(QFConstants::ROUTE_NAME_STORE_WEEK) -> middleware('auth');
 
-    Route::get('/profile/index', [ProfileController::class, 'index'])->name('profile.index') -> middleware('auth');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index') -> middleware('auth');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit') -> middleware('auth');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update') -> middleware('auth');
     Route::get('/profile/change/cover-image', [ProfileController::class, 'changeCoverImage'])->name('profile.change.cover.image') -> middleware('auth');
     Route::get('/profile/change/profile-image', [ProfileController::class, 'changeProfileImage'])->name('profile.change.profile.image') -> middleware('auth');
 
@@ -93,8 +92,15 @@ Route::group([], function () {
     Route::get('/messages/index', function (){
         return view('messages.index');
     });
+    Route::get('/messages/show', function (){
+        return view('messages.show');
+    });
     Route::get('/update/user/data', function (){
         return view('update-user-data.index');
+    });
+
+    Route::get('/supervising', function (){
+        return view('supervising.index');
     });
 
     Route::get('/group/index', [GroupController::class, 'index']);

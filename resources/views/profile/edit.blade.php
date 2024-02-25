@@ -133,84 +133,61 @@
             <section class="p-4"> <!-- PROFILE CONTENT -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <p class="lead fw-normal mb-0"> الملف الشخصي </p>
-                    <a href="/profile/edit" class="btn btn-primary btn-sm"> تعديل </a>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
-                            <tr>
-                                <td colspan="2"> المعلومات الشخصية </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> الاسم </td>
-                                <td> محمد بلال الشريف </td>
-                            </tr>
-                            <tr>
-                                <td> الكلية </td>
-                                <td> كلية تكنولوجيا المعلومات </td>
-                            </tr>
-                            <tr>
-                                <td> الجنس </td>
-                                <td> ذكر </td>
-                            </tr>
-                            <tr>
-                                <td> رقم الهاتف </td>
-                                <td> 0569171474 </td>
-                            </tr>
-                            <tr>
-                                <td> السنة </td>
-                                <td> أولى </td>
-                            </tr>
-                            <tr>
-                                <td> طبيعة الدوام </td>
-                                <td> داخل الجامعة </td>
-                            </tr>
-                            
-                            <tr>
-                                <td> تحديث الصورة </td>
-                                <td>
-                                    <a href="/profile/change/cover-image" class="btn btn-primary btn-sm"> الغلاف </a>
-                                    <a href="/profile/change/profile-image" class="btn btn-primary btn-sm"> الشخصية </a>
-                                </td>
-                            </tr>
+                <form action="/profile/update" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="exampleInputEmail1" class="form-label"> الاسم الشخصي </label>
+                            <input type="text" class="form-control" value="محمد بلال الشريف">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label"> الكلية </label>
+                            <select class="form-select">
+                                <option value="" selected> كلية الطب </option>
+                                <option value=""> كلية تكنولوجيا المعلومات </option>
+                                <option value=""> كلية الزراعة </option>
+                            </select>
+                        </div>
+                    </div>
 
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
-                            <tr>
-                                <td> الحفظ </td>
-                                <td> التجويد </td>
-                                <td> الأجزاء </td>
-                                <td> النقاط </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> 8.1 </td>
-                                <td> 9.2 </td>
-                                <td> 2 </td>
-                                <td> 1233 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="exampleInputEmail1" class="form-label"> الجنس</label>
+                            <select class="form-select">
+                                <option value=""> ذكر </option>
+                                <option value=""> أنثى </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="exampleInputEmail1" class="form-label"> رقم الهاتف </label>
+                            <input type="text" class="form-control" value="0569171474">
+                        </div>
+                    </div>
 
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <p class="lead fw-normal mb-0"> الإنجازات </p>
-                    <a href="#" class="text-muted"> عرض الكل </a>
-                </div>
-
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <p class="lead fw-normal mb-0"> الخطة </p>
-                    <a href="#" class="text-muted"> عرض الخطط </a>
-                </div>
-
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="exampleInputEmail1" class="form-label"> السنة </label>
+                            <select class="form-select">
+                                <option value="" selected> أولى </option>
+                                <option value=""> ثانية </option>
+                                <option value=""> ثالثة </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="exampleInputEmail1" class="form-label"> طبيعة الدوام </label>
+                            <select class="form-select">
+                                <option value="" selected> داخل الجامعة </option>
+                                <option value=""> خارج الجامعة </option>
+                                <option value=""> داخل وخارج الجامعة </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary"> حفظ </button>
+                    </div>
+                </form>
 
             </section>
 

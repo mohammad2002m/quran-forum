@@ -14,6 +14,16 @@
             background-repeat: none;
             background-size: cover;
         }
+
+
+        .responsive-width {
+            width: 50%;
+        }
+        @media screen and (max-width: 576px) {
+            .responsive-width {
+                width: 100%;
+            }
+        }
     </style>
 @endsection
 
@@ -27,7 +37,7 @@
         <div class="col-lg-7 vh-100 p-0">
             <div class="px-5 w-100 h-100">
                 <div class="d-flex align-items-center justify-content-center w-100 h-100">
-                    <form action="/login" method="post" class="w-50">
+                    <form action="/login" method="post" class="responsive-width">
                         @csrf
                         <div class="mb-5">
                             <div class="mb-2">

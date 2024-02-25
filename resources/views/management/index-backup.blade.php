@@ -8,32 +8,27 @@
 @section('content')
     <div class="container mt-4">
         <div class="card">
-            <div class="card-header bg-success">
-                <h5 class="text-white">ادارة الملتقى</h5>
+            <div class="card-header">
+                <h5>ادارة الملتقى</h5>
             </div>
             <div class="card-body">
                 <!-- Buttons and forms -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <button class="btn btn-success mr-2" type="button" data-toggle="collapse"
+                        <button class="btn btn-primary mr-2" type="button" data-toggle="collapse"
                             data-target="#collapseContent" aria-expanded="false" aria-controls="collapseContent">
                             التسجيل
                         </button>
-                        <button style="justify-content: center;" class="btn btn-primary mt-1 bg-success  " type="button"
+                        <button class="btn btn-primary" type="button"
                             data-toggle="collapse" data-target="#collapseContentt" aria-expanded="false"
                             aria-controls="collapseContentt">
                             فتح فورم التطوع للاشراف </button>
 
                     </div>
                     <div>
-                        <button class="btn btn-outline-secondary">خروج</button>
+                        <button class="btn btn-outline-primary">خروج</button>
                     </div>
                 </div>
-
-
-
-
-
                 <!-- Collapsible content -->
                 <div class="collapse collapse-content " id="collapseContentt">
                     <div class=" card card-body">
@@ -49,7 +44,7 @@
                             <input placeholder="عددالمسجلين" type="number" style="text-align: right;" class="form-control"
                                 aria-label="Recipient's username with two button addons">
                             <input class="container  p-2 mt-1 " placeholder="لم يسجلوا" type="text">
-                            <input class="btn btn-primary mt-2 bg-success" type="submit" value="Submit">
+                            <input class="btn btn-primary mt-2 bg-primary" type="submit" value="Submit">
                         </div>
                     </form>
                 </div>
@@ -75,52 +70,7 @@
                             <td></td>
                             <td></td>
                             <td>
-                                <!-- Button trigger modal -->
-
-                                <!-- Modal -->
-
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">تعبئةالجدول</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label for="modelInput">الأسم</label>
-                                                        <input type="text" class="form-control" id="modelInput"
-                                                            placeholder="الأسم">
-                                                        <div class="form-group mt-2">
-                                                            <label for="modelInput">التاريخ</label>
-                                                            <input type="date" class="form-control" id="modelInput"
-                                                                placeholder="التاريخ">
-                                                        </div>
-
-                                                        <div class="form-group mt-2">
-                                                            <label for="modelInput">الدور</label>
-                                                            <input type="text" class="form-control" id="modelInput"
-                                                                placeholder="الدور">
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button type="button" class="btn btn-success btn-sm mr-1" data-toggle="modal"
-                                    data-target="#exampleModal" onclick="editRow(this)">تعديل</button>
+                                <button class="btn btn-primary btn-sm mr-1" onclick="editRow(this)">تعديل</button>
                                 <button class="btn btn-secondary btn-sm" onclick="deleteRow(this)">حذف</button>
                             </td>
                         </tr>
@@ -129,7 +79,7 @@
                 </table>
 
                 <!-- Add row button -->
-                <button class="btn btn-success mb-2" onclick="addRow()">اضافة صف</button>
+                <button class="btn btn-primary mb-2" onclick="addRow()">اضافة صف</button>
             </div>
 
             <script>
@@ -141,7 +91,7 @@
                     row.insertCell(0).innerHTML = '<input type="text" class="form-control" value="">';
                     row.insertCell(1).innerHTML = '<input type="date" class="form-control">';
                     row.insertCell(2).innerHTML =
-                        '<button type="button" class="btn btn-success btn-sm mr-1" data-toggle="modal" data-target="#exampleModal" onclick="editRow(this)">تعديل</button><button class="btn btn-secondary btn-sm" onclick="deleteRow(this)">حذف</button>';
+                        '<button class="btn btn-primary btn-sm mr-1" onclick="editRow(this)">تعديل</button><button class="btn btn-secondary btn-sm" onclick="deleteRow(this)">حذف</button>';
                     row.insertCell(2).innerHTML = '<input type="text" class="form-control" value="">';
                 }
 
