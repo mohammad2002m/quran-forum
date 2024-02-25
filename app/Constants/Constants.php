@@ -71,10 +71,18 @@ class Constants {
     const SUCCESS_MESSAGE_WEEKS_ADDED = 'تم إضافة 53 أسبوعًا بنجاح';
 
     /******** STUDENTS STATUSES ********/
-    const STUDENT_STATUS_ACTIVE = 1;
-    const STUDENT_STATUS_FREEZED = 2;
-    const STUDENT_STATUS_STOPPED = 3;
-    const STUDENT_STATUS_LEFT = 4;
+    const STUDENT_STATUS_ACTIVE = 'active';
+    const STUDENT_STATUS_FREEZED = 'freezed';
+    const STUDENT_STATUS_STOPPED = 'stopped';
+    const STUDENT_STATUS_LEFT = 'left';
+
+    const STUDENT_STATUSES = [
+        self::STUDENT_STATUS_ACTIVE,
+        self::STUDENT_STATUS_FREEZED,
+        self::STUDENT_STATUS_STOPPED,
+        self::STUDENT_STATUS_LEFT,
+    ];
+
 
     /******** ACTIVITIES:SHOULD MATCH THE DATABASE ********/
     const ACTIVITY_CREATE_ANNOUNCEMENT = 1;
@@ -207,3 +215,24 @@ class Constants {
 }
 
 
+class QuestionsAnswers {
+    const WhatIsYourSchedule = [
+        'مستقرة بالحرم الجامعي',
+        'تدريب خارج الجامعة',
+        'أتدرب خارج الجامعة بالإضافة إلى محاضرات منتظمة'
+    ];
+    const WhatIsYourStudyYear = [
+        'أولى',
+        'ثانية',
+        'ثالثة',
+        'رابعة',
+        'خامسة',
+        'سادسة',
+        'خريج'
+    ];
+
+    const WhatIsYourGender = [
+        'ذكر',
+        'أنثى'
+    ];
+}

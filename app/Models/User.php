@@ -65,4 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
     function profile_image(){
         return $this -> hasOne(Image::class, 'id', 'profile_image_id');
     }
+    function college(){
+        return $this -> hasOne(College::class, 'id', 'college_id');
+    }
 }

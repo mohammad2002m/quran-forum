@@ -11,7 +11,7 @@
         }
 
         .cover-image {
-            background-image: url({{ Auth::user()->cover_image->full_path }});
+            background-image: url({{ $user->cover_image->full_path }});
             background-repeat: no-repeat;
             background-size: cover;
             height: 300px;
@@ -19,7 +19,7 @@
 
         .profile-image {
             aspect-ratio: 1/1;
-            background-image: url({{ Auth::user()->profile_image->full_path }});
+            background-image: url({{ $user->profile_image->full_path }});
             background-repeat: no-repeat;
             background-size: cover;
             border: 3px solid #fff;
@@ -100,8 +100,8 @@
                 <div class="sub-header p-4">
                     <div class="d-sm-flex justify-content-between sub-header-container">
                         <div class="main-info">
-                            <h6 class="main-info-title fw-bold"> محمد بلال سليم الشريف </h6>
-                            <p class="text-muted m-0"> كلية تكنولوجيا المعلومات </p>
+                            <h6 class="main-info-title fw-bold"> {{ $user -> name }} </h6>
+                            <p class="text-muted m-0"> كلية  {{ $user -> college -> name }} </p>
                         </div>
                         <div class="d-flex text-center">
                             <div class="d-none d-lg-block ms-4">
@@ -146,27 +146,27 @@
                         <tbody>
                             <tr>
                                 <td> الاسم </td>
-                                <td> محمد بلال الشريف </td>
+                                <td> {{ $user -> name }} </td>
                             </tr>
                             <tr>
                                 <td> الكلية </td>
-                                <td> كلية تكنولوجيا المعلومات </td>
+                                <td> كلية  {{ $user -> college -> name }} </td>
                             </tr>
                             <tr>
                                 <td> الجنس </td>
-                                <td> ذكر </td>
+                                <td> {{ $user -> gender }}</td>
                             </tr>
                             <tr>
                                 <td> رقم الهاتف </td>
-                                <td> 0569171474 </td>
+                                <td> {{ $user -> phone_number }} </td>
                             </tr>
                             <tr>
                                 <td> السنة </td>
-                                <td> أولى </td>
+                                <td> {{ $user -> year }} </td>
                             </tr>
                             <tr>
                                 <td> طبيعة الدوام </td>
-                                <td> داخل الجامعة </td>
+                                <td> {{ $user -> schedule }} </td>
                             </tr>
                             
                             <tr>

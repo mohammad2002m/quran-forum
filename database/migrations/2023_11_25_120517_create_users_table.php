@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use QF\QuestionsAnswers as QFQuestionsAnswers;
+use QF\Constants as QFConstants;
 
 return new class extends Migration
 {
@@ -18,16 +20,16 @@ return new class extends Migration
             $table-> tinyText('password') -> nullable(false);
             $table-> tinyText('name') -> nullable(false);
             $table-> tinyText('phone_number') -> nullable(false);
-            $table-> enum('gender', ['ذكر', 'أنثى']) -> nullable(false);
-            $table-> enum('year', ['أولى', 'ثانية', 'ثالثة', 'رابعة', 'خامسة', 'سادسة', 'خريج']) -> nullable(false);
-            $table-> enum("status", ["active", "freezed", "stopped", "left"]) -> default("active") -> nullable(true);
+            $table-> enum('gender', QFQuestionsAnswers::WhatIsYourGender) -> nullable(false);
+            $table-> enum('year', QFQuestionsAnswers::WhatIsYourStudyYear) -> nullable(false);
+            $table-> enum("status", QFConstants::STUDENT_STATUSES) -> default("active") -> nullable(true);
 
-            $table-> tinyText('schedule') -> nullable(false);
+            $table-> enum('schedule', QFQuestionsAnswers::WhatIsYourSchedule) -> nullable(false);
             $table-> boolean('can_be_teacher') -> nullable(false);
             $table-> boolean('tajweed_certificate') -> nullable(false);
 
             $table-> boolean('locked') -> nullable(false);
-            $table-> boolean('first_login') -> nullable(false);
+            $table-> boolean('force_information_update') -> nullable(false);
 
             $table-> date('email_verified_at') -> nullable(true);
 

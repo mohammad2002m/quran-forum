@@ -8,11 +8,13 @@ use App\Models\Accomplishment;
 use App\Models\Activity;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\RoleUser;
 use App\Models\AnnouncementType;
 use App\Models\College;
 use App\Models\Image;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use QF\Constants as QFConstants;
+use QF\QuestionsAnswers as QFQuestionsAnswers;
 
 class DatabaseSeeder extends Seeder
 {
@@ -49,16 +51,6 @@ class DatabaseSeeder extends Seeder
                 "for" => "cover",
             ]);
         }
-    }
-    public static function seedUsersRoles(){
-        RoleUser::factory() -> create([
-            'user_id' => 1,
-            'role_id' => 1,
-        ]);
-        RoleUser::factory() -> create([
-            'user_id' => 2,
-            'role_id' => 6,
-        ]);
     }
     public static function seedActivites(){
         Activity::factory() -> create(
@@ -124,224 +116,88 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
     }
+    public static function getRandomMaleName(){
+        $names = ['محمد', 'أحمد', 'عبد الله', 'عبد الرحمن', 'عبد العزيز', 'عبد اللطيف', 'عبد الحميد', 'عبد الكريم', 'عبد الوهاب', 'عبد الرزاق', 'عبد الرؤوف', 'عبد الرحيم', 'عبد السلام', 'عبد الصمد', 'عبد الصمد'];
+        return $names[rand(0, count($names) - 1)];
+    }
+    public static function getRandomFemaleName(){
+        $names = ['مريم', 'فاطمة', 'خديجة', 'عائشة', 'زينب', 'سمية', 'سميرة', 'سمر', 'سمراء', 'شهد', 'شيماء', 'شيماء', 'شيرين', 'تسنيم', 'طيبة'];
+        return $names[rand(0, count($names) - 1)];
+    }
     public static function seedUsers()
     {
+        $genders = QFQuestionsAnswers::WhatIsYourGender;
+        $years = QFQuestionsAnswers::WhatIsYourStudyYear;
+        $schedules = QFQuestionsAnswers::WhatIsYourSchedule;
+        $majorityFalse = [true, false , false , false , false , false , false, false, false, false];
+        $canBeTeacher = [true, false];
+        $rolesCount = [
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0,
+            6 => 0,
+            7 => 0,
+            8 => 0,
+            9 => 0,
+            10 => 0,
+            11 => 0,
+            12 => 0,
+            13 => 0,
+            14 => 0,
+            15 => 0,
+            16 => 0,
+        ];
+        $roleNamesEnglish = [
+            1 => 'HEAD',
+            2 => 'VICE_HEAD',
+            3 => 'STUDENT',
+            4 => 'SUPERVISOR',
+            5 => 'STUDENTS_MANAGER',
+            6 => 'MEDIA_COMMITTE_MEMBER',
+            7 => 'DATA_COMMITTE_MEMBER',
+            8 => 'RAQABA',
+            9 => 'SECRETARY_GENERAL',
+            10 => 'TREASURER',
+            11 => 'EXAMINING_COMMITTE_MEMBER',
+            12 => 'TAJWEED_COMMITTE_MEMBER',
+            13 => 'MONITORING_COMMITTE_MEMBER',
+            14 => 'EXAMINING_COMMITTE_MANAGER',
+            15 => 'TAJWEED_COMMITTE_MANAGER',
+            16 => 'MONITORING_COMMITTE_MANAGER',
+        ];
+        $rep = 100;
+        while ($rep--){
+            $num = rand(0, 1);
+            $firstName = $num == 0 ? DatabaseSeeder::getRandomMaleName() : DatabaseSeeder::getRandomFemaleName();
+            $name = $firstName . ' ' . DatabaseSeeder::getRandomMaleName() . ' ' . DatabaseSeeder::getRandomMaleName();
+            
+            $role = rand(1, 15);
+            $rolesCount[$role]++;
+            $email = $roleNamesEnglish[$role] . $rolesCount[$role] . '@gmail.com';
+            // make email lowercase
+            $email = strtolower($email);
 
-        User::factory()->create([
-            'name' => 'محمد الشريف',
-            'email' => 'mohammed.alshareef2002@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'أولى',
-            'status' => 1,
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-            'email_verified_at' => date('Y-m-d H:i:s'),
-        ]);
-        User::factory()->create([
-            'name' => 'محمد الشريف',
-            'email' => 'a@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'أولى',
-            'status' => 1,
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'email_verified_at' => date('Y-m-d H:i:s'),
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'محمد الشريف',
-            'email' => 'b@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'خريج',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'محمد الشريف',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'mohammdd',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
+            $user = User::factory()->create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make('mozart'),
+                'gender' => $genders[$num],
+                'locked' => $majorityFalse[rand(0, 9)],
+                'year' => $years[rand(0, 6)],
+                'schedule' => $schedules[rand(0, 2)],
+                'can_be_teacher' => $canBeTeacher[rand(0, 1)],
+                'force_information_update' => $majorityFalse[rand(0, 9)],
+                'tajweed_certificate' => $majorityFalse[rand(0, 9)],
+                'college_id' => rand(1, 10),
+                'email_verified_at' => date('Y-m-d H:i:s'),
+                'phone_number' => '0569' . strval(rand(99999, 999999)),
+            ]);
 
-        User::factory()->create([
-            'name' => 'bilal',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'saleem',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'kareem',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'motaz',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'mozart',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'osama',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'monatser',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'anas',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'raed',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
-        User::factory()->create([
-            'name' => 'amjad',
-            'email' => 'c@gmail.com',
-            'phone_number' => '0569171474',
-            'gender' => 'ذكر',
-            'password' => bcrypt('mozart'),
-            'locked' => false,
-            'year' => 'ثالثة',
-            'schedule' => 'خارج الجامعة',
-            'can_be_teacher' => false,
-            'first_login' => false,
-            'tajweed_certificate' => false,
-            'college_id' => 1,
-        ]);
+            $user -> roles() -> attach($role);
+            $user -> roles() -> attach(QFConstants::ROLE_STUDENT);
+        }
     }
     public static function seedAnnouncementTypes()
     {
