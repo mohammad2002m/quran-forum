@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\AnnouncementType;
 use App\Models\College;
 use App\Models\Image;
+use App\Models\Week;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use QF\Constants as QFConstants;
@@ -25,11 +26,14 @@ class DatabaseSeeder extends Seeder
     {
         DatabaseSeeder::seedActivites();
         DatabaseSeeder::seedImages();
+        DatabaseSeeder::seedWeeks();
         // DatabaseSeeder::seedAccomplishments();
         DatabaseSeeder::seedColleges();
         DatabaseSeeder::seedRoles();
         DatabaseSeeder::seedUsers();
         DatabaseSeeder::seedAnnouncementTypes();
+    }
+    public static function seedWeeks(){
     }
     public static function seedImages(){
         $doesntExist = [86, 97, 105, 138, 148, 150, 205, 207, 224, 226, 245, 246, 262, 285, 286, 298, 303, 332, 333, 346, 359, 394, 414, 422, 438, 462, 463, 470, 489, 540, 561, 578, 587, 589, 592, 595, 597, 601, 624, 632, 636, 644, 647, 673, 697, 706, 707, 708, 709, 710, 711, 712, 713, 714, 720, 725, 734, 745, 746, 747, 748, 749, 750, 751, 752, 753, 754, 759, 761, 762, 763, 771, 792, 801, 812, 843, 850, 854, 895, 897, 899, 917, 920, 934, 956, 963, 968];
@@ -128,7 +132,7 @@ class DatabaseSeeder extends Seeder
     {
         $genders = QFQuestionsAnswers::WhatIsYourGender;
         $years = QFQuestionsAnswers::WhatIsYourStudyYear;
-        $schedules = QFQuestionsAnswers::WhatIsYourSchedule;
+        $schedules = QFQuestionsAnswers::WhatIsYourSchedule ;
         $majorityFalse = [true, false , false , false , false , false , false, false, false, false];
         $canBeTeacher = [true, false];
         $rolesCount = [

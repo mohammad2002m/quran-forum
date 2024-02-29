@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,11 +16,9 @@ return new class extends Migration
             $table-> id();
             $table-> timestamps();
             $table-> tinyText('name') -> nullable(false);
-            // $table-> enum('semester' , [1 , 2 , 3]) -> nullable(false);
             $table-> date('start_date') -> nullable(false);
-            $table-> tinyInteger('sequence_number') -> nullable(false);
+            $table-> date('end_date') -> nullable(false);
             $table-> boolean('must') -> nullable(false);
-            // $table-> year('year') -> nullable(false);
         });
     }
 

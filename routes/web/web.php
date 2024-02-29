@@ -18,6 +18,8 @@ use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\WeekController;
 use QF\Constants as QFConstants;
 
+use function QF\Utilites\getSupervisorStudents;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,7 +102,13 @@ Route::group([], function () {
     });
 
     Route::get('/supervising', function (){
-        return view('supervising.index');
+        return view('supervising.index') -> with([
+            'students'=> getSupervisorStudents(),
+            'years' => getWeeksYears(),
+            'currentYear' => getCurrentYear(),
+            'currentWeekId' => getCurrentWeek(),
+            'weeks' => getWeeksByYear(getCurrentYear()),
+        ]);
     });
 
     Route::get('/group/index', [GroupController::class, 'index']);
