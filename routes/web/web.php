@@ -10,6 +10,7 @@ use App\Http\Controllers\ForumRules;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecitationController;
 use App\Http\Controllers\RegistrationController;
@@ -41,6 +42,7 @@ Route::group([], function () {
 
 
     Route::get('/', [AnnouncementController::class, 'index'])->name(QFConstants::ROUTE_NAME_HOME_PAGE);
+    Route::get('/home', [AnnouncementController::class, 'index'])->name(QFConstants::ROUTE_NAME_HOME_PAGE);
 
     Route::get('/announcement/create', [AnnouncementController::class, 'create'])->name(QFConstants::ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE) -> middleware('auth');
     Route::post('/announcement/store', [AnnouncementController::class, 'store'])->name(QFConstants::ROUTE_NAME_STORE_ANNOUNCEMENT) -> middleware('auth');
@@ -107,11 +109,17 @@ Route::group([], function () {
     Route::get('/group/index', [GroupController::class, 'index']) -> middleware('auth');
     Route::post('/group/store', [GroupController::class, 'store']) -> middleware('auth');
 
-    Route::get('/api/supervisors', [SearchController::class, 'supervisors']) -> middleware('auth');
 
-    Route::get('/api/recitations/{year}', [SearchController::class, 'recitationsByYear']) -> middleware('auth');
-    Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear']) -> middleware('auth');
+
 
     Route::get('/recitation/index', [RecitationController::class, 'index']) -> name('recitation.index') -> middleware('auth');
-    Route::post('/recitation/update', [RecitationController::class, 'update']) -> middleware('auth');
+    Route::post('/recitation/update', [RecitationController::class, 'update']) -> name('recitation.update') -> middleware('auth');
+
+    Route::get('/monitoring/index', [MonitoringController::class, 'index']) -> name('monitoring.index') -> middleware('auth');
+    Route::get('/monitoring/update', [MonitoringController::class, 'update']) -> name('monitoring.update') -> middleware('auth');
+
+    Route::get('/api/supervisors', [SearchController::class, 'supervisors']) -> middleware('auth');
+    Route::get('/api/recitations/{supervisorId}/{year}', [SearchController::class, 'recitationsBySupervisorAndYear']) -> middleware('auth');
+    Route::get('/api/excuses/{supervisorId}/{year}', [SearchController::class, 'excusesBySupervisorAndYear']) -> middleware('auth');
+    Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear']) -> middleware('auth');
 });

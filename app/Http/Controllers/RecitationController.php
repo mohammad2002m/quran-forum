@@ -6,8 +6,6 @@ use App\Models\Recitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use function QF\Utilites\getSupervisorStudents;
-
 class RecitationController extends Controller
 {
     function index(){

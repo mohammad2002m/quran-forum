@@ -71,10 +71,10 @@ class Constants {
     const SUCCESS_MESSAGE_WEEKS_ADDED = 'تم إضافة 53 أسبوعًا بنجاح';
 
     /******** STUDENTS STATUSES ********/
-    const STUDENT_STATUS_ACTIVE = 'active';
-    const STUDENT_STATUS_FREEZED = 'freezed';
-    const STUDENT_STATUS_STOPPED = 'stopped';
-    const STUDENT_STATUS_LEFT = 'left';
+    const STUDENT_STATUS_ACTIVE = 'نشط';
+    const STUDENT_STATUS_FREEZED = 'مجمد';
+    const STUDENT_STATUS_STOPPED = 'موقوف';
+    const STUDENT_STATUS_LEFT = 'منسحب';
 
     const STUDENT_STATUSES = [
         self::STUDENT_STATUS_ACTIVE,

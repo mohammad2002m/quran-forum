@@ -58,7 +58,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this -> belongsTo(Group::class);
     }
-
     function cover_image(){
         return $this -> hasOne(Image::class, 'id', 'cover_image_id');
     }
@@ -71,4 +70,8 @@ class User extends Authenticatable implements MustVerifyEmail
     function recitations(){
         return $this -> hasMany(Recitation::class);
     }
+    function supervisor(){
+        return $this -> hasOneThrough(User::class, Group::class, 'id', 'id', 'group_id', 'supervisor_id');
+    }
+
 }

@@ -1,8 +1,7 @@
 <?php 
 
-namespace QF\Utilites;
-
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use QF\Constants;
 
@@ -42,7 +41,6 @@ function getUserByEmail(string $email){
 }
 
 function getSupervisorStudents(){
-    $supervisor = User::find(auth() -> user() -> id);
-
+    $supervisor = User::find(Auth::user() -> id) -> with(['group.students.group', 'group.students.supervisor']) -> first();
     return $supervisor -> group -> students ?? [];
 }

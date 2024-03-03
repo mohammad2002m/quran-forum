@@ -88,7 +88,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <input type="text" class="form-control" id="recitation-id" hidden>
+                        <input type="text" class="form-control" id="recitation-key" hidden>
                         <div class="mb-3">
                             <label for="student-name" class="col-form-label"> الطالب </label>
                             <input type="text" class="form-control" id="student-name" disabled>
@@ -143,11 +143,12 @@
 
         function getRecitationsByYearWeek(recitations, year, weekId) {
             return recitations.filter(recitation => {
-                return getWeekYear(recitation.recitation.week) === year && recitation.recitation.week.id === weekId;
+                return getWeekYear(recitation.week) === year && recitation.week.id === weekId;
             });
         }
     </script>
     <script>
+        var userId = @php echo json_encode(Auth::user() -> id); @endphp;
         var years = @php echo json_encode($years); @endphp;
         var students = @php echo json_encode($students); @endphp;
         var currentWeek = @php echo json_encode($currentWeek); @endphp;
@@ -159,8 +160,7 @@
         var changedRecitations = [];
     </script>
     <script>
-        // on document ready without jquery
-        function updateNewWeeks(selectedId) {
+        function updateNewWeeks() {
             $('#weeks-select2').html('').select2({
                 data: weeks.map(week => {
                     return {
@@ -172,31 +172,29 @@
         }
 
         function processRecitations() {
-            var id = 1;
+            var key = 1;
             recitations = recitations.map((recitation) => {
                 return {
-                    id: id++,
-                    recitation: recitation,
+                    key: key++,
+                    ...recitation,
                 }
             }) 
             weeks.forEach((week) => {
                 students.forEach(student => {
                     var hasRecitation = recitations.find(recitation => {
-                        return recitation.recitation.week.id === week.id && recitation.recitation.user.id === student.id;
+                        return recitation.week.id === week.id && recitation.user.id === student.id;
                     });
 
                     if (!hasRecitation) {
                         recitations.push({
-                            id: id++,
-                            recitation: {
-                                id: null,
-                                user: student,
-                                week: week,
-                                memorized_pages: null,
-                                repeated_pages: null,
-                                memorization_mark: null,
-                                tajweed_mark: null,
-                            }
+                            key: key++,
+                            id: null,
+                            user: student,
+                            week: week,
+                            memorized_pages: null,
+                            repeated_pages: null,
+                            memorization_mark: null,
+                            tajweed_mark: null,
                         });
                     }
                 })
@@ -204,10 +202,14 @@
         }
 
         async function fetchAndUpdateNewData(year) {
-            var dataWeeks = await fetch('http://localhost:8000/api/weeks/' + year);
-            var newWeeks = await dataWeeks.json()
+            // FIXME needs error handeling
+            var recitaionURL = 'http://localhost:8000/api/recitations/' + userId.toString() + '/' + year.toString();
+            var weeksURL = 'http://localhost:8000/api/weeks/' + year.toString();
 
-            var dataRecitations = await fetch('http://localhost:8000/api/recitations/' + year);
+            var dataWeeks = await fetch(weeksURL);
+            var newWeeks = await dataWeeks.json()
+            
+            var dataRecitations = await fetch(recitaionURL);
             var newRecitations = await dataRecitations.json();
 
             recitations = newRecitations;
@@ -215,7 +217,7 @@
         }
 
         function selectDefaultWeek() {
-            currentWeekIncluded = weeks.some((week) => {
+            var currentWeekIncluded = weeks.some((week) => {
                 return week.id === currentWeek.id;
             });
 
@@ -245,16 +247,16 @@
             currentRecitations.forEach(recitation => {
                 tableBody.innerHTML += `
                     <tr>
-                        <td class="line"> ${recitation.recitation.user.name} </td>
+                        <td class="line"> ${recitation.user.name} </td>
                         <td class="text-center">
-                             ${recitation.recitation.memorized_pages && recitation.recitation.repeated_pages ?
-                                 4 * recitation.recitation.memorized_pages + recitation.recitation.repeated_pages : ''}
+                             ${recitation.memorized_pages && recitation.repeated_pages ?
+                                 4 * recitation.memorized_pages + recitation.repeated_pages : ''}
                         </td>
-                        <td class="text-center"> ${recitation.recitation.memorized_pages || ''} </td>
-                        <td class="text-center"> ${recitation.recitation.repeated_pages || ''} </td>
-                        <td class="text-center"> ${recitation.recitation.memorization_mark || ''} </td>
-                        <td class="text-center"> ${recitation.recitation.tajweed_mark || ''} </td>
-                        <td class="text-center"> <button class="btn btn-primary btn-sm" onclick="editRecitation(${recitation.id})" data-bs-toggle="modal" data-bs-target="#editRecitationModal"> تعديل </button> </td>
+                        <td class="text-center"> ${recitation.memorized_pages || ''} </td>
+                        <td class="text-center"> ${recitation.repeated_pages || ''} </td>
+                        <td class="text-center"> ${recitation.memorization_mark || ''} </td>
+                        <td class="text-center"> ${recitation.tajweed_mark || ''} </td>
+                        <td class="text-center"> <button class="btn btn-primary btn-sm" onclick="editRecitation(${recitation.key})" data-bs-toggle="modal" data-bs-target="#editRecitationModal"> تعديل </button> </td>
                     </tr>
                 `;
             });
@@ -267,18 +269,18 @@
 
             var recitedNum = 0;
             currentRecitations.forEach(recitation => {
-                if (recitation.recitation.memorized_pages) {
+                if (recitation.memorized_pages) {
                     recitedNum++;
-                    memorizedPagesSum += recitation.recitation.memorized_pages;
+                    memorizedPagesSum += recitation.memorized_pages;
                 }
-                if (recitation.recitation.repeated_pages) {
-                    repeatedPagesSum += recitation.recitation.repeated_pages;
+                if (recitation.repeated_pages) {
+                    repeatedPagesSum += recitation.repeated_pages;
                 }
-                if (recitation.recitation.memorization_mark) {
-                    memorizationMarkSum += recitation.recitation.memorization_mark;
+                if (recitation.memorization_mark) {
+                    memorizationMarkSum += recitation.memorization_mark;
                 }
-                if (recitation.recitation.tajweed_mark) {
-                    tajweedMarkSum += recitation.recitation.tajweed_mark;
+                if (recitation.tajweed_mark) {
+                    tajweedMarkSum += recitation.tajweed_mark;
                 }
             });
 
@@ -294,29 +296,29 @@
                     <th class="text-center"> النقاط </th>
                 </tr>
                 <tr>
-                    <td class="text-center"> ${(recitedNum / students.length) * 100}% </td>
-                    <td class="text-center"> ${recitedNum !== 0 ? (4 * memorizedPagesSum + repeatedPagesSum) / recitedNum : 0} </td>
+                    <td class="text-center"> ${(recitedNum / students.length * 100).toFixed(2)}% </td>
+                    <td class="text-center"> ${recitedNum !== 0 ? ((4 * memorizedPagesSum + repeatedPagesSum) / recitedNum).toFixed(2) : 0} </td>
                     <td class="text-center"> ${memorizedPagesSum} </td>
                     <td class="text-center"> ${repeatedPagesSum} </td>
-                    <td class="text-center"> ${recitedNum !== 0 ? memorizationMarkSum / recitedNum : 0} </td>
-                    <td class="text-center"> ${recitedNum !== 0 ? tajweedMarkSum / recitedNum : 0} </td>
+                    <td class="text-center"> ${recitedNum !== 0 ? (memorizationMarkSum / recitedNum).toFixed(2) : 0} </td>
+                    <td class="text-center"> ${recitedNum !== 0 ? (tajweedMarkSum / recitedNum).toFixed(2) : 0} </td>
                     <td class="text-center"> ${4 * memorizedPagesSum + repeatedPagesSum} </td>
                 </tr>
             `;
         }
 
-        function editRecitation(id){
-            var recitation = recitations.find(recitation => recitation.id === id);
-            document.getElementById('recitation-id').value = recitation.id;
-            document.getElementById('student-name').value = recitation.recitation.user.name;
-            document.getElementById('memorized-pages').value = recitation.recitation.memorized_pages;
-            document.getElementById('repeated-pages').value = recitation.recitation.repeated_pages;
-            document.getElementById('memorization-mark').value = recitation.recitation.memorization_mark;
-            document.getElementById('tajweed-mark').value = recitation.recitation.tajweed_mark;
+        function editRecitation(key){
+            var recitation = recitations.find(recitation => recitation.key === key);
+            document.getElementById('recitation-key').value = recitation.key;
+            document.getElementById('student-name').value = recitation.user.name;
+            document.getElementById('memorized-pages').value = recitation.memorized_pages;
+            document.getElementById('repeated-pages').value = recitation.repeated_pages;
+            document.getElementById('memorization-mark').value = recitation.memorization_mark;
+            document.getElementById('tajweed-mark').value = recitation.tajweed_mark;
         }
 
         function saveRecitation(){
-            id = document.getElementById('recitation-id').value;
+            key = document.getElementById('recitation-key').value;
             studentName = document.getElementById('student-name').value;
             memorizedPages = document.getElementById('memorized-pages').value;
             repeatedPages = document.getElementById('repeated-pages').value;
@@ -328,34 +330,35 @@
                 return ;
             }
 
-            changedRecitations.push(parseInt(id));
+            changedRecitations.push(parseInt(key));
 
             recitations = recitations.map((recitation) => {
-                if (recitation.id === parseInt(id)) {
-                    recitation.recitation.memorized_pages = parseInt(memorizedPages);
-                    recitation.recitation.repeated_pages = parseInt(repeatedPages);
-                    recitation.recitation.memorization_mark = parseInt(memorizationMark);
-                    recitation.recitation.tajweed_mark = parseInt(tajweedMark);
+                if (recitation.key === parseInt(key)) {
+                    recitation.memorized_pages = parseInt(memorizedPages);
+                    recitation.repeated_pages = parseInt(repeatedPages);
+                    recitation.memorization_mark = parseInt(memorizationMark);
+                    recitation.tajweed_mark = parseInt(tajweedMark);
                 }
                 return recitation;
             });
 
+            console.log(recitations);
             $('#editRecitationModal').modal('hide');
             render();
         }
 
         function submitRecitations(){
             recitationChanges = [];
-            changedRecitations.forEach((id) => {
-                recitation = recitations.find(recitation => recitation.id === id);
+            changedRecitations.forEach((key) => {
+                recitation = recitations.find(recitation => recitation.key === key);
                 recitationChanges.push({
-                    id: recitation.recitation.id,
-                    user: recitation.recitation.user,
-                    week: recitation.recitation.week,
-                    memorized_pages: recitation.recitation.memorized_pages,
-                    repeated_pages: recitation.recitation.repeated_pages,
-                    memorization_mark: recitation.recitation.memorization_mark,
-                    tajweed_mark: recitation.recitation.tajweed_mark,
+                    id: recitation.id,
+                    user: recitation.user,
+                    week: recitation.week,
+                    memorized_pages: recitation.memorized_pages,
+                    repeated_pages: recitation.repeated_pages,
+                    memorization_mark: recitation.memorization_mark,
+                    tajweed_mark: recitation.tajweed_mark,
                 });
             });
             

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\WeeklyExcuse>
  */
-class WeeklyExcuseFactory extends Factory
+class ExcuseFactory extends Factory
 {
     /**
      * Define the model's default state.

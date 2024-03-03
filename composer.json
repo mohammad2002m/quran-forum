@@ -36,6 +36,7 @@
             "app/Helpers/WeekHelpers.php",
             "app/Helpers/PreviousPartHelpers.php",
             "app/Helpers/RecitationHelpers.php",
+            "app/Helpers/ExecuseHelpers.php",
 
             "app/Notifications/CustomPasswordResetNotification.php",
 

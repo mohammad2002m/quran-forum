@@ -58,6 +58,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/recitation/index"> الإشراف </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/monitoring/index"> المتابعة </a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="/report/index"> التقارير  </a>

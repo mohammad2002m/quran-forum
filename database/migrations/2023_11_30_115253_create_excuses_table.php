@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('excuses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table-> id();
+            $table-> timestamps();
             
             $table-> mediumText('excuse') -> nullable(false);
-            $table-> mediumText('notes');
-            $table-> enum('status', ['pending', 'approved', 'rejected']) -> default('pending');
+            $table-> mediumText('notes') -> nullable(true);
+            $table-> enum('status', ['مقبول', 'مرفوض']);
 
             $table-> unsignedBigInteger('user_id') -> nullable(false);
             $table-> unsignedBigInteger('week_id') -> nullable(false);
