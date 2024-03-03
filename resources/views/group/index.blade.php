@@ -28,9 +28,9 @@
             </div>
 
             <div class="mb-3">
-                <div class="table-responsive card mb-0" style="border-bottom: none;">
-                    <table class="table mb-0 table-hover">
-                        <thead>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
                             <tr>
                                 <th> اسم الحلقة </th>
                                 <th> اسم المشرف </th>
@@ -68,9 +68,9 @@
             </div>
 
             <div class="mb-3">
-                <div class="table-responsive card mb-0" style="border-bottom: none;">
-                    <table class="table mb-0 table-hover">
-                        <thead>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
                             <tr>
                                 <th> اسم الطالب </th>
                                 <th> اسم الحلقة </th>
@@ -148,7 +148,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
 
         </div>
@@ -191,11 +190,21 @@
 @section('scripts')
 <script>
     // FIXME fix border color
+    // FIXME fix data to be formatted on the frontend side
     $('.supervisor-select2').select2({
         dropdownParent: $('#add-group-modal'),
         ajax: {
-            url: 'http://localhost:8000/search/supervisors/select2',
-            dataType: 'json'
+            url: 'http://localhost:8000/api/supervisors',
+            dataType: 'json',
+            processResults: function(data) {
+                results = data.results.map((supervisor) => {
+                    return {
+                        id: supervisor.id,
+                        text: supervisor.name
+                    }
+                });
+                return { results: results };
+            }
         }
     });
 

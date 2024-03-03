@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Week;
-use DateInterval;
-use DateTime;
 use Illuminate\Http\Request;
 use QF\Constants as QFConstants;
 use WeekValidators;
@@ -13,11 +11,10 @@ class WeekController extends Controller
 {
     use WeekValidators;
     function edit(Request $request){
-        $currentYear = (new DateTime()) -> format('Y');
         return view('week.edit')
-                -> with('weeksByYear', getYearWeeksMap())
-                -> with('years', getWeeksYears())
-                -> with('currentYear', $currentYear);
+                -> with('weeksByYear', getWeeksByYears())
+                -> with('years', getUsedYears())
+                -> with('currentYear', strval(getCurrentYear()));
     }
     function update(Request $request){
         [$status, $message] = $this -> isValidWeekUpdate($request);
@@ -40,25 +37,18 @@ class WeekController extends Controller
     }
 
     function store(Request $request){
-        // FIXME : not allwoing to add weeks as many as the user wants
-        
         // Add 53 week for 1 year
-        if (Week::exists()){
-            $lastWeek = Week::orderBy('id', 'desc') -> first();
-            
-            $currentYear = intval(date("Y"));
-            $lastWeekYear = intval(date("Y", strtotime($lastWeek -> start_date)));
+        if (!Week::exists()){
+            addFirstWeek();
+        }
 
-            if ($lastWeekYear - $currentYear >= QFConstants::MAX_WEEKS_ALLOWED){
-                return redirect() -> back() -> with('error', 'لا يمكن إضافة المزيد من الأسابيع الآن');
-            }
+        if (lastYearOfAddedWeeks() - getCurrentYear() >= QFConstants::MAX_WEEKS_ALLOWED){
+            return redirect() -> back() -> with('error', 'لا يمكن إضافة المزيد من الأسابيع الآن');
+        }
 
-            addNNextWeeks(QFConstants::NUMBER_OF_WEEKS_TO_ADD_IN_STORE);
-        } else {
-            $lastSequenceNumber = 1;
-            $lastDate = (new DateTime()) -> modify('next saturday') -> setTime(0,0,0);
-            addWeek( $lastSequenceNumber, $lastDate);
-            addNNextWeeks(QFConstants::NUMBER_OF_WEEKS_TO_ADD_IN_STORE - 1);
+        $rep = QFConstants::NUMBER_OF_WEEKS_TO_ADD_IN_STORE;
+        while ($rep--){
+            addNextWeek();
         }
         
         return redirect() -> route(QFConstants::ROUTE_NAME_EDIT_WEEK_PAGE) -> with('success', QFConstants::SUCCESS_MESSAGE_WEEKS_ADDED);

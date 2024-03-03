@@ -1,83 +1,89 @@
 <?php
 
 use App\Models\Week;
+use Carbon\Carbon;
 use QF\Constants as QFConstants;
 
-function getActiveWeeks(){
-
-    $lowerYear = intval(date("Y")) - QFConstants::WEEK_RANGE;
-    $upperYear = intval(date("Y")) + QFConstants::WEEK_RANGE;
-
-    $lowerDate = "$lowerYear-01-01";
-    $upperDate = "$upperYear-01-01";
-
-    $weeks = Week::whereBetween('start_date', [$lowerDate, $upperDate]) -> get();
-    return $weeks;
-}
-
-function getYearWeeksMap(){
+function getWeeksByYears(){
     
-    $weeks = getActiveWeeks();
+    $weeks = Week::all();
 
     $weeksByYear = [];
     foreach ($weeks as $week){
-        $week_year = (new DateTime($week -> start_date)) -> format('Y');
-
-        $end_date = (new DateTime($week -> start_date)) -> add(new DateInterval('P6D')) -> format('Y-m-d');
-        $week -> end_date = $end_date;
-
-        if (!array_key_exists($week_year, $weeksByYear)){
-            $weeksByYear[$week_year] = [$week];
-        } else {
-            array_push($weeksByYear[$week_year], $week);
+        $weekYear = date("Y", strtotime($week -> start_date));
+        if (!array_key_exists($weekYear, $weeksByYear)){
+            $weeksByYear[$weekYear] = [];
         }
+        array_push($weeksByYear[$weekYear], $week);
     }
     return $weeksByYear;
 }
 
-function getWeeksYears(){
-    $weeks = getActiveWeeks();
+function getWeeksByYear($year){
+    $allWeeks = Week::all();
+    $weeks = [];
+    foreach ($allWeeks as $week){
+        $weekYear = date("Y", strtotime($week -> start_date));
+        if ($weekYear === strval($year)){
+            array_push($weeks, $week);
+        }
+    }
+    return $weeks;
+}
+
+function getUsedYears(){
+    $weeks = Week::all();
     $years = [];
     foreach ($weeks as $week){
-        $week_year = (new DateTime($week -> start_date)) -> format('Y');
-        if (!in_array($week_year, $years)){
-            array_push($years, $week_year);
+        $weekYear = intval(date("Y", strtotime($week -> start_date)));
+        if (!in_array($weekYear, $years)){
+            array_push($years, $weekYear);
         }
     }
     return $years;
 }
 
+function addFirstWeek(){
+    $startDate = new DateTime();
+    $startDate -> sub(new DateInterval('P120D'));
+    $startDate = $startDate -> modify('next saturday') -> setTime(0,0,0);
+    addWeekWithStartDate($startDate);
+}
+
+function getCurrentYear(){
+    return intval(date("Y"));
+}
+function lastYearOfAddedWeeks(){
+    $lastWeek = Week::orderBy('id', 'desc') -> first();
+    $lastWeekYear = intval(date("Y", strtotime($lastWeek -> start_date)));
+    return $lastWeekYear;
+}
 
 function addNextWeek(){
     // last added week
     $lastWeek = Week::orderBy('id', 'desc') -> first();
-    
-    $lastDate = (new DateTime($lastWeek -> start_date)) -> setTime(0,0,0);
-    $lastSequenceNumber = $lastWeek -> sequence_number;
-
-    $nextDate = clone $lastDate;
-    $nextDate -> add(new DateInterval('P7D'));
-
-    if ($nextDate -> format('Y') != $lastDate -> format('Y')){
-        $nextSequenceNumber = 1;
-    } else {
-        $nextSequenceNumber = $lastSequenceNumber + 1;
-    }
-
-    addWeek($nextSequenceNumber, $nextDate);
+    $startDate = (new DateTime($lastWeek -> end_date)) -> setTime(0,0,0);
+    $startDate -> add(new DateInterval('P1D'));
+    addWeekWithStartDate($startDate);
 }
 
-function addWeek($sequenceNumber, $startDate){
-    $week = new Week();
-    $week -> sequence_number = $sequenceNumber;
-    $week -> start_date = $startDate -> format('Y-m-d H:i:s');
-    $week -> name = QFConstants::WEEKS_NAMES[$sequenceNumber];
-    $week -> must = true;
+function addWeekWithStartDate($startDate){
+    $weekSequenceNumber = (int) floor((Carbon::parse($startDate) -> dayOfYear / 7) + 1);
+    $weekName = QFConstants::WEEKS_NAMES[$weekSequenceNumber];
+    $endDate = clone $startDate;
+    $endDate -> add(new DateInterval('P6D'));
+
+    $week = Week::create([
+        'start_date' => $startDate -> format('Y-m-d H:i:s'),
+        'end_date' => $endDate -> format('Y-m-d H:i:s'),
+        'name' => $weekName,
+        'must' => true
+    ]);
     $week -> save();
 }
 
-function addNNextWeeks($numberOfWeeks){
-    for ($i = 0; $i < $numberOfWeeks; $i++){
-        addNextWeek();
-    }
+function getCurrentWeek(){
+    $currentDate = date("Y-m-d");
+    $week = Week::whereDate('start_date', '<=', $currentDate) -> whereDate('end_date', '>=', $currentDate) -> first();
+    return $week;
 }

@@ -40,3 +40,9 @@ function getUserWithCredentials(string $email, string $password){
 function getUserByEmail(string $email){
     return User::where('email', $email) -> first();
 }
+
+function getSupervisorStudents(){
+    $supervisor = User::find(auth() -> user() -> id);
+
+    return $supervisor -> group -> students ?? [];
+}

@@ -11,12 +11,16 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecitationController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\WeekController;
+use Illuminate\Support\Facades\Auth;
 use QF\Constants as QFConstants;
+
+use function QF\Utilites\getSupervisorStudents;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,12 +103,15 @@ Route::group([], function () {
         return view('update-user-data.index');
     });
 
-    Route::get('/supervising', function (){
-        return view('supervising.index');
-    });
+       
+    Route::get('/group/index', [GroupController::class, 'index']) -> middleware('auth');
+    Route::post('/group/store', [GroupController::class, 'store']) -> middleware('auth');
 
-    Route::get('/group/index', [GroupController::class, 'index']);
-    Route::post('/group/store', [GroupController::class, 'store']);
+    Route::get('/api/supervisors', [SearchController::class, 'supervisors']) -> middleware('auth');
 
-    Route::get('/search/supervisors/select2', [SearchController::class, 'supervisors']) -> middleware('auth');
+    Route::get('/api/recitations/{year}', [SearchController::class, 'recitationsByYear']) -> middleware('auth');
+    Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear']) -> middleware('auth');
+
+    Route::get('/recitation/index', [RecitationController::class, 'index']) -> name('recitation.index') -> middleware('auth');
+    Route::post('/recitation/update', [RecitationController::class, 'update']) -> middleware('auth');
 });

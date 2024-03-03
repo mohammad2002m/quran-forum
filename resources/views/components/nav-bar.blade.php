@@ -56,7 +56,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/supervising"> الإشراف </a>
+                            <a class="nav-link" href="/recitation/index"> الإشراف </a>
                         </li>
 
                         <li class="nav-item">

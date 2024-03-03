@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use PDO;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
@@ -16,16 +16,18 @@ class SearchController extends Controller
         // FIXME instead put where based on role and gender
         // filter by sent input
 
-        $formatUsersForSelect2 = function($user){
-            $selectOption = [];
-            $selectOption["id"] = $user['id'];
-            $selectOption["text"] = $user['name'];
-            return $selectOption;
-        };
-
-
-        $selectOptions = array_map($formatUsersForSelect2, $supervisors);
-
-        return response() -> json(["results" => $selectOptions]);
+        return response() -> json(["results" => $supervisors]);
     }
+
+    function recitationsByYear(Request $request, $year){
+        $supervisor = Auth::user();
+        $recitations = getRecitationBySupervisorIdAndYear($supervisor -> id, $year);
+        return $recitations;
+    }
+    
+    function weeksByYear(Request $request, $year){
+        $weeks = getWeeksByYear($year);
+        return response() -> json($weeks);
+    }
+
 }
