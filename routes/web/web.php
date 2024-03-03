@@ -14,6 +14,7 @@ use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecitationController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\VerifyEmailController;
@@ -110,13 +111,13 @@ Route::group([], function () {
     Route::post('/group/store', [GroupController::class, 'store']) -> middleware('auth');
 
 
-
+    Route::get('/reports/index', [ReportsController::class, 'index']) -> name('reports.index') -> middleware('auth');
 
     Route::get('/recitation/index', [RecitationController::class, 'index']) -> name('recitation.index') -> middleware('auth');
     Route::post('/recitation/update', [RecitationController::class, 'update']) -> name('recitation.update') -> middleware('auth');
 
     Route::get('/monitoring/index', [MonitoringController::class, 'index']) -> name('monitoring.index') -> middleware('auth');
-    Route::get('/monitoring/update', [MonitoringController::class, 'update']) -> name('monitoring.update') -> middleware('auth');
+    Route::post('/monitoring/update', [MonitoringController::class, 'update']) -> name('monitoring.update') -> middleware('auth');
 
     Route::get('/api/supervisors', [SearchController::class, 'supervisors']) -> middleware('auth');
     Route::get('/api/recitations/{supervisorId}/{year}', [SearchController::class, 'recitationsBySupervisorAndYear']) -> middleware('auth');

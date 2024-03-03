@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Session;
 use LoginValidator;
 use QF\Constants as QFConstants;
 
-use function QF\Utilites\getUserWithCredentials;
 
 // FIXME: Make this Login Controller
 class LoginController extends Controller

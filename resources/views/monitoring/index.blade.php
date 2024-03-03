@@ -73,9 +73,9 @@
             </div>
 
             <div class="card-footer text-end">
-                <form class="mb-0" action="/recitation/update" method="post">
+                <form class="mb-0" action="/monitoring/update" method="post" onsubmit="return submitExcuses()">
                     @csrf
-                    <input type="text" id="new-recitations" name="new_excuses" hidden>
+                    <input type="text" id="new-excuses" name="new_excuses" hidden>
                     <button type="submit" class="btn btn-primary"> حفظ </button>
                 </form>
             </div>
@@ -117,12 +117,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="notes" class="col-form-label"> ملاحظات </label>
-                        <input type="text" class="form-control text-start" id="notes">
+                        <input type="text" class="form-control text-start" id="excuse-notes">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق </button>
-                    <button type="button" class="btn btn-primary" onclick="saveRecitation()"> حفظ </button>
+                    <button type="button" class="btn btn-primary" onclick="saveExcuse()"> حفظ </button>
                 </div>
             </div>
         </div>
@@ -163,63 +163,9 @@
 
         var excuses = @php echo json_encode($excuses); @endphp;
 
-        var changedexcuses = [];
+        var changedExcuses = [];
     </script>
     <script>
-        /*
-
-
-                                    function saveRecitation() {
-                                        id = document.getElementById('recitation-id').value;
-                                        studentName = document.getElementById('student-name').value;
-                                        memorizedPages = document.getElementById('memorized-pages').value;
-                                        repeatedPages = document.getElementById('repeated-pages').value;
-                                        memorizationMark = document.getElementById('memorization-mark').value;
-                                        tajweedMark = document.getElementById('tajweed-mark').value;
-
-                                        if (isNullOrEmtpy(memorizedPages) || isNullOrEmtpy(repeatedPages) || isNullOrEmtpy(memorizationMark) ||
-                                            isNullOrEmtpy(tajweedMark)) {
-                                            alert('يجب ملئ جميع الحقول');
-                                            return;
-                                        }
-
-                                        changedRecitations.push(parseInt(id));
-
-                                        recitations = recitations.map((recitation) => {
-                                            if (recitation.id === parseInt(id)) {
-                                                recitation.recitation.memorized_pages = parseInt(memorizedPages);
-                                                recitation.recitation.repeated_pages = parseInt(repeatedPages);
-                                                recitation.recitation.memorization_mark = parseInt(memorizationMark);
-                                                recitation.recitation.tajweed_mark = parseInt(tajweedMark);
-                                            }
-                                            return recitation;
-                                        });
-
-                                        $('#editRecitationModal').modal('hide');
-                                        render();
-                                    }
-
-                                    function submitRecitations() {
-                                        recitationChanges = [];
-                                        changedRecitations.forEach((id) => {
-                                            recitation = recitations.find(recitation => recitation.id === id);
-                                            recitationChanges.push({
-                                                id: recitation.recitation.id,
-                                                user: recitation.recitation.user,
-                                                week: recitation.recitation.week,
-                                                memorized_pages: recitation.recitation.memorized_pages,
-                                                repeated_pages: recitation.recitation.repeated_pages,
-                                                memorization_mark: recitation.recitation.memorization_mark,
-                                                tajweed_mark: recitation.recitation.tajweed_mark,
-                                            });
-                                        });
-
-                                        document.getElementById('new-recitations').value = JSON.stringify(recitationChanges);
-                                    }
-
-                                    // on doucment 
-                                    */
-
         function editExcuse(key) {
             var excuse = excuses.find(excuse => excuse.key === key);
             document.getElementById('excuse-key').value = excuse.key;
@@ -227,6 +173,7 @@
             document.getElementById('supervisor-name').value = excuse.user.supervisor.name;
             document.getElementById('student-status').value = excuse.user.status;
             document.getElementById('student-excuse').value = excuse.excuse;
+            document.getElementById('excuse-notes').value = excuse.notes;
         }
 
         function processExcuses() {
@@ -282,6 +229,51 @@
             });
         }
 
+        function saveExcuse() {
+            key = document.getElementById('excuse-key').value;
+            excuseExcuse = document.getElementById('student-excuse').value;
+            excuseStatus = document.getElementById('excuse-status').value;
+            excuseNotes = document.getElementById('excuse-notes').value;
+
+            if (isNullOrEmtpy(excuseExcuse) || isNullOrEmtpy(excuseStatus) || isNullOrEmtpy(excuseNotes)) {
+                alert('يجب ملئ جميع الحقول');
+                return;
+            }
+
+            changedExcuses.push(parseInt(key));
+
+            excuses = excuses.map((excuse) => {
+                // console.log(excuse);
+                if (excuse.key === parseInt(key)) {
+                    excuse.notes = excuseNotes;
+                    excuse.status = excuseStatus;
+                    excuse.excuse = excuseExcuse;
+                }
+                return excuse;
+            });
+
+            $('#editExcuseModal').modal('hide');
+            render();
+        }
+
+        function submitRecitations() {
+            recitationChanges = [];
+            changedRecitations.forEach((id) => {
+                recitation = recitations.find(recitation => recitation.id === id);
+                recitationChanges.push({
+                    id: recitation.recitation.id,
+                    user: recitation.recitation.user,
+                    week: recitation.recitation.week,
+                    memorized_pages: recitation.recitation.memorized_pages,
+                    repeated_pages: recitation.recitation.repeated_pages,
+                    memorization_mark: recitation.recitation.memorization_mark,
+                    tajweed_mark: recitation.recitation.tajweed_mark,
+                });
+            });
+
+            document.getElementById('new-recitations').value = JSON.stringify(recitationChanges);
+        }
+
         function updateNewWeeks() {
             $('#weeks-select2').html('').select2({
                 data: weeks.map(week => {
@@ -299,7 +291,7 @@
             var dataExcuses = await fetch('http://localhost:8000/api/excuses/' + userId.toString() + '/' + year
                 .toString());
             var newExcuses = await dataExcuses.json();
-            
+
             excuses = newExcuses;
             weeks = newWeeks;
         }
@@ -317,13 +309,28 @@
         }
         async function fetchAndSetup() {
             changedexcuses = [];
-
             var year = getCurrentSelectedYear();
             await fetchAndUpdateNewData(year);
             processExcuses();
             updateNewWeeks();
             selectDefaultWeek();
             render();
+        }
+
+        function submitExcuses() {
+            execuseChanges = [];
+            changedExcuses.forEach((key) => {
+                excuse = excuses.find(excuse => excuse.key === key);
+                execuseChanges.push({
+                    id: excuse.id,
+                    user: excuse.user,
+                    week: excuse.week,
+                    excuse: excuse.excuse,
+                    status: excuse.status,
+                    notes: excuse.notes,
+                });
+            }) 
+            document.getElementById('new-excuses').value = JSON.stringify(execuseChanges);
         }
         $(document).ready(function() {
             $('#years-select2').select2();
