@@ -4,4 +4,5 @@ FIXME: containers top margin consistency
 FIXME: use triple equal everywhere
 FIXME: fix error validation statues to be 'error' or 'success' 
 FIXME: add unique constraints
+FIXME: add required star for required input field
 

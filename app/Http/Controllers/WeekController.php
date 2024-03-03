@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Week;
-use DateInterval;
-use DateTime;
 use Illuminate\Http\Request;
 use QF\Constants as QFConstants;
 use WeekValidators;
@@ -15,7 +13,7 @@ class WeekController extends Controller
     function edit(Request $request){
         return view('week.edit')
                 -> with('weeksByYear', getWeeksByYears())
-                -> with('years', getWeeksYears())
+                -> with('years', getUsedYears())
                 -> with('currentYear', strval(getCurrentYear()));
     }
     function update(Request $request){

@@ -35,14 +35,13 @@
 
                 <div class="mb-3">
                     <!-- Just to store the weeks from backend so that I can access them via js -->
-                    <input id="years" type="text" value="{{ json_encode($years) }}" hidden>
-                    <input id="weeks" type="text" value="{{ json_encode($weeksByYear) }}" hidden>
 
 
 
-                    <div class="table-responsive card" style="border-bottom: none;">
-                        <table id="weeks-tbl" class="table table-hover mb-0" style="transition: 1s;">
-                            <thead>
+
+                    <div class="table-responsive" style="border-bottom: none;">
+                        <table id="weeks-tbl" class="table table-bordered mb-0" style="transition: 1s;">
+                            <thead class="table-light">
                                 <tr>
                                     <th name="name" class="text-start"> اسم الأسبوع </th>
                                     <th name="position" class="text-start"> بداية الأسبوع </th>
@@ -97,8 +96,8 @@
         }
     </script>
     <script>
-        var years = JSON.parse($('#years').val());
-        var weeksByYear = JSON.parse($('#weeks').val());
+        var years = @php echo json_encode($years); @endphp;
+        var weeksByYear = @php echo json_encode($weeksByYear); @endphp;
 
         weeksNamesChanges = {};
         weeksMustsChanges = {};

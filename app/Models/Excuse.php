@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WeeklyRecitation extends Model
+class Excuse extends Model
 {
     use HasFactory;
 }

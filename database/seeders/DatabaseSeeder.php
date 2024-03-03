@@ -10,8 +10,9 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\AnnouncementType;
 use App\Models\College;
+use App\Models\Group;
 use App\Models\Image;
-use App\Models\Week;
+use App\Models\Recitation;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use QF\Constants as QFConstants;
@@ -27,13 +28,39 @@ class DatabaseSeeder extends Seeder
         DatabaseSeeder::seedActivites();
         DatabaseSeeder::seedImages();
         DatabaseSeeder::seedWeeks();
-        // DatabaseSeeder::seedAccomplishments();
         DatabaseSeeder::seedColleges();
         DatabaseSeeder::seedRoles();
+        DatabaseSeeder::seedGroups();
         DatabaseSeeder::seedUsers();
         DatabaseSeeder::seedAnnouncementTypes();
+        DatabaseSeeder::seedRecitation();
+    }
+    function seedGroups(){
+        for ($rep = 1; $rep <= 20; $rep++){
+            Group::factory() -> create([
+                'name' => 'مجموعة ' . strval($rep),
+            ]);
+        }
+    }
+    public static function seedRecitation(){
+        for ($rep = 1; $rep <= 200; $rep++){
+            Recitation::factory() -> create([
+                'user_id' => ($rep % 100) + 1,
+                'week_id' => rand(1, 10),
+                'memorized_pages' => rand(1, 20),
+                'repeated_pages' => rand(1, 20),
+                'tajweed_mark' => rand(1, 10),
+                'memorization_mark' => rand(1, 10),
+                'notes' => ''
+            ]);
+        }
     }
     public static function seedWeeks(){
+        addFirstWeek();
+        $rep = 60;
+        while($rep--){
+            addNextWeek();
+        }
     }
     public static function seedImages(){
         $doesntExist = [86, 97, 105, 138, 148, 150, 205, 207, 224, 226, 245, 246, 262, 285, 286, 298, 303, 332, 333, 346, 359, 394, 414, 422, 438, 462, 463, 470, 489, 540, 561, 578, 587, 589, 592, 595, 597, 601, 624, 632, 636, 644, 647, 673, 697, 706, 707, 708, 709, 710, 711, 712, 713, 714, 720, 725, 734, 745, 746, 747, 748, 749, 750, 751, 752, 753, 754, 759, 761, 762, 763, 771, 792, 801, 812, 843, 850, 854, 895, 897, 899, 917, 920, 934, 956, 963, 968];
@@ -135,53 +162,13 @@ class DatabaseSeeder extends Seeder
         $schedules = QFQuestionsAnswers::WhatIsYourSchedule ;
         $majorityFalse = [true, false , false , false , false , false , false, false, false, false];
         $canBeTeacher = [true, false];
-        $rolesCount = [
-            1 => 0,
-            2 => 0,
-            3 => 0,
-            4 => 0,
-            5 => 0,
-            6 => 0,
-            7 => 0,
-            8 => 0,
-            9 => 0,
-            10 => 0,
-            11 => 0,
-            12 => 0,
-            13 => 0,
-            14 => 0,
-            15 => 0,
-            16 => 0,
-        ];
-        $roleNamesEnglish = [
-            1 => 'HEAD',
-            2 => 'VICE_HEAD',
-            3 => 'STUDENT',
-            4 => 'SUPERVISOR',
-            5 => 'STUDENTS_MANAGER',
-            6 => 'MEDIA_COMMITTE_MEMBER',
-            7 => 'DATA_COMMITTE_MEMBER',
-            8 => 'RAQABA',
-            9 => 'SECRETARY_GENERAL',
-            10 => 'TREASURER',
-            11 => 'EXAMINING_COMMITTE_MEMBER',
-            12 => 'TAJWEED_COMMITTE_MEMBER',
-            13 => 'MONITORING_COMMITTE_MEMBER',
-            14 => 'EXAMINING_COMMITTE_MANAGER',
-            15 => 'TAJWEED_COMMITTE_MANAGER',
-            16 => 'MONITORING_COMMITTE_MANAGER',
-        ];
-        $rep = 100;
-        while ($rep--){
+        for ($rep = 1; $rep <= 100; $rep++){
             $num = rand(0, 1);
             $firstName = $num == 0 ? DatabaseSeeder::getRandomMaleName() : DatabaseSeeder::getRandomFemaleName();
             $name = $firstName . ' ' . DatabaseSeeder::getRandomMaleName() . ' ' . DatabaseSeeder::getRandomMaleName();
             
             $role = rand(1, 15);
-            $rolesCount[$role]++;
-            $email = $roleNamesEnglish[$role] . $rolesCount[$role] . '@gmail.com';
-            // make email lowercase
-            $email = strtolower($email);
+            $email = 'test' . strval($rep) . '@gmail.com';
 
             $user = User::factory()->create([
                 'name' => $name,
@@ -197,10 +184,17 @@ class DatabaseSeeder extends Seeder
                 'college_id' => rand(1, 10),
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'phone_number' => '0569' . strval(rand(99999, 999999)),
+                'group_id' => strval((($rep - 1) % 20) + 1),
             ]);
 
             $user -> roles() -> attach($role);
             $user -> roles() -> attach(QFConstants::ROLE_STUDENT);
+        }
+        
+        for ($rep = 0; $rep < Group::all() -> count(); $rep++){
+            $group = Group::all()[$rep];
+            $group -> supervisor_id = $rep + 1;
+            $group -> save();
         }
     }
     public static function seedAnnouncementTypes()
