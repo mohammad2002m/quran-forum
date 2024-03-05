@@ -112,6 +112,7 @@ Route::group([], function () {
 
 
     Route::get('/reports/index', [ReportsController::class, 'index']) -> name('reports.index') -> middleware('auth');
+    Route::get('api/reports/{weekId}/{gender}', [ReportsController::class, 'getReport']) -> name('reports.report') -> middleware('auth');
 
     Route::get('/recitation/index', [RecitationController::class, 'index']) -> name('recitation.index') -> middleware('auth');
     Route::post('/recitation/update', [RecitationController::class, 'update']) -> name('recitation.update') -> middleware('auth');

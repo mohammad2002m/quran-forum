@@ -187,12 +187,12 @@
 
             weeks.forEach((week) => {
                 students.forEach(student => {
-                    var hasexcuse = excuses.find(excuse => {
+                    var hasExcuse = excuses.find(excuse => {
                         return excuse.week.id === week.id && excuse
                             .user.id === student.id;
                     });
 
-                    if (!hasexcuse) {
+                    if (!hasExcuse) {
                         excuses.push({
                             key: key++,
                             id: null,
@@ -254,24 +254,6 @@
 
             $('#editExcuseModal').modal('hide');
             render();
-        }
-
-        function submitRecitations() {
-            recitationChanges = [];
-            changedRecitations.forEach((id) => {
-                recitation = recitations.find(recitation => recitation.id === id);
-                recitationChanges.push({
-                    id: recitation.recitation.id,
-                    user: recitation.recitation.user,
-                    week: recitation.recitation.week,
-                    memorized_pages: recitation.recitation.memorized_pages,
-                    repeated_pages: recitation.recitation.repeated_pages,
-                    memorization_mark: recitation.recitation.memorization_mark,
-                    tajweed_mark: recitation.recitation.tajweed_mark,
-                });
-            });
-
-            document.getElementById('new-recitations').value = JSON.stringify(recitationChanges);
         }
 
         function updateNewWeeks() {
@@ -336,6 +318,7 @@
             $('#years-select2').select2();
             $('#weeks-select2').select2();
             processExcuses();
+            console.log(excuses)
             render();
         });
     </script>

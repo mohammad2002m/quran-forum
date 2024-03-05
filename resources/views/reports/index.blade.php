@@ -11,13 +11,162 @@
             </div>
             <div class="card-body">
 
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="year" class="mb-1"> السنة </label>
+                                <select id="years-select2" name="year" class="form-select" onchange="fetchAndSetup()">
+                                    @foreach ($years as $year)
+                                        <option value="{{ $year }}" {{ $year === $currentYear ? 'selected' : '' }}>
+                                            {{ $year }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="week" class="mb-1"> الأسبوع </label>
+                                <select name="week" id="weeks-select2" class="form-select">
+                                    @foreach ($weeks as $week)
+                                        <option value="{{ $week->id }}"
+                                            {{ $week->id === $currentWeek->id ? 'selected' : '' }}> {{ $week->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="gender" class="mb-1"> الجنس </label>
+                                <select name="gender" id="gender-select2" class="form-select">
+                                    <option value="male"> تقرير الذكور </option>
+                                    <option value="female"> تقرير الإناث </option>
+                                    <option value="all"> تقرير الكل </option>
+                                </select>
+                            </div>
+                        </div>
 
-                
+                    </div>
+                </div>
 
+                <div>
+                    <button class="btn btn-primary" onclick="getReport()"> عرض التقرير </button>
+                </div>
+
+                <div id="view">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td> الاسم </td>
+                                <td> المشرف</td>
+                                <td> الحلقة</td>
+                                <td> حالة الطالب </td>
+                                <td> صفحات الحفظ </td>
+                                <td> صفحات التثبيت </td>
+                                <td> علامة الحفظ </td>
+                                <td> علامة التجويد </td>
+                                <td> النقاط </td>
+                            </tr>
+                        </thead>
+                        <tbody id="report-tbl-body"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('scripts')
+    <script>
+        function getWeekYear(week) {
+            return new Date(week.start_date).getFullYear();
+        }
+
+        function getCurrentSelectedWeek() {
+            return parseInt(document.getElementById('weeks-select2').value);
+        }
+
+        function getCurrentSelectedYear() {
+            return parseInt(document.getElementById('years-select2').value);
+        }
+
+        function getCurrentSelectedGender() {
+            return document.getElementById('gender-select2').value;
+        }
+    </script>
+    <script>
+        var userId = @php echo json_encode(Auth::user() -> id); @endphp;
+        var years = @php echo json_encode($years); @endphp;
+        var currentWeek = @php echo json_encode($currentWeek); @endphp;
+        var weeks = @php echo json_encode($weeks); @endphp;
+    </script>
+    <script>
+        function updateNewWeeks() {
+            $('#weeks-select2').html('').select2({
+                data: weeks.map(week => {
+                    return {
+                        id: week.id,
+                        text: week.name,
+                    };
+                })
+            });
+        }
+
+        async function fetchNewData(year) {
+            // FIXME needs error handeling
+            var weeksURL = 'http://localhost:8000/api/weeks/' + year.toString();
+            var data = await fetch(weeksURL);
+            var newWeeks = await data.json()
+            weeks = newWeeks;
+        }
+
+        function selectDefaultWeek() {
+            var currentWeekIncluded = weeks.some((week) => {
+                return week.id === currentWeek.id;
+            });
+            if (currentWeekIncluded) {
+                $('#weeks-select2').val(currentWeek.id.toString()).trigger('change');
+            } else if (weeks.length) {
+                $('#weeks-select2').val(weeks[0].id.toString()).trigger('change');
+            }
+        }
+
+        async function fetchAndSetup() {
+            var year = getCurrentSelectedYear();
+            await fetchNewData(year);
+            updateNewWeeks();
+            selectDefaultWeek();
+        }
+
+        async function getReport() {
+            var url = 'http://localhost:8000/api/reports/' +
+                getCurrentSelectedWeek().toString() + '/' +
+                getCurrentSelectedGender().toString();
+
+            var res = await fetch(url);
+            var data = await res.json();
+
+            // document.getElementById('view').innerHTML = data.toString();
+            var tblBody = document.getElementById('report-tbl-body');
+            tblBody.innerHTML = '';
+            
+            data.forEach((rowData) => {
+                var row = document.createElement('tr');
+                rowData.forEach((data) => {
+                    var cell = document.createElement('td');
+                    cell.innerText = data;
+                    row.appendChild(cell);
+                });
+                tblBody.appendChild(row);
+            })
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#years-select2').select2();
+            $('#weeks-select2').select2();
+            $('#gender-select2').select2();
+        });
+    </script>
 @endsection

@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Recitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use QFLogger;
 
 class RecitationController extends Controller
 {
     function index(){
         return view('recitation.index')  -> with([
-            'students'=> getSupervisorStudents(),
+            'students'=> getSupervisorStudents(Auth::user() -> id),
             'years' => getUsedYears(),
             'currentYear' => getCurrentYear(),
             'currentWeek' => getCurrentWeek(),
@@ -25,7 +26,16 @@ class RecitationController extends Controller
         
         foreach ($recitations as $recitation) {
             if ($recitation -> id == null){
-                $recitation = Recitation::create([
+                $oldRecitation = Recitation::where([
+                    'week_id' => $recitation -> week -> id,
+                    'user_id' => $recitation -> user -> id,
+                ]);
+
+                if ($oldRecitation -> exists()){
+                    QFLogger::error("found another recitation for user in same week", $oldRecitation);
+                    $oldRecitation -> delete();
+                }
+                Recitation::create([
                     'week_id' => $recitation -> week -> id,
                     'user_id' => $recitation -> user -> id,
                     'memorized_pages' => $recitation -> memorized_pages,
@@ -35,6 +45,7 @@ class RecitationController extends Controller
                     'notes' => ''
                 ]);
             } else {
+                dd("test2");
                 $recitation = Recitation::find($recitation -> id);
                 $recitation -> memorized_pages = $recitation -> memorized_pages;
                 $recitation -> repeated_pages = $recitation -> repeated_pages;

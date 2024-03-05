@@ -58,6 +58,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this -> belongsTo(Group::class);
     }
+    function monitoring_groups(){
+        return $this -> hasMany(Group::class, 'monitor_id');
+    }
     function cover_image(){
         return $this -> hasOne(Image::class, 'id', 'cover_image_id');
     }

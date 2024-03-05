@@ -1,9 +1,19 @@
 <?php 
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use QF\Constants;
+
+function isStudent($userId){
+    $user = User::find($userId);
+    $roles = $user -> roles;
+    foreach ($roles as $role){
+        if ($role -> id === Constants::ROLE_STUDENT){
+            return true;
+        }
+    }
+    return false;
+}
 
 function getUserPermissions(int $user_id){
     $user = User::find($user_id);
@@ -40,7 +50,29 @@ function getUserByEmail(string $email){
     return User::where('email', $email) -> first();
 }
 
-function getSupervisorStudents(){
-    $supervisor = User::find(Auth::user() -> id) -> with(['group.students.group', 'group.students.supervisor']) -> first();
+function getSupervisorStudents($userId){
+    $supervisor = User::find($userId);
     return $supervisor -> group -> students ?? [];
+}
+
+function getMonitorStudents($userId){
+    $monitor = User::find($userId);
+    $students = [];
+    foreach ($monitor -> monitoring_groups as $group){
+        $groupStudents = $group -> students; 
+        $groupStudents = $groupStudents -> load('supervisor'); //eager load
+        foreach ($groupStudents as $groupStudent){
+            $exist = false;
+            foreach ($students as $student){
+                if ($student -> id === $groupStudent -> id){
+                    $exist = true;
+                    break;
+                }
+            }
+            if (!$exist){
+                array_push($students, $groupStudent);
+            }
+        }
+    }
+    return $students;
 }

@@ -53,6 +53,7 @@
                     <table class="table table-bordered">
                         <thead class="table-light">
                             <tr>
+                                <th> الرقم </th>
                                 <th> الطالب </th>
                                 <th> النقاط </th>
                                 <th> صفحات الحفظ </th>
@@ -67,13 +68,15 @@
                     </table>
 
                 </div>
+
+                <div> {{ $currentWeek->id }} </div>
             </div>
 
             <div class="card-footer text-end">
                 <form class="mb-0" action="/recitation/update" method="post" onsubmit="return submitRecitations()">
                     @csrf
                     <input type="text" id="new-recitations" name="new_recitations" hidden>
-                    <button type="submit" class="btn btn-primary" > حفظ </button>
+                    <button type="submit" class="btn btn-primary"> حفظ </button>
                 </form>
             </div>
 
@@ -88,32 +91,32 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <input type="text" class="form-control" id="recitation-key" hidden>
-                        <div class="mb-3">
-                            <label for="student-name" class="col-form-label"> الطالب </label>
-                            <input type="text" class="form-control" id="student-name" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="memorized-pages" class="col-form-label"> صفحات الحفظ </label>
-                            <input type="number" class="form-control text-start" id="memorized-pages" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="repeated-pages" class="col-form-label"> صفحات التثبيت </label>
-                            <input type="number" class="form-control text-start" id="repeated-pages" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="memorization-mark" class="col-form-label"> علامة الحفظ </label>
-                            <input type="number" class="form-control text-start" id="memorization-mark" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="tajweed-mark" class="col-form-label"> علامة التجويد </label>
-                            <input type="number" class="form-control text-start" id="tajweed-mark" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="tajweed-mark" class="col-form-label"> جزء جديد </label>
-                            <input type="number" class="form-control text-start" id="new-part">
-                            <div> في حال قام الطلاب بإنهاء جزء جديد قم بإدخال رقم الجزء </div>
-                        </div>
+                    <input type="text" class="form-control" id="recitation-key" hidden>
+                    <div class="mb-3">
+                        <label for="student-name" class="col-form-label"> الطالب </label>
+                        <input type="text" class="form-control" id="student-name" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="memorized-pages" class="col-form-label"> صفحات الحفظ </label>
+                        <input type="number" class="form-control text-start" id="memorized-pages">
+                    </div>
+                    <div class="mb-3">
+                        <label for="repeated-pages" class="col-form-label"> صفحات التثبيت </label>
+                        <input type="number" class="form-control text-start" id="repeated-pages">
+                    </div>
+                    <div class="mb-3">
+                        <label for="memorization-mark" class="col-form-label"> علامة الحفظ </label>
+                        <input type="number" class="form-control text-start" id="memorization-mark">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tajweed-mark" class="col-form-label"> علامة التجويد </label>
+                        <input type="number" class="form-control text-start" id="tajweed-mark">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tajweed-mark" class="col-form-label"> جزء جديد </label>
+                        <input type="number" class="form-control text-start" id="new-part">
+                        <div> في حال قام الطلاب بإنهاء جزء جديد قم بإدخال رقم الجزء </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق </button>
@@ -126,9 +129,10 @@
 
 @section('scripts')
     <script>
-        function isNullOrEmtpy(val){
+        function isNullOrEmtpy(val) {
             return val === null || val === '';
         }
+
         function getWeekYear(week) {
             return new Date(week.start_date).getFullYear();
         }
@@ -178,7 +182,7 @@
                     key: key++,
                     ...recitation,
                 }
-            }) 
+            })
             weeks.forEach((week) => {
                 students.forEach(student => {
                     var hasRecitation = recitations.find(recitation => {
@@ -208,7 +212,7 @@
 
             var dataWeeks = await fetch(weeksURL);
             var newWeeks = await dataWeeks.json()
-            
+
             var dataRecitations = await fetch(recitaionURL);
             var newRecitations = await dataRecitations.json();
 
@@ -247,6 +251,7 @@
             currentRecitations.forEach(recitation => {
                 tableBody.innerHTML += `
                     <tr>
+                        <td class="line"> ${recitation.user.id} </td>
                         <td class="line"> ${recitation.user.name} </td>
                         <td class="text-center">
                              ${recitation.memorized_pages && recitation.repeated_pages ?
@@ -307,7 +312,7 @@
             `;
         }
 
-        function editRecitation(key){
+        function editRecitation(key) {
             var recitation = recitations.find(recitation => recitation.key === key);
             document.getElementById('recitation-key').value = recitation.key;
             document.getElementById('student-name').value = recitation.user.name;
@@ -317,7 +322,7 @@
             document.getElementById('tajweed-mark').value = recitation.tajweed_mark;
         }
 
-        function saveRecitation(){
+        function saveRecitation() {
             key = document.getElementById('recitation-key').value;
             studentName = document.getElementById('student-name').value;
             memorizedPages = document.getElementById('memorized-pages').value;
@@ -325,9 +330,10 @@
             memorizationMark = document.getElementById('memorization-mark').value;
             tajweedMark = document.getElementById('tajweed-mark').value;
 
-            if (isNullOrEmtpy(memorizedPages) || isNullOrEmtpy(repeatedPages) || isNullOrEmtpy(memorizationMark) || isNullOrEmtpy(tajweedMark)) {
+            if (isNullOrEmtpy(memorizedPages) || isNullOrEmtpy(repeatedPages) || isNullOrEmtpy(memorizationMark) ||
+                isNullOrEmtpy(tajweedMark)) {
                 alert('يجب ملئ جميع الحقول');
-                return ;
+                return;
             }
 
             changedRecitations.push(parseInt(key));
@@ -347,7 +353,7 @@
             render();
         }
 
-        function submitRecitations(){
+        function submitRecitations() {
             recitationChanges = [];
             changedRecitations.forEach((key) => {
                 recitation = recitations.find(recitation => recitation.key === key);
@@ -361,7 +367,7 @@
                     tajweed_mark: recitation.tajweed_mark,
                 });
             });
-            
+
             document.getElementById('new-recitations').value = JSON.stringify(recitationChanges);
         }
 
@@ -369,6 +375,8 @@
         $(document).ready(function() {
             $('#years-select2').select2();
             $('#weeks-select2').select2();
+            console.log(recitations);
+            console.log(userId);
             processRecitations();
             render();
         });

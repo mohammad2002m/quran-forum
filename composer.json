@@ -47,7 +47,8 @@
             "app/Validators/VerifyEmailValidator.php",
             "app/Validators/GroupValidator.php",
 
-            "app/Constants/Constants.php"
+            "app/Constants/Constants.php",
+            "app/Logger/Logger.php"
         ]
     },
     "autoload-dev": {
