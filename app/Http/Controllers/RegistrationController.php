@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use QF\Constants as QFConstants;
+use QF\QuestionsAnswers;
 use RegistrationValidators;
 
 class RegistrationController extends Controller
@@ -17,7 +18,12 @@ class RegistrationController extends Controller
         return view('registration.guide');
     }
     function registerStudent(){
-        return view('registration.student') -> with('colleges' , College::all());
+        return view('registration.student')
+         -> with([
+            'colleges' => College::all(),
+            'years' => QuestionsAnswers::WhatIsYourStudyYear,
+            'schedules' => QuestionsAnswers::WhatIsYourSchedule,
+        ]);
     }
     function registerVolunteer(){
         return view('registration.volunteer');
@@ -26,7 +32,7 @@ class RegistrationController extends Controller
     function registerStudentSubmit(Request $request){
         [$status, $message] = $this->isValidRegisterStudentSubmit($request);
         if ($status === 'failed'){
-            return redirect() -> back() -> with('error', $message);
+            return redirect() -> back() -> withInput() -> with('error', $message);
         }
 
         $user = User::create([
@@ -40,18 +46,18 @@ class RegistrationController extends Controller
             'schedule' => $request -> schedule,
             'email_verified_at' => null,
             'locked' => false,
-            'first_login' => true,
             'group_id' => null,
-            'status' => 'active',
+            'status' => QFConstants::STUDENT_STATUS_ACTIVE,
             'can_be_teacher' => false,
             'tajweed_certificate' => false,
+            'force_information_update' => false,
         ]);
 
         $user -> save();
 
         $user -> roles() -> attach(QFConstants::ROLE_STUDENT);
         
-        $user -> previous_parts() -> saveMany(getPreviousParts($request -> previous_parts, $user -> id));
+        $user -> previous_parts() -> saveMany(getPreviousParts($request -> previous_parts ?? [], $user -> id));
 
         // FIXME: add exams to the table
 

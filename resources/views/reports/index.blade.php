@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('head')
+    <style>
+        td,
+        th {
+            white-space: nowrap;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -10,9 +16,13 @@
                 <h5> التقارير</h5>
             </div>
             <div class="card-body">
-
+                <div class="mb-3 d-flex justify-content-between">
+                    <h5> التقرير الأسبوعي </h5>
+                    <div>
+                        <button class="btn btn-primary" onclick="getReport()"> عرض التقرير </button>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="year" class="mb-1"> السنة </label>
@@ -47,17 +57,15 @@
                             </div>
                         </div>
 
-                    </div>
                 </div>
 
-                <div>
-                    <button class="btn btn-primary" onclick="getReport()"> عرض التقرير </button>
-                </div>
 
-                <div id="view">
+
+                <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <td> رقم </td>
                                 <td> الاسم </td>
                                 <td> المشرف</td>
                                 <td> الحلقة</td>
@@ -71,6 +79,7 @@
                         </thead>
                         <tbody id="report-tbl-body"></tbody>
                     </table>
+
                 </div>
             </div>
         </div>
@@ -147,10 +156,9 @@
             var res = await fetch(url);
             var data = await res.json();
 
-            // document.getElementById('view').innerHTML = data.toString();
             var tblBody = document.getElementById('report-tbl-body');
             tblBody.innerHTML = '';
-            
+
             data.forEach((rowData) => {
                 var row = document.createElement('tr');
                 rowData.forEach((data) => {

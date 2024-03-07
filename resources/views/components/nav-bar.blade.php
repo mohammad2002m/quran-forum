@@ -66,7 +66,7 @@
                             <a class="nav-link" href="/reports/index"> التقارير  </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> الأرشيف </a>
+                            <a class="nav-link" href="/announcement/archived/index"> الأرشيف </a>
                         </li>
                     </ul>
 
@@ -97,9 +97,8 @@
                             <a class="nav-link" href="/"> الصفحة الرئيسية </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> الأرشيف </a>
+                            <a class="nav-link" href="/announcement/archived/index"> الأرشيف </a>
                         </li>
-                        
                     </ul>
 
                     <div class="d-flex gap-2">

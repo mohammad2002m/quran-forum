@@ -53,7 +53,6 @@
                     <table class="table table-bordered">
                         <thead class="table-light">
                             <tr>
-                                <th> الرقم </th>
                                 <th> الطالب </th>
                                 <th> النقاط </th>
                                 <th> صفحات الحفظ </th>
@@ -68,8 +67,6 @@
                     </table>
 
                 </div>
-
-                <div> {{ $currentWeek->id }} </div>
             </div>
 
             <div class="card-footer text-end">

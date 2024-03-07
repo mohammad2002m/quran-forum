@@ -4,33 +4,6 @@
     <title> الرسائل </title>
     <!-- FIXME: include only the one the is needed -->
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
-    <style>
-        .table-inbox {
-            margin-bottom: 0;
-        }
-
-        .table-inbox tr td {
-            padding: 12px !important;
-        }
-
-        .table-inbox tr td:hover {
-            cursor: pointer;
-        }
-
-        .table-inbox tr td .fa-star.inbox-started,
-        .table-inbox tr td .fa-star:hover {
-            color: #f78a09;
-        }
-
-        .table-inbox tr td .fa-star {
-            color: #d5d5d5;
-        }
-
-        .table-inbox tr.unread td {
-            background: none repeat scroll 0 0 #f7f7f7;
-            font-weight: 600;
-        }
-    </style>
 @endsection
 
 
@@ -47,37 +20,37 @@
                 </div>
 
                 
-                <div class="table-responsive card" style="border-bottom: none;">
-                    <table class="table table-inbox table-hover">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th></th>
+                                <th> المرسل </th>
+                                <th> الرسالة </th>
+                                <th></th>
+                                <th> التاريخ </th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr class="unread">
-                                <td class="inbox-small-cells">
-                                    <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td> <div class="pt-1"> <i class="fa fa-star"></i> </div></td>
+                                <td class="text-center"> <input type="checkbox" class="form-check-input"> </td>
                                 <td> لجنة المتابعة </td>
                                 <td class="no-wrap"> لقد تم تجميدك بسبب عدم تسميعك 3 مرات بشكل متتالي </td>
-                                <td><div class="pt-1"><i class="fa fa-paperclip"></i></div> </td>
+                                <td class="text-center"><div class="pt-1"><i class="fa fa-paperclip"></i></div> </td>
                                 <td class="text-right"> 9 أيلول 2023</td>
                             </tr>
                             <tr>
-                                <td class="inbox-small-cells">
-                                    <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td> <div class="pt-1"> <i class="fa fa-star"></i> </div></td>
+                                <td class="text-center"> <input type="checkbox" class="form-check-input"> </td>
                                 <td> الرئيس </td>
                                 <td> لقد تم تعيينك كمشرف على حلقة نور الرحمن </td>
-                                <td><div class="pt-1"><i class="fa fa-paperclip"></i></div> </td>
+                                <td class="text-center"><div class="pt-1"><i class="fa fa-paperclip"></i></div> </td>
                                 <td class="text-right"> 8 آذار 2024 </td>
                             </tr>
                             <tr>
-                                <td class="inbox-small-cells">
-                                    <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td> <div class="pt-1"> <i class="fa fa-star"></i> </div></td>
+                                <td class="text-center"> <input type="checkbox" class="form-check-input"> </td>
                                 <td> مسؤول الطلاب </td>
                                 <td> الرجاء إدخال طالب آخر للحلقة ليصبح العدد خمسة طلاب </td>
-                                <td><div class="pt-1"><i class="fa fa-paperclip"></i></div> </td>
+                                <td class="text-center"><div class="pt-1"><i class="fa fa-paperclip"></i></div> </td>
                                 <td class="text-right"> 8 آذار 2024 </td>
                             </tr>
 

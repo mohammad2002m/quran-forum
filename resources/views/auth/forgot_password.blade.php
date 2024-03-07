@@ -39,15 +39,15 @@
                             <p class="text-secondary text-center"> أدخل البريد الإلكتروني الخاص بك </p>
                         </div>
                         <div>
-                            <div class="mb-4">
+                            <div class="mb-2">
                                 <label for="" class="mb-1"> البريد الإلكتروني </label>
                                 <input type="text" placeholder="البريد الإلكتروني" class="form-control bg-light-subtle p-2" name="email">
                             </div>
 
                             @if (Session::has('error'))
-                                <div class="text-danger"> {{ Session::get('error')}} </div>
+                                <div class="text-danger mb-2"> {{ Session::get('error')}} </div>
                             @elseif (Session::has('success'))
-                                <div class="text-success"  > {{ Session::get('success')}} </div>
+                                <div class="text-success mb-2"  > {{ Session::get('success')}} </div>
                             @endif
 
                             <div class="mb-4">

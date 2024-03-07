@@ -1,4 +1,4 @@
-<html dir="rtl" lang="ar" direction="rtl" >
+<html dir="rtl" lang="ar" direction="rtl">
 
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,19 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
     @yield('head')
 </head>
 
@@ -25,7 +38,7 @@
     <div class="main-container">
         @yield('content')
     </div>
-    
+
 
 </body>
 

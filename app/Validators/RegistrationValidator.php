@@ -10,7 +10,7 @@ trait RegistrationValidators {
         $validator = Validator::make($request->all(),
             [
                 'name' => ['required'],
-                'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'email' => ['required', 'email', /*Rule::unique('users', 'email') */],
                 'password' => ['required', 'confirmed'],
                 'gender' => ['required', Rule::in(['ذكر', 'أنثى'])],
                 'phone_number' => ['required'], // FIXME: Add validator to be a phonenumber
@@ -28,7 +28,6 @@ trait RegistrationValidators {
                 'college_id.required' => 'حقل الكلية مطلوب',
                 'year.required' => 'حقل السنة مطلوب',
                 'schedule.required' => 'حقل طبيعة الدوام مطلوب',
-                'previous_parts[].required' => 'حقل الأجزاء المحفوظة مطلوب',
 
                 'email.email' => 'البريد الإلكتروني غير صالح',
                 'email.unique' => 'البريد الإلكتروني مستخدم من قبل',

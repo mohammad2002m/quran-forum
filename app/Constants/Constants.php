@@ -36,6 +36,8 @@ class Constants {
     const ROUTE_NAME_EDIT_WEEK_PAGE = 'edit.week';
     const ROUTE_NAME_UPDATE_WEEK = 'update.week';
     const ROUTE_NAME_STORE_WEEK = 'store.week';
+    const ROUTE_NAME_FORCE_INFORMATION_UPDATE_PAGE = 'force-information-update.index';
+    const ROUTE_NAME_FORCE_INFORMATION_UPDATE_UPDATE  = 'force-information-update.update';
     
     const ROUTE_NAME_RESET_PASSWORD_PAGE = 'password.reset';
     const ROUTE_NAME_RESET_PASSWORD_SUBMIT = 'password.reset.submit';

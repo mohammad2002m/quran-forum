@@ -18,40 +18,19 @@
         <div class="mb-3">
             <div class="d-flex gap-2">
                 <input type="text" class="form-control" id="search-input">
+                <select name="" id="" class="form-select">
+                    <option value=""> الكل </option>
+                    <option value=""> عام </option>
+                    <option value=""> مسابقات </option>
+                    <option value=""> ندوات </option>
+                </select>
                 <button class="btn btn-primary" id="search-button">ابحث</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card mb-3">
-                    <a href="">
-                        <img src="https://picsum.photos/500/500.jpg" class="card-img-top" alt="Placeholder Image">
-                        <div class="card-body">
-                            <p class="card-text">The final card with additional content.</p>
-                            <a href="#" class="btn btn-success">Read More</a>
-                        </div>
-                    </a>
-                </div>
-            </div>
+        <div>
+            <h4> الأرشيف </h4>
+            <p> يحتوي على جميع الإعلانات مرتبة</p>
         </div>
     </div>
-    <div class="container mt-5">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    
 @endsection

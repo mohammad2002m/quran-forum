@@ -29,14 +29,14 @@ class ReportsController extends Controller
         ];
 
         $students = $users -> filter(function($user) use ($gender, $t){
-            return isStudent($user->id) && ($user -> gender === $t[$gender] || $gender === 'all');
+            return isStudent($user->id) && ($gender === "all" || $user -> gender === $t[$gender]);
         });
         
 
         $counter = 1;
         $report = [];
         foreach ($students as $student){
-            $recitation = Recitation::find([
+            $recitation = Recitation::firstWhere([
                 'week_id' => $weekId,
                 'user_id' => $student -> id,
             ]);
@@ -46,11 +46,11 @@ class ReportsController extends Controller
                 $student -> supervisor -> name,
                 $student -> group -> name,
                 $student -> status,
-                $recitation == null ? $recitation -> memorized_pages : 0,
-                $recitation == null ? $recitation -> repeated_pages : 0,
-                $recitation == null ? $recitation -> memorization_mark : 0,
-                $recitation == null ? $recitation -> tajweed_mark : 0,
-                $recitation == null ? (4 * $recitation -> memorized_pages + $recitation -> repeated_pages) : 0,
+                $recitation != null ? $recitation -> memorized_pages : 0,
+                $recitation != null ? $recitation -> repeated_pages : 0,
+                $recitation != null ? $recitation -> memorization_mark : 0,
+                $recitation != null ? $recitation -> tajweed_mark : 0,
+                $recitation != null ? (4 * $recitation -> memorized_pages + $recitation -> repeated_pages) : 0,
             ];
 
             array_push($report, $record);

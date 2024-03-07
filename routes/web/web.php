@@ -5,6 +5,7 @@ use App\Http\Controllers\AnnouncementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ContactUs;
+use App\Http\Controllers\ForceInformationUpdate;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ForumRules;
 use App\Http\Controllers\GroupController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\WeekController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use QF\Constants as QFConstants;
 
 use function QF\Utilites\getSupervisorStudents;
@@ -48,7 +50,7 @@ Route::group([], function () {
     Route::get('/announcement/create', [AnnouncementController::class, 'create'])->name(QFConstants::ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE) -> middleware('auth');
     Route::post('/announcement/store', [AnnouncementController::class, 'store'])->name(QFConstants::ROUTE_NAME_STORE_ANNOUNCEMENT) -> middleware('auth');
 
-    Route::get('/announcement/index/archived', [AnnouncementController::class, 'indexArchived'])->name(QFConstants::ROUTE_NAME_STORE_ANNOUNCEMENT);
+    Route::get('/announcement/archived/index', [AnnouncementController::class, 'indexArchived'])->name(QFConstants::ROUTE_NAME_STORE_ANNOUNCEMENT);
 
     Route::get('/registration/guide', [RegistrationController::class, 'guide']);
 
@@ -96,14 +98,16 @@ Route::group([], function () {
     Route::get('/management/index', function (){
         return view('management.index');
     });
+
+    Route::get('/force-information-update', [ForceInformationUpdate::class, 'force']) -> middleware('auth') -> name('force-information-update.force');
+    Route::get('/force-information-update/index', [ForceInformationUpdate::class, 'index']) -> middleware('auth') -> name('force-information-update.index');
+    Route::post('/force-information-update/update', [ForceInformationUpdate::class, 'update']) -> middleware('auth') -> name('force-information-update.update');
+    
     Route::get('/messages/index', function (){
         return view('messages.index');
     });
     Route::get('/messages/show', function (){
         return view('messages.show');
-    });
-    Route::get('/update/user/data', function (){
-        return view('update-user-data.index');
     });
 
        
@@ -112,7 +116,6 @@ Route::group([], function () {
 
 
     Route::get('/reports/index', [ReportsController::class, 'index']) -> name('reports.index') -> middleware('auth');
-    Route::get('api/reports/{weekId}/{gender}', [ReportsController::class, 'getReport']) -> name('reports.report') -> middleware('auth');
 
     Route::get('/recitation/index', [RecitationController::class, 'index']) -> name('recitation.index') -> middleware('auth');
     Route::post('/recitation/update', [RecitationController::class, 'update']) -> name('recitation.update') -> middleware('auth');
@@ -124,4 +127,5 @@ Route::group([], function () {
     Route::get('/api/recitations/{supervisorId}/{year}', [SearchController::class, 'recitationsBySupervisorAndYear']) -> middleware('auth');
     Route::get('/api/excuses/{supervisorId}/{year}', [SearchController::class, 'excusesBySupervisorAndYear']) -> middleware('auth');
     Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear']) -> middleware('auth');
+    Route::get('api/reports/{weekId}/{gender}', [ReportsController::class, 'getReport']) -> name('reports.report') -> middleware('auth');
 });
