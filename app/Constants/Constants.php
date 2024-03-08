@@ -49,6 +49,24 @@ class Constants {
     const ROUTE_NAME_VERIFY_EMAIL = 'verification.verify';
     const ROUTE_NAME_RESEND_VERIFICATION_EMAIL = 'verification.send';
 
+
+    const ROUTE_NAME_MONITORING_INDEX = 'monitoring.index';
+    const ROUTE_NAME_MONITORING_UPDATE = 'monitoring.update';
+
+    const ROUTE_NAME_RECITATION_INDEX = 'recitation.index';
+    const ROUTE_NAME_RECITATION_UPDATE = 'recitation.update';
+
+
+    const ROUTE_NAME_API_WEEKLY_REPORT = 'api.reports.report';
+    const ROUTE_NAME_API_WEEKS = 'api.weeks';
+    const ROUTE_NAME_API_EXECUSES = 'api.execuses';
+    const ROUTE_NAME_API_RECITATIONS = 'api.recitations';
+    const ROUTE_NAME_API_SUPERVISORS = 'api.supervisors';
+
+    const ROUTE_NAME_UNAUTHORIZED = 'unauthorized';
+
+
+
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
     const WEEK_RANGE = 3;

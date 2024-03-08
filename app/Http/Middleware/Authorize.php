@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use QF\Constants as QFConstants;
+use QFLogger;
 
 class Authorize
 {
@@ -16,7 +17,7 @@ class Authorize
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
 
-    /*
+    // null means that the route is for everyone/guest
     const ROUTE_ACTIVITY_MAPPER = [
 
         QFConstants::ROUTE_NAME_ATTEMPT_LOGIN => null,
@@ -42,8 +43,10 @@ class Authorize
         QFConstants::ROUTE_NAME_NOTIFICATION_NOTICE => null,
         QFConstants::ROUTE_NAME_VERIFY_EMAIL => null,
         QFConstants::ROUTE_NAME_RESEND_VERIFICATION_EMAIL => null,
+
+        QFConstants::ROUTE_NAME_UNAUTHORIZED => null,
     ];
-    */
+
     public function handle(Request $request, Closure $next): Response
     {
         $this -> basicPremissionAuthoization($request , $next);
@@ -51,18 +54,15 @@ class Authorize
         $next($request);
         
         // after authorization we shouldn't reach this line
-        // I should print to ErrorLog Database Error
-        // ErrorLog("unhandled case in Authorize Middleware", "with request for more details")
-        return response() -> json([
-            'message' => 'Unauthorized'
-        ], 401);
+        QFLogger::error("unhandled case in Authorize Middleware", json_encode($request -> all()));
+        return redirect() -> route(QFConstants::ROUTE_NAME_UNAUTHORIZED);
     }
 
     private function basicPremissionAuthoization(Request $request, Closure $next)
     {
         // Permission is a (role + activity)
-        /*
-        if (!isset($request -> activity)){
+        $routeName = $request -> route() -> getName();
+        if (Authorize::ROUTE_ACTIVITY_MAPPER[$routeName] === null){
             $next($request);
         }
 
@@ -80,13 +80,12 @@ class Authorize
 
         $allowedUserActivities = array_unique($allowedUserActivities);
 
-        $routeName = $request -> route() -> getName();
         $desiredActivity = Authorize::ROUTE_ACTIVITY_MAPPER[$routeName];
 
         if (in_array($desiredActivity, $allowedUserActivities)){
             $next($request);
         } else {
+            return redirect() -> route(QFConstants::ROUTE_NAME_UNAUTHORIZED);
         }
-        */
     }
 }

@@ -135,18 +135,24 @@
                     <p class="lead fw-normal mb-0"> الملف الشخصي </p>
                 </div>
 
+                @if (Session::has('error'))
+                    <x-alert type="alert-danger" :message="session('error')" />
+                @elseif (Session::has('success'))
+                    <x-alert type="alert-success" :message="session('success')" />
+                @endif
+
                 <form action="/profile/update" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="exampleInputEmail1" class="form-label"> الاسم الشخصي </label>
-                            <input type="text" class="form-control" value="{{$user-> name}}">
+                            <input type="text" name="name" class="form-control" value="{{old('name',$user-> name)}}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label"> الكلية </label>
-                            <select class="form-select">
+                            <select class="form-select" name="college_id">
                                 @foreach ($colleges as $college)
-                                    <option value="{{$college->id}}" {{ $college -> id === $user -> college -> id ? 'selected' : ''}}> {{$college-> name}} </option>
+                                    <option value="{{$college->id}}" {{ intval(old('college_id', $user -> college -> id))  === $college -> id ? 'selected' : ''}}> {{$college-> name }} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -155,33 +161,33 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="exampleInputEmail1" class="form-label"> الجنس</label>
-                            <select class="form-select">
+                            <select class="form-select" name="gender">
                                 @php $genders = ['ذكر', 'أنثى'] @endphp
                                 @foreach ($genders as $gender)
-                                    <option value="{{$gender}}" {{ $gender === $user -> gender ? 'selected' : '' }}> {{ $gender }}  </option>
+                                    <option value="{{$gender}}" {{ old('gender',$user->$gender) === $gender ? 'selected' : '' }}> {{ $gender }}  </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="exampleInputEmail1" class="form-label"> رقم الهاتف </label>
-                            <input type="text" class="form-control" value="{{$user -> phone_number}}">
+                            <input type="text" class="form-control" name="phone_number" value="{{old('phone_number',$user -> phone_number)}}">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="exampleInputEmail1" class="form-label"> السنة </label>
-                            <select class="form-select">
+                            <select class="form-select" name="year">
                                 @foreach ($years as $year)
-                                    <option value="{{$year}}" {{ $year === $user -> year ? 'selected' : ''}}> {{$year}} </option>
+                                    <option value="{{$year}}" {{ old('year',$user -> year) === $year ? 'selected' : ''}}> {{$year}} </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="exampleInputEmail1" class="form-label"> طبيعة الدوام </label>
-                            <select class="form-select">
+                            <select class="form-select" name="schedule">
                                 @foreach ($schedules as $schedule)
-                                    <option value="{{$schedule}}" {{ $schedule === $user -> schedule ? 'selected' : ''}}> {{$schedule}} </option>
+                                    <option value="{{$schedule}}" {{ old('schedule',$user -> schedule) === $schedule ? 'selected' : ''}}> {{$schedule}} </option>
                                 @endforeach
                             </select>
                         </div>

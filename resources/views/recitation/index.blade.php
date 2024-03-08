@@ -248,7 +248,6 @@
             currentRecitations.forEach(recitation => {
                 tableBody.innerHTML += `
                     <tr>
-                        <td class="line"> ${recitation.user.id} </td>
                         <td class="line"> ${recitation.user.name} </td>
                         <td class="text-center">
                              ${recitation.memorized_pages && recitation.repeated_pages ?

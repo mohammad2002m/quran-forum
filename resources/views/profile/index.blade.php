@@ -100,8 +100,8 @@
                 <div class="sub-header p-4">
                     <div class="d-sm-flex justify-content-between sub-header-container">
                         <div class="main-info">
-                            <h6 class="main-info-title fw-bold"> {{ $user -> name }} </h6>
-                            <p class="text-muted m-0"> كلية  {{ $user -> college -> name }} </p>
+                            <h6 class="main-info-title fw-bold"> {{ $user->name }} </h6>
+                            <p class="text-muted m-0"> كلية {{ $user->college->name }} </p>
                         </div>
                         <div class="d-flex text-center">
                             <div class="d-none d-lg-block ms-4">
@@ -129,6 +129,13 @@
                 </div>
             </section>
 
+            <section class="p-4">
+                @if (Session::has('error'))
+                    <x-alert type="alert-danger" :message="session('error')" />
+                @elseif (Session::has('success'))
+                    <x-alert type="alert-success" :message="session('success')" />
+                @endif
+            </section>
 
             <section class="p-4"> <!-- PROFILE CONTENT -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -146,29 +153,29 @@
                         <tbody>
                             <tr>
                                 <td> الاسم </td>
-                                <td> {{ $user -> name }} </td>
+                                <td> {{ $user->name }} </td>
                             </tr>
                             <tr>
                                 <td> الكلية </td>
-                                <td> كلية  {{ $user -> college -> name }} </td>
+                                <td> كلية {{ $user->college->name }} </td>
                             </tr>
                             <tr>
                                 <td> الجنس </td>
-                                <td> {{ $user -> gender }}</td>
+                                <td> {{ $user->gender }}</td>
                             </tr>
                             <tr>
                                 <td> رقم الهاتف </td>
-                                <td> {{ $user -> phone_number }} </td>
+                                <td> {{ $user->phone_number }} </td>
                             </tr>
                             <tr>
                                 <td> السنة </td>
-                                <td> {{ $user -> year }} </td>
+                                <td> {{ $user->year }} </td>
                             </tr>
                             <tr>
                                 <td> طبيعة الدوام </td>
-                                <td> {{ $user -> schedule }} </td>
+                                <td> {{ $user->schedule }} </td>
                             </tr>
-                            
+
                             <tr>
                                 <td> تحديث الصورة </td>
                                 <td>
@@ -213,7 +220,6 @@
 
 
             </section>
-
 
 
         </div>

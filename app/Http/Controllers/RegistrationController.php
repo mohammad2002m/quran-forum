@@ -31,8 +31,8 @@ class RegistrationController extends Controller
 
     function registerStudentSubmit(Request $request){
         [$status, $message] = $this->isValidRegisterStudentSubmit($request);
-        if ($status === 'failed'){
-            return redirect() -> back() -> withInput() -> with('error', $message);
+        if ($status === 'error'){
+            return redirect() -> back() -> withInput() -> with($status, $message);
         }
 
         $user = User::create([

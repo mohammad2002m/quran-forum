@@ -40,20 +40,76 @@ class DatabaseSeeder extends Seeder
     }
     function seedGroups()
     {
-        for ($rep = 1; $rep <= 20; $rep++) {
-            Group::factory()->create([
-                'name' => 'مجموعة ' . strval($rep),
-            ]);
-        }
+        Group::factory()->create([
+            'name' => 'نور الرحمن',
+        ]);
+        Group::factory()->create([
+            'name' => 'أحباب القرآن',
+        ]);
+        Group::factory()->create([
+            'name' => 'نور على نور',
+        ]);
+        Group::factory()->create([
+            'name' => 'أهل الجنة',
+        ]);
+        Group::factory()->create([
+            'name' => 'الصابرين',
+        ]);
+        Group::factory()->create([
+            'name' => 'حفظة القرآن',
+        ]);
+        Group::factory()->create([
+            'name' => 'الطيبات',
+        ]);
+        Group::factory()->create([
+            'name' => 'الإسلام العظيم',
+        ]);
+        Group::factory()->create([
+            'name' => 'بالقرآن نحيا',
+        ]);
+        Group::factory()->create([
+            'name' => 'أصدقاء القرآن',
+        ]);
+        Group::factory()->create([
+            'name' => 'وجلت قلوبهم',
+        ]);
+        Group::factory()->create([
+            'name' => 'علمه البيان',
+        ]);
+        Group::factory()->create([
+            'name' => 'رياض الصالحين',
+        ]);
+        Group::factory()->create([
+            'name' => 'يبشرهم ربهم',
+        ]);
+        Group::factory()->create([
+            'name' => 'همتي لأمتي',
+        ]);
+        Group::factory()->create([
+            'name' => 'بالقرآن نحيا ونرتقي',
+        ]);
+        Group::factory()->create([
+            'name' => 'الإخلاص',
+        ]);
+        Group::factory()->create([
+            'name' => 'سفينة النجاة',
+        ]);
+        Group::factory()->create([
+            'name' => 'أمانينا الجنة',
+        ]);
+        Group::factory()->create([
+            'name' => 'سباق نحو الجنان',
+        ]);
+
     }
     public static function seedRecitation()
     {
-        for ($rep = 1; $rep <= 200; $rep++) {
+        for ($rep = 1; $rep <= 500; $rep++) {
             Recitation::factory()->create([
                 'user_id' => ($rep % 100) + 1,
                 'week_id' => rand(1, 10),
-                'memorized_pages' => rand(1, 20),
-                'repeated_pages' => rand(1, 20),
+                'memorized_pages' => rand(1, 5),
+                'repeated_pages' => rand(1, 5),
                 'tajweed_mark' => rand(1, 10),
                 'memorization_mark' => rand(1, 10),
                 'notes' => ''

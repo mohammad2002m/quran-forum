@@ -18,7 +18,6 @@ class ForceInformationUpdate
     public function handle(Request $request, Closure $next): Response
     {
         // should be auth
-        $user = Auth::user();
         $routeName = $request -> route() -> getName();
         if (Auth::check() &&
             Auth::user() -> force_information_update &&
