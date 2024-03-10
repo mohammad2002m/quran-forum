@@ -17,9 +17,10 @@
             </div>
             <div class="card-body">
                 <div class="mb-3 d-flex justify-content-between">
-                    <h5> التقرير الأسبوعي </h5>
+                    <h5> التقارير </h5>
                     <div>
-                        <button class="btn btn-primary" onclick="getReport()"> عرض التقرير </button>
+                        <button class="btn btn-primary" onclick="getReport()"> التقرير الأسبوعي </button>
+                        <button class="btn btn-primary" onclick="getReport()"> تقرير التجويد </button>
                     </div>
                 </div>
                 <div class="row">
@@ -52,35 +53,13 @@
                                 <select name="gender" id="gender-select2" class="form-select">
                                     <option value="male"> تقرير الذكور </option>
                                     <option value="female"> تقرير الإناث </option>
-                                    <option value="all"> تقرير الكل </option>
                                 </select>
                             </div>
                         </div>
 
                 </div>
 
-
-
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <td> رقم </td>
-                                <td> الاسم </td>
-                                <td> المشرف</td>
-                                <td> الحلقة</td>
-                                <td> حالة الطالب </td>
-                                <td> صفحات الحفظ </td>
-                                <td> صفحات التثبيت </td>
-                                <td> علامة الحفظ </td>
-                                <td> علامة التجويد </td>
-                                <td> النقاط </td>
-                            </tr>
-                        </thead>
-                        <tbody id="report-tbl-body"></tbody>
-                    </table>
-
-                </div>
+                
             </div>
         </div>
     </div>
@@ -153,21 +132,11 @@
                 getCurrentSelectedWeek().toString() + '/' +
                 getCurrentSelectedGender().toString();
 
-            var res = await fetch(url);
-            var data = await res.json();
-
-            var tblBody = document.getElementById('report-tbl-body');
-            tblBody.innerHTML = '';
-
-            data.forEach((rowData) => {
-                var row = document.createElement('tr');
-                rowData.forEach((data) => {
-                    var cell = document.createElement('td');
-                    cell.innerText = data;
-                    row.appendChild(cell);
-                });
-                tblBody.appendChild(row);
-            })
+            var downloadTag = document.createElement('a');
+            downloadTag.href = url;
+            document.body.appendChild(downloadTag);
+            downloadTag.click();
+            document.body.removeChild(downloadTag);
         }
     </script>
     <script>

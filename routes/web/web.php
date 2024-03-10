@@ -131,5 +131,5 @@ Route::group([], function () {
     Route::get('/api/recitations/{supervisorId}/{year}', [SearchController::class, 'recitationsBySupervisorAndYear'])->name(QFConstants::ROUTE_NAME_API_RECITATIONS)->middleware('auth');
     Route::get('/api/excuses/{supervisorId}/{year}', [SearchController::class, 'excusesBySupervisorAndYear'])->name(QFConstants::ROUTE_NAME_API_EXECUSES)->middleware('auth');
     Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear'])->name(QFConstants::ROUTE_NAME_API_WEEKS)->middleware('auth');
-    Route::get('api/reports/{weekId}/{gender}', [ReportsController::class, 'getReport'])->name(QFConstants::ROUTE_NAME_API_WEEKLY_REPORT)->middleware('auth');
+    Route::get('/api/reports/{weekId}/{gender}', [ReportsController::class, 'getReport'])->name(QFConstants::ROUTE_NAME_API_WEEKLY_REPORT)->middleware('auth');
 });

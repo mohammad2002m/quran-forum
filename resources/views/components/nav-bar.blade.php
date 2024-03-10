@@ -86,7 +86,7 @@
                 <a class="navbar-brand py-0 " href="#">
                     <img class="d-none d-lg-inline-block" src="{{ asset('assets/images/logo.png') }}" alt="Logo"
                         width="26" height="30">
-                    ملتقى القرآن الكريم
+                    ملتقى القرآن الكريم - جامعة الخليل
                 </a>
                 <img class="d-lg-none" src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="26"
                     height="30">

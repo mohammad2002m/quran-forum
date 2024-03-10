@@ -42,63 +42,83 @@ class DatabaseSeeder extends Seeder
     {
         Group::factory()->create([
             'name' => 'نور الرحمن',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'أحباب القرآن',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'نور على نور',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'أهل الجنة',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'الصابرين',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'حفظة القرآن',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'الطيبات',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'الإسلام العظيم',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'بالقرآن نحيا',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'أصدقاء القرآن',
+            'gender' => "ذكور"
         ]);
         Group::factory()->create([
             'name' => 'وجلت قلوبهم',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'علمه البيان',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'رياض الصالحين',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'يبشرهم ربهم',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'همتي لأمتي',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'بالقرآن نحيا ونرتقي',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'الإخلاص',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'سفينة النجاة',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'أمانينا الجنة',
+            'gender' => "إناث"
         ]);
         Group::factory()->create([
             'name' => 'سباق نحو الجنان',
+            'gender' => "إناث"
         ]);
 
     }
@@ -264,7 +284,7 @@ class DatabaseSeeder extends Seeder
                 'college_id' => rand(1, 10),
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'phone_number' => '0569' . strval(rand(99999, 999999)),
-                'group_id' => strval((($rep - 1) % 20) + 1),
+                'group_id' => strval((($rep - 1) % 10) + 1 + $num * 10),
             ]);
 
             $user->roles()->attach($role);

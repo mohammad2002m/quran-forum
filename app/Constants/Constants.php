@@ -114,6 +114,7 @@ class Constants {
 
     /******** ANNOUNCEMENT IMAGES STORE PATH ********/
     const ANNOUNCEMENT_IMAGES_STORE_PATH = '/images/announcements';
+    const WEEKLY_REPORTS_STORE_PATH = 'app/reports';
 
     /******** PERMISSIONS ********/
     const PERMISSIONS = [

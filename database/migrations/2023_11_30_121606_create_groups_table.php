@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->tinyText('name');
+
+            $table->tinyText('name') -> nullable(false);
+            $table->enum("gender", ['ذكور', 'إناث']) -> nullable(false);
 
             $table->unsignedBigInteger('supervisor_id') -> nullable(true);
             $table->unsignedBigInteger('monitor_id') -> nullable(true);
