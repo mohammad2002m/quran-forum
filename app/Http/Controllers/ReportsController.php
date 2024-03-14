@@ -88,14 +88,13 @@ class ReportsController extends Controller
         (function () use (&$report, $gender, $weekId) { // get the recitation report && groups
             $students = $this->getUsersForWeeklyReport($gender);
             $color = "b6d7a8";
-            $prevStudent = null;
             $first = true;
             foreach ($students as $index => $student) {
                 $recitation = Recitation::firstWhere([
                     'week_id' => $weekId,
                     'user_id' => $student->id,
                 ]);
-                if (!$first && $student->group_id != $prevStudent->group_id) $color = $color == "b6d7a8" ? "ffe599" : "b6d7a8";
+                if (!$first && $student->group_id != $students[$index - 1]->group_id) $color = $color == "b6d7a8" ? "ffe599" : "b6d7a8";
                 $record = [
                     "id" => strval(++$index),
                     "student_name" => $student->name,
@@ -115,7 +114,6 @@ class ReportsController extends Controller
                     ]
                 ];
 
-                $prevStudent = $student;
                 $first = false;
                 array_push($report, $record);
             }

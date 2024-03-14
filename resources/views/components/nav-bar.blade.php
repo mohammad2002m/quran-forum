@@ -9,6 +9,7 @@
                             d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
                     </svg>
                 </button>
+
                 <a class="navbar-brand py-0 " href="#">
                     <img class="d-none d-lg-inline-block" src="{{ asset('assets/images/logo.png') }}" alt="Logo"
                         width="26" height="30">
@@ -19,12 +20,13 @@
                     <a href="#"
                         class="d-block link-body-emphasis text-decoration-none dropdown-toggle dropdown-toggle"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ Auth::user() -> profile_image -> full_path}}" width="32" height="32" class="rounded-circle">
+                        <img src="{{ Auth::user()->profile_image->full_path }}" width="32" height="32"
+                            class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end">
                         <li><a class="dropdown-item" href="/profile"> الصفحة الشخصية </a></li>
                         <li>
-                            <a class="dropdown-item"  href="/announcement/create"> إنشاء إعلان جديد </a>
+                            <a class="dropdown-item" href="/announcement/create"> إنشاء إعلان جديد </a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -63,7 +65,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/reports/index"> التقارير  </a>
+                            <a class="nav-link" href="/reports/index"> التقارير </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/announcement/archived/index"> الأرشيف </a>
@@ -73,8 +75,10 @@
                 </div>
             </div>
         </nav>
+
+        
     @else
-        <nav class="navbar navbar-expand-lg  shadow-sm">
+        <nav class="navbar navbar-expand-lg shadow-sm">
             <div class="container">
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#menu-authed" aria-controls="menu" aria-label="Toggle navigation">

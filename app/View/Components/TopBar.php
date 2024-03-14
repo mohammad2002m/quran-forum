@@ -27,7 +27,7 @@ class TopBar extends Component
             QFConstants::ROUTE_NAME_RESET_PASSWORD_PAGE,
             QFConstants::ROUTE_NAME_FORGOT_PASSWORD_PAGE,
             QFConstants::ROUTE_NAME_NOTIFICATION_NOTICE,
-            QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_PAGE,
+            QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_INDEX,
         ];
         if (in_array($route, $hideHeaderRoutes)){
             return false;

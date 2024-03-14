@@ -36,8 +36,6 @@ class Constants {
     const ROUTE_NAME_EDIT_WEEK_PAGE = 'edit.week';
     const ROUTE_NAME_UPDATE_WEEK = 'update.week';
     const ROUTE_NAME_STORE_WEEK = 'store.week';
-    const ROUTE_NAME_FORCE_INFORMATION_UPDATE_PAGE = 'force-information-update.index';
-    const ROUTE_NAME_FORCE_INFORMATION_UPDATE_UPDATE  = 'force-information-update.update';
     
     const ROUTE_NAME_RESET_PASSWORD_PAGE = 'password.reset';
     const ROUTE_NAME_RESET_PASSWORD_SUBMIT = 'password.reset.submit';
@@ -55,6 +53,9 @@ class Constants {
 
     const ROUTE_NAME_RECITATION_INDEX = 'recitation.index';
     const ROUTE_NAME_RECITATION_UPDATE = 'recitation.update';
+    
+    const ROUTE_NAME_MESSAGES_INDEX = 'messages.index';
+    const ROUTE_NAME_MESSAGES_SHOW = 'messages.show';
 
 
     const ROUTE_NAME_API_WEEKLY_REPORT = 'api.reports.report';
@@ -65,7 +66,27 @@ class Constants {
 
     const ROUTE_NAME_UNAUTHORIZED = 'unauthorized';
 
+    const ROUTE_NAME_ARCHIVED_ANNOUNCEMENTS = 'annoucnement.archived.index';
+    const ROUTE_NAME_REGISTRATION_GUIDE = 'registration.guide';
+    const ROUTE_NAME_STUDNET_REGISTER_PAGE = 'registration.student';
+    const ROUTE_NAME_STUDNET_REGISTER_SUBMIT = 'registration.student.submit';
+    const ROUTE_NAME_VOLUNTEER_REGISTER_PAGE = 'registration.volunteer';
+    const ROUTE_NAME_VOLUNTEER_REGISTER_SUBMIT = 'registration.volunteer.submit';
 
+    const ROUTE_NAME_PROFILE_INDEX = 'profile.index';
+    const ROUTE_NAME_PROFILE_EDIT = 'profile.edit';
+    const ROUTE_NAME_PROFILE_UPDATE = 'profile.update';
+    const ROUTE_NAME_PROFILE_CHANGE_COVER_IMAGE = 'profile.change.cover.image';
+    const ROUTE_NAME_PROFILE_CHANGE_PROFILE_IMAGE = 'profile.change.profile.image';
+    const ROUTE_NAME_MANAGEMENT_INDEX = 'management.index';
+
+    const ROUTE_NAME_FORCE_INFORMATION_UPDATE_FORCE = 'force-information-update.force';
+    const ROUTE_NAME_FORCE_INFORMATION_UPDATE_INDEX = 'force-information-update.index';
+    const ROUTE_NAME_FORCE_INFORMATION_UPDATE_UPDATE  = 'force-information-update.update';
+
+    const ROUTE_NAME_GROUP_INDEX = 'group.index';
+    const ROUTE_NAME_GROUP_STORE = 'group.store';
+    const ROUTE_NAME_REPORTS_INDEX = 'reports.index';
 
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
@@ -108,6 +129,17 @@ class Constants {
     const ACTIVITY_CREATE_ANNOUNCEMENT = 1;
     const ACTIVITY_APPROVE_ANNOUNCEMENT = 2;
     const ACTIVITY_MANAGE_WEEKS = 3;
+    const ACTIVITY_RECITATION = 4;
+    const ACTIVITY_MONITORING = 5;
+    const ACTIVITY_REPORTS = 6;
+    const ACTIVITY_GET_SUPERVISORS = 7;
+    const ACTIVITY_MANAGE_GROUPS = 8;
+    const ACTIVITY_MANAGE_FORUM = 9;
+
+    const ACTIVITY_API_WEEKS = 10;
+    const ACTIVITY_API_EXECUSES = 11;
+    const ACTIVITY_API_RECITATIONS = 12;
+    const ACTIVITY_API_SUPERVISORS = 13;
 
     /******** IMAGES TYPES ********/
     const SUPPORTED_IMAGES_EXTENSIONS = ['jpg', 'jpeg', 'png'];
@@ -120,7 +152,64 @@ class Constants {
     const PERMISSIONS = [
         self::ROLE_HEAD => [
             self::ACTIVITY_APPROVE_ANNOUNCEMENT,
+            self::ACTIVITY_REPORTS,
+            self::ACTIVITY_MANAGE_WEEKS,
+            self::ACTIVITY_MANAGE_FORUM,
+        ],
+        self::ROLE_VICE_HEAD => [
+            self::ACTIVITY_APPROVE_ANNOUNCEMENT,
+            self::ACTIVITY_REPORTS,
+            self::ACTIVITY_MANAGE_WEEKS,
+            self::ACTIVITY_MANAGE_FORUM,
+        ],
+        self::ROLE_STUDENT => [
+
+        ],
+        self::ROLE_SUPERVISOR => [
+            self::ACTIVITY_RECITATION,
+
+        ],
+        self::ROLE_STUDENTS_MANAGER => [
+            self::ACTIVITY_REPORTS,
+            self::ACTIVITY_GET_SUPERVISORS, 
+            self::ACTIVITY_MANAGE_GROUPS,
+        ],
+        self::ROLE_MEDIA_COMMITTE_MEMBER => [
             self::ACTIVITY_CREATE_ANNOUNCEMENT,
+        ],
+        self::ROLE_DATA_COMMITTE_MEMBER => [
+            self::ACTIVITY_MANAGE_WEEKS,
+            self::ACTIVITY_REPORTS,
+            self::ACTIVITY_MANAGE_FORUM,
+        ],
+        self::ROLE_SECRETARY_GENERAL => [
+
+        ],
+        self::ROLE_TREASURER => [
+
+        ],
+        self::ROLE_EXAMINING_COMMITTE_MEMBER => [
+
+        ],
+        self::ROLE_TAJWEED_COMMITTE_MEMBER => [
+            self::ACTIVITY_REPORTS,
+
+        ],
+        self::ROLE_MONITORING_COMMITTE_MEMBER => [
+            self::ACTIVITY_MONITORING,
+        ],
+        self::ROLE_EXAMINING_COMMITTE_MANAGER => [
+
+        ],
+        self::ROLE_TAJWEED_COMMITTE_MANAGER => [
+            self::ACTIVITY_REPORTS,
+
+        ],
+        self::ROLE_MONITORING_COMMITTE_MANAGER => [
+
+        ],
+        self::ROLE_RAQABA => [
+            self::ACTIVITY_REPORTS,
         ],
     ];
     

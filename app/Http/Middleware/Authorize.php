@@ -19,7 +19,6 @@ class Authorize
 
     // null means that the route is for everyone/guest
     const ROUTE_ACTIVITY_MAPPER = [
-
         QFConstants::ROUTE_NAME_ATTEMPT_LOGIN => null,
         QFConstants::ROUTE_NAME_ATTEMPT_LOGOUT => null,
         QFConstants::ROUTE_NAME_HOME_PAGE => null,
@@ -33,25 +32,49 @@ class Authorize
         QFConstants::ROUTE_NAME_EDIT_WEEK_PAGE => QFConstants::ACTIVITY_MANAGE_WEEKS,
         QFConstants::ROUTE_NAME_UPDATE_WEEK => QFConstants::ACTIVITY_MANAGE_WEEKS,
         QFConstants::ROUTE_NAME_STORE_WEEK => QFConstants::ACTIVITY_MANAGE_WEEKS,
-        
         QFConstants::ROUTE_NAME_RESET_PASSWORD_PAGE => null,
         QFConstants::ROUTE_NAME_RESET_PASSWORD_SUBMIT => null,
-
         QFConstants::ROUTE_NAME_FORGOT_PASSWORD_PAGE => null,
         QFConstants::ROUTE_NAME_FORGOT_PASSWORD_SUBMIT => null,
-
         QFConstants::ROUTE_NAME_NOTIFICATION_NOTICE => null,
         QFConstants::ROUTE_NAME_VERIFY_EMAIL => null,
         QFConstants::ROUTE_NAME_RESEND_VERIFICATION_EMAIL => null,
-
+        QFConstants::ROUTE_NAME_MONITORING_INDEX => QFConstants::ACTIVITY_MONITORING,
+        QFConstants::ROUTE_NAME_MONITORING_UPDATE => QFConstants::ACTIVITY_MONITORING,
+        QFConstants::ROUTE_NAME_RECITATION_INDEX => QFConstants::ACTIVITY_RECITATION,
+        QFConstants::ROUTE_NAME_RECITATION_UPDATE => QFConstants::ACTIVITY_RECITATION,
+        QFConstants::ROUTE_NAME_MESSAGES_INDEX => null,
+        QFConstants::ROUTE_NAME_MESSAGES_SHOW => null,
+        QFConstants::ROUTE_NAME_API_WEEKLY_REPORT => QFConstants::ACTIVITY_REPORTS,
+        QFConstants::ROUTE_NAME_API_WEEKS =>  QFConstants::ACTIVITY_API_WEEKS,
+        QFConstants::ROUTE_NAME_API_EXECUSES => QFConstants::ACTIVITY_API_EXECUSES,
+        QFConstants::ROUTE_NAME_API_RECITATIONS => QFConstants::ACTIVITY_API_RECITATIONS,
+        QFConstants::ROUTE_NAME_API_SUPERVISORS => QFConstants::ACTIVITY_API_SUPERVISORS,
         QFConstants::ROUTE_NAME_UNAUTHORIZED => null,
+        QFConstants::ROUTE_NAME_ARCHIVED_ANNOUNCEMENTS => null,
+        QFConstants::ROUTE_NAME_REGISTRATION_GUIDE => null,
+        QFConstants::ROUTE_NAME_STUDNET_REGISTER_PAGE => null,
+        QFConstants::ROUTE_NAME_STUDNET_REGISTER_SUBMIT => null,
+        QFConstants::ROUTE_NAME_VOLUNTEER_REGISTER_PAGE => null,
+        QFConstants::ROUTE_NAME_VOLUNTEER_REGISTER_SUBMIT => null,
+        QFConstants::ROUTE_NAME_PROFILE_INDEX => null,
+        QFConstants::ROUTE_NAME_PROFILE_EDIT => null,
+        QFConstants::ROUTE_NAME_PROFILE_UPDATE => null,
+        QFConstants::ROUTE_NAME_PROFILE_CHANGE_COVER_IMAGE => null,
+        QFConstants::ROUTE_NAME_PROFILE_CHANGE_PROFILE_IMAGE => null,
+        QFConstants::ROUTE_NAME_MANAGEMENT_INDEX => QFConstants::ACTIVITY_MANAGE_FORUM,
+        QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_FORCE => null,
+        QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_INDEX => null,
+        QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_UPDATE  => null,
+        QFConstants::ROUTE_NAME_GROUP_INDEX => QFConstants::ACTIVITY_MANAGE_GROUPS,
+        QFConstants::ROUTE_NAME_GROUP_STORE => QFConstants::ACTIVITY_MANAGE_GROUPS,
+        QFConstants::ROUTE_NAME_REPORTS_INDEX => QFConstants::ACTIVITY_REPORTS,
     ];
 
     public function handle(Request $request, Closure $next): Response
     {
-        $this -> basicPremissionAuthoization($request , $next);
+        return $this -> basicPremissionAuthoization($request , $next);
 
-        $next($request);
         
         // after authorization we shouldn't reach this line
         QFLogger::error("unhandled case in Authorize Middleware", json_encode($request -> all()));
@@ -60,10 +83,9 @@ class Authorize
 
     private function basicPremissionAuthoization(Request $request, Closure $next)
     {
-        // Permission is a (role + activity)
         $routeName = $request -> route() -> getName();
         if (Authorize::ROUTE_ACTIVITY_MAPPER[$routeName] === null){
-            $next($request);
+            return $next($request);
         }
 
         $user = Auth::user();
@@ -71,19 +93,13 @@ class Authorize
 
         $allowedUserActivities = [];
         foreach ($roles as $role){
-            $permissions = $role -> permissions;
-            foreach ($permissions as $permission){
-                $allowedActivity = $permission -> activity;
-                array_push($allowedUserActivities, $allowedActivity);
-            }
+            $rolePermissions = QFConstants::PERMISSIONS[$role -> id];
+            $allowedUserActivities = array_merge($allowedUserActivities, $rolePermissions);
         }
-
-        $allowedUserActivities = array_unique($allowedUserActivities);
-
         $desiredActivity = Authorize::ROUTE_ACTIVITY_MAPPER[$routeName];
 
         if (in_array($desiredActivity, $allowedUserActivities)){
-            $next($request);
+            return $next($request);
         } else {
             return redirect() -> route(QFConstants::ROUTE_NAME_UNAUTHORIZED);
         }

@@ -6,10 +6,10 @@
 
 
 @section('content')
-    <div class="d-flex justify-content-center align-items-center">
-        <div>
-            <h1> 401 </h1>
-            <p class="text-muted"> من غير المسموح لك بالوصول لهذه الصفحة  </p>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="text-center">
+            <h1 style="font-size: 72px;"> 401 </h1>
+            <p class="text-muted"> غير مسموح لك لوصول لهذه الصفحة أو القيام بهذه العملية </p>
         </div>
     </div>
 @endsection

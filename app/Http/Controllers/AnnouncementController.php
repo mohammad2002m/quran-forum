@@ -7,7 +7,6 @@ use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementType;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use QF\Constants;
 
 
