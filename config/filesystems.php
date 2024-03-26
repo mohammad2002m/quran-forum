@@ -1,5 +1,9 @@
 <?php
 
+use QF\Constants;
+
+use function Illuminate\Filesystem\join_paths;
+
 return [
 
     /*
@@ -55,7 +59,10 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-
+        'public_images' => [
+            'driver' => 'local',
+            'root'   => join_paths(public_path(), Constants::ANNOUNCEMENT_IMAGES_STORE_PATH),
+        ],
     ],
 
     /*
@@ -72,5 +79,6 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
+
 
 ];

@@ -263,7 +263,8 @@
                         id: week.id,
                         text: week.name,
                     };
-                })
+                }),
+                theme: 'bootstrap-5',
             });
         }
         async function fetchAndUpdateNewData(year) {
@@ -315,8 +316,8 @@
             document.getElementById('new-excuses').value = JSON.stringify(execuseChanges);
         }
         $(document).ready(function() {
-            $('#years-select2').select2();
-            $('#weeks-select2').select2();
+            $('#years-select2').select2({theme: 'bootstrap-5'});
+            $('#weeks-select2').select2({theme: 'bootstrap-5'});
             processExcuses();
             console.log(excuses)
             render();

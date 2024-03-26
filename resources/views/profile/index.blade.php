@@ -105,19 +105,19 @@
                         </div>
                         <div class="d-flex text-center">
                             <div class="d-none d-lg-block ms-4">
-                                <h5> 8.1 </h5>
+                                <h5> 0 </h5>
                                 <div class="text-muted"> الحفظ </div>
                             </div>
                             <div class="d-none d-md-block ms-4">
-                                <h5> 9.1 </h5>
+                                <h5> 0 </h5>
                                 <div class="text-muted"> التجويد </div>
                             </div>
                             <div class="d-none d-md-block ms-4">
-                                <h5> 3 </h5>
+                                <h5> 0 </h5>
                                 <div class="text-muted"> الأجزاء </div>
                             </div>
                             <div class="d-none d-md-block ms-4">
-                                <h5> 1934 </h5>
+                                <h5> 0 </h5>
                                 <div class="text-muted"> النقاط </div>
                             </div>
                         </div>
@@ -175,7 +175,10 @@
                                 <td> طبيعة الدوام </td>
                                 <td> {{ $user->schedule }} </td>
                             </tr>
-
+                            <tr>
+                                <td> الدور </td>
+                                <td> @foreach ($user->roles as $role) {{$role -> name . ($loop -> last ? "" : " |")}} @endforeach</td>
+                            </tr>
                             <tr>
                                 <td> تحديث الصورة </td>
                                 <td>
@@ -218,6 +221,10 @@
                     <a href="#" class="text-muted"> عرض الخطط </a>
                 </div>
 
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="lead fw-normal mb-0"> المتابعة الأسبوعية </p>
+                    <a href="#" class="text-muted"> عرض الكل </a>
+                </div>
 
             </section>
 

@@ -24,10 +24,11 @@
                             class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end">
+                        <!-- FIXME should be based on role -->
                         <li><a class="dropdown-item" href="/profile"> الصفحة الشخصية </a></li>
-                        <li>
-                            <a class="dropdown-item" href="/announcement/create"> إنشاء إعلان جديد </a>
-                        </li>
+                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_CREATE_ANNOUNCEMENT))
+                            <li> <a class="dropdown-item" href="/announcement/create"> إنشاء إعلان جديد </a> </li>
+                        @endif
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -47,29 +48,36 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/messages/index"> الرسائل </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/management/index"> الإدارة </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/week/edit"> الأسابيع </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/group/index"> الحلقات </a>
-                        </li>
+                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_MANAGE_FORUM))
+                            <li class="nav-item"> <a class="nav-link" href="/management/index"> الإدارة </a> </li>
+                        @endif
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/recitation/index"> الإشراف </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/monitoring/index"> المتابعة </a>
-                        </li>
+                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_MANAGE_WEEKS))
+                            <li class="nav-item"> <a class="nav-link" href="/week/edit"> الأسابيع </a> </li>
+                        @endif
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/reports/index"> التقارير </a>
-                        </li>
+                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_MANAGE_GROUPS))
+                            <li class="nav-item"> <a class="nav-link" href="/group/index"> الحلقات </a> </li>
+                        @endif
+
+                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_RECITATION))
+                            <li class="nav-item"> <a class="nav-link" href="/recitation/index"> الإشراف </a> </li>
+                        @endif
+
+                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_MONITORING))
+                            <li class="nav-item"> <a class="nav-link" href="/monitoring/index"> المتابعة </a> </li>
+                        @endif
+
+                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_REPORTS))
+                            <li class="nav-item">
+                                <a class="nav-link" href="/reports/index"> التقارير </a>
+                            </li>
+                        @endif
+
                         <li class="nav-item">
                             <a class="nav-link" href="/announcement/archived/index"> الأرشيف </a>
                         </li>
+
                     </ul>
 
                 </div>
@@ -90,7 +98,7 @@
                 <a class="navbar-brand py-0 " href="#">
                     <img class="d-none d-lg-inline-block" src="{{ asset('assets/images/logo.png') }}" alt="Logo"
                         width="26" height="30">
-                    ملتقى القرآن الكريم - جامعة الخليل
+                        ملتقى القرآن الكريم
                 </a>
                 <img class="d-lg-none" src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="26"
                     height="30">

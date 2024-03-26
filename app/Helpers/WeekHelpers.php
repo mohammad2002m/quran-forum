@@ -3,6 +3,7 @@
 use App\Models\Week;
 use Carbon\Carbon;
 use QF\Constants as QFConstants;
+use QF\QuestionsAnswers;
 
 function getWeeksByYears(){
     
@@ -44,6 +45,7 @@ function getUsedYears(){
 }
 
 function addFirstWeek(){
+    // FIXME: add product start date
     $startDate = new DateTime();
     $startDate -> sub(new DateInterval('P120D'));
     $startDate = $startDate -> modify('next saturday') -> setTime(0,0,0);
@@ -73,10 +75,13 @@ function addWeekWithStartDate($startDate){
     $endDate = clone $startDate;
     $endDate -> add(new DateInterval('P6D'));
 
+    $numberOfWeeksInYear = 52;
+
     $week = Week::create([
         'start_date' => $startDate -> format('Y-m-d H:i:s'),
         'end_date' => $endDate -> format('Y-m-d H:i:s'),
         'name' => $weekName,
+        'semester' => $weekSequenceNumber <= $numberOfWeeksInYear / 2 ? QuestionsAnswers::WhatIsTheSemester[0] : QuestionsAnswers::WhatIsTheSemester[1],
         'must' => true
     ]);
     $week -> save();

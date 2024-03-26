@@ -3,6 +3,7 @@
 namespace QF;
 
 class Constants {
+    const APP_URL = 'http://localhost:8000';
 
     /******** ROLES:SHOULD MATCH THE DATABASE ********/
     const ROLE_HEAD = 1;
@@ -30,6 +31,7 @@ class Constants {
     const ROUTE_NAME_LOGIN_PAGE = 'login';
     const ROUTE_NAME_STORE_ANNOUNCEMENT = 'store.announcement';
     const ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE = 'create.announcement';
+    const ROUTE_NAME_SHOW_ANNOUNCEMENT = 'show.announcement';
     const ROUTE_NAME_ABOUT_PAGE = 'about';
     const ROUTE_NAME_RULES_PAGE = 'rules';
     const ROUTE_NAME_CONTACTS_US_PAGE = 'contacts_us';
@@ -88,6 +90,8 @@ class Constants {
     const ROUTE_NAME_GROUP_STORE = 'group.store';
     const ROUTE_NAME_REPORTS_INDEX = 'reports.index';
 
+    const ROUTE_NAME_API_GET_ANNOUNCEMENTS = 'api.announcements';
+
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
     const WEEK_RANGE = 3;
@@ -140,12 +144,18 @@ class Constants {
     const ACTIVITY_API_EXECUSES = 11;
     const ACTIVITY_API_RECITATIONS = 12;
     const ACTIVITY_API_SUPERVISORS = 13;
+    const ACTIVITY_API_ANNOUNCEMENTS = 14;
 
     /******** IMAGES TYPES ********/
     const SUPPORTED_IMAGES_EXTENSIONS = ['jpg', 'jpeg', 'png'];
 
+    /******** IMAGES FOR VALUES ********/
+    const IMAGE_FOR_COVER = 'cover';
+    const IMAGE_FOR_PROFILE = 'profile';
+    const IMAGE_FOR_ANNOUNCEMENT = 'announcement';
+
     /******** ANNOUNCEMENT IMAGES STORE PATH ********/
-    const ANNOUNCEMENT_IMAGES_STORE_PATH = '/images/announcements';
+    const ANNOUNCEMENT_IMAGES_STORE_PATH = 'images';
     const WEEKLY_REPORTS_STORE_PATH = 'app/reports';
 
     /******** PERMISSIONS ********/
@@ -155,61 +165,73 @@ class Constants {
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_MANAGE_WEEKS,
             self::ACTIVITY_MANAGE_FORUM,
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_VICE_HEAD => [
             self::ACTIVITY_APPROVE_ANNOUNCEMENT,
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_MANAGE_WEEKS,
             self::ACTIVITY_MANAGE_FORUM,
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_STUDENT => [
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_SUPERVISOR => [
             self::ACTIVITY_RECITATION,
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
+            self::ACTIVITY_API_WEEKS,
+            self::ACTIVITY_API_RECITATIONS, // FIXME: supervisor has access to all recitation for all other supervisors
         ],
         self::ROLE_STUDENTS_MANAGER => [
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_GET_SUPERVISORS, 
             self::ACTIVITY_MANAGE_GROUPS,
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_MEDIA_COMMITTE_MEMBER => [
             self::ACTIVITY_CREATE_ANNOUNCEMENT,
+            self::ACTIVITY_REPORTS,
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_DATA_COMMITTE_MEMBER => [
             self::ACTIVITY_MANAGE_WEEKS,
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_MANAGE_FORUM,
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_SECRETARY_GENERAL => [
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_TREASURER => [
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_EXAMINING_COMMITTE_MEMBER => [
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_TAJWEED_COMMITTE_MEMBER => [
             self::ACTIVITY_REPORTS,
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_MONITORING_COMMITTE_MEMBER => [
             self::ACTIVITY_MONITORING,
+            self::ACTIVITY_API_ANNOUNCEMENTS,
+            self::ACTIVITY_API_WEEKS,
+            self::ACTIVITY_API_EXECUSES, // FIXME: monitoring memeber has access to all execuses for all other monitors
         ],
         self::ROLE_EXAMINING_COMMITTE_MANAGER => [
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_TAJWEED_COMMITTE_MANAGER => [
             self::ACTIVITY_REPORTS,
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_MONITORING_COMMITTE_MANAGER => [
-
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
         self::ROLE_RAQABA => [
             self::ACTIVITY_REPORTS,
+            self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
     ];
     
@@ -344,5 +366,12 @@ class QuestionsAnswers {
     const WhatIsYourGender = [
         'ذكر',
         'أنثى'
+    ];
+
+    const WhatIsTheSemester = [
+        "الفصل الأول",
+        "الفصل الثاني",
+        "الفصل الصيفي",
+        "بين الفصلين",
     ];
 }

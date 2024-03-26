@@ -16,14 +16,15 @@ return new class extends Migration
             $table->timestamps();
             $table->tinyText('title') -> nullable(false);
             $table->mediumText('description') -> nullable(false);
-            $table->date('date') -> nullable(false);
             $table->tinyText('status') -> nullable(false);
 
             $table->unsignedBigInteger('type_id') -> nullable(false);
-            $table->unsignedBigInteger('user_id') -> nullable(false);
+            $table->unsignedBigInteger('user_id') -> nullable(true); // FIXME: add not nullable here
+            $table->unsignedBigInteger('image_id') -> nullable(false);
 
-            $table-> foreign('user_id') -> references('id') -> on('announcement_types') -> cascadeOnDelete() -> cascadeOnUpdate();
+            $table-> foreign('user_id') -> references('id') -> on('users') -> cascadeOnDelete() -> cascadeOnUpdate();
             $table-> foreign('type_id') -> references('id') -> on('announcement_types') -> cascadeOnDelete() -> cascadeOnUpdate();
+            $table-> foreign('image_id') -> references('id') -> on('images') -> cascadeOnDelete() -> cascadeOnUpdate();
         });
     }
 

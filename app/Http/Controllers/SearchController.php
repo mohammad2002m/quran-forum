@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\User;
 use Illuminate\Http\Request;
+use QF\Constants as QFConstants;
 
 class SearchController extends Controller
 {
@@ -28,13 +30,24 @@ class SearchController extends Controller
 
     function excusesBySupervisorAndYear(Request $request, $supervisorId, $year)
     {
-        $execuses = getExcusesBySupervisorIdAndYear($supervisorId, $year);
-        return $execuses;
+        $excuses = getExcusesByMonitorIdAndYear($supervisorId, $year);
+        return $excuses;
+    }
+
+    function getAnnouncements(Request $request){
+        $announcements = Announcement::with('image')->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> get();
+        return response()->json($announcements);
     }
 
     function weeksByYear(Request $request, $year)
     {
         $weeks = getWeeksByYear($year);
         return response()->json($weeks);
+    }
+
+    function getAnnouncementsBatch($batch){
+        // get 10 announcements by batch
+        $announcements = Announcement::with('image')->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> skip($batch * 10) -> take(10) -> get();
+        return response()->json($announcements);
     }
 }

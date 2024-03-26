@@ -109,11 +109,6 @@
                         <label for="tajweed-mark" class="col-form-label"> علامة التجويد </label>
                         <input type="number" class="form-control text-start" id="tajweed-mark">
                     </div>
-                    <div class="mb-3">
-                        <label for="tajweed-mark" class="col-form-label"> جزء جديد </label>
-                        <input type="number" class="form-control text-start" id="new-part">
-                        <div> في حال قام الطلاب بإنهاء جزء جديد قم بإدخال رقم الجزء </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق </button>
@@ -157,8 +152,12 @@
         var weeks = @php echo json_encode($weeks); @endphp;
         var recitations = @php echo json_encode($recitations); @endphp;
 
-
         var changedRecitations = [];
+
+        console.log(recitations)
+        console.log(@php echo Auth::user() -> id @endphp) 
+        console.log(@php echo $currentWeek @endphp) 
+
     </script>
     <script>
         function updateNewWeeks() {
@@ -168,7 +167,8 @@
                         id: week.id,
                         text: week.name,
                     };
-                })
+                }),
+                theme: 'bootstrap-5'
             });
         }
 
@@ -230,7 +230,6 @@
         }
         async function fetchAndSetup() {
             changedRecitations = [];
-
             var year = getCurrentSelectedYear();
             await fetchAndUpdateNewData(year);
             processRecitations();
@@ -363,16 +362,13 @@
                     tajweed_mark: recitation.tajweed_mark,
                 });
             });
-
             document.getElementById('new-recitations').value = JSON.stringify(recitationChanges);
         }
 
         // on doucment 
         $(document).ready(function() {
-            $('#years-select2').select2();
-            $('#weeks-select2').select2();
-            console.log(recitations);
-            console.log(userId);
+            $('#years-select2').select2({ theme: "bootstrap-5" });
+            $('#weeks-select2').select2({ theme: "bootstrap-5"});
             processRecitations();
             render();
         });

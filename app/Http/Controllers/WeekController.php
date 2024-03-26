@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Week;
 use Illuminate\Http\Request;
 use QF\Constants as QFConstants;
+use QF\QuestionsAnswers;
 use WeekValidators;
 
 class WeekController extends Controller
@@ -12,25 +13,29 @@ class WeekController extends Controller
     use WeekValidators;
     function edit(Request $request){
         return view('week.edit')
-                -> with('weeksByYear', getWeeksByYears())
+                -> with('weeks', getWeeksByYear(getCurrentYear()))
                 -> with('years', getUsedYears())
-                -> with('currentYear', strval(getCurrentYear()));
+                -> with('currentYear', strval(getCurrentYear()))
+                -> with('semesters', QuestionsAnswers::WhatIsTheSemester);
+
     }
     function update(Request $request){
+        
+        
+
         [$status, $message] = $this -> isValidWeekUpdate($request);
 
-        if ($status === 'failed'){
+        if ($status === 'error'){
             return redirect() -> route(QFConstants::ROUTE_NAME_EDIT_WEEK_PAGE) -> with('error', $message);
         }
 
-        $weeksNamesChanges = json_decode($request -> weeks_names_changes, true);
-        $weeksMustsChanges = json_decode($request -> weeks_musts_changes, true);
-        
-        foreach ($weeksNamesChanges as $id => $name){
-            Week::where('id', $id) -> update(['name' => $name]);
-        }
-        foreach ($weeksMustsChanges as $id => $must){
-            Week::where('id', $id) -> update(['must' => $must]);
+        $newWeeks = json_decode($request -> weeks, true);
+        foreach ($newWeeks as $week){
+            Week::where('id', $week["id"]) -> update([
+                'name' => $week["name"],
+                'semester' => $week["semester"],
+                'must' => $week["must"],
+            ]);
         }
 
         return redirect() -> route(QFConstants::ROUTE_NAME_EDIT_WEEK_PAGE) -> with('success', $message);

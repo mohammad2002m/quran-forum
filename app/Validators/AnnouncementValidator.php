@@ -11,11 +11,10 @@ trait AnnouncementValidators {
             'title' => ['required'],
             'description' => ['required'],
             'type_id' => ['required', 'integer' , Rule::exists('announcement_types', 'id')],
-            'images.*' => ['required', 'mimes:jpg,jpeg,png'],
-            'main_image_name' => ['required', Rule::in(array_map(fn($image) => $image->getClientOriginalName(), $request->images))],
+            'image' => ['required', 'mimes:jpg,jpeg,png'],
         ]);
 
-        $status = $validator -> passes() ? 'passed' : 'failed';
+        $status = $validator -> passes() ? 'success' : 'error';
         $message = $validator -> messages() -> first();
 
         return [$status, $message];

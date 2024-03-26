@@ -20,7 +20,6 @@ class RecitationController extends Controller
         ]);;
     }
 
-    // FIXME showing get request as an error
     function update(Request $request){
         $recitations = json_decode($request -> new_recitations);
         
@@ -45,7 +44,6 @@ class RecitationController extends Controller
                     'notes' => ''
                 ]);
             } else {
-                dd("test2");
                 $recitation = Recitation::find($recitation -> id);
                 $recitation -> memorized_pages = $recitation -> memorized_pages;
                 $recitation -> repeated_pages = $recitation -> repeated_pages;

@@ -9,7 +9,7 @@
         }
     </style>
 @endsection
-<!-- FIXME delete jquery usage from this page --> 
+<!-- FIXME delete jquery usage from this page -->
 @section('content')
     <div class="container mt-4 mb-5">
         <div class="card">
@@ -25,7 +25,7 @@
                 @endif
 
                 <div class="mb-3">
-                    <select name="years" id="years-select" class="form-control" onchange="createTableWithPagination()">
+                    <select name="years" id="years-select" class="form-control" onchange="fetchAndRenderNewWeeks()">
                         @foreach ($years as $year)
                             <option value="{{ $year }}" @if ($currentYear == $year) selected @endif>
                                 {{ $year }} </option>
@@ -35,18 +35,16 @@
 
                 <div class="mb-3">
                     <!-- Just to store the weeks from backend so that I can access them via js -->
-
-
-
-
                     <div class="table-responsive" style="border-bottom: none;">
                         <table id="weeks-tbl" class="table table-bordered mb-0" style="transition: 1s;">
                             <thead class="table-light">
                                 <tr>
-                                    <th name="name" class="text-start"> اسم الأسبوع </th>
-                                    <th name="position" class="text-start"> بداية الأسبوع </th>
-                                    <th name="salary" class="text-start"> نهاية الأسبوع </th>
-                                    <th name="start_date" class="text-center"> تسميع إجباري </th>
+                                    <th class="text-start"> اسم الأسبوع </th>
+                                    <th class="text-start"> بداية الأسبوع </th>
+                                    <th class="text-start"> نهاية الأسبوع </th>
+                                    <th class="text-center"> الفصل </th>
+                                    <th class="text-center"> تسميع إجباري </th>
+                                    <th class="text-center"> تعديل </th>
                                 </tr>
                             </thead>
                             <tbody id="tbl-data"> </tbody>
@@ -71,15 +69,60 @@
             <div class="card-footer">
                 <div class="text-end">
                     <form action="/week/update" method="POST" class="m-0 w-100"
-                        onsubmit="return validateAndAssignValues()">
+                        onsubmit="return assignWeeksAndSubmit()">
                         @csrf
-                        <input id="weeks-names-changes" name="weeks_names_changes" type="text" hidden>
-                        <input id="weeks-musts-changes" name="weeks_musts_changes" type="text" hidden>
+                        <input id="weeks" name="weeks" type="text" hidden>
                         <button type="submit" class="btn btn-primary"> حفظ </button>
                     </form>
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="edit-week-modal" tabindex="-1" aria-labelledby="edit-week-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"> تعديل الأسبوع </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input id="week-id" type="text" class="form-control" hidden>
+                        <div class="mb-3">
+                            <label for="week-start-date" class="form-label"> تاريخ بداية الأسبوع </label>
+                            <input type="text" class="form-control" id="week-start-date" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="week-end-date" class="form-label"> تاريخ نهاية الأسبوع </label>
+                            <input type="text" class="form-control" id="week-end-date" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="week-name" class="form-label"> اسم الأسبوع </label>
+                            <input id="week-name" type="text" class="form-control" id="week-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="week-semester" class="form-label"> الفصل </label>
+                            <select name="week-semester" id="week-semester" class="form-select">
+                                @foreach ($semesters as $semester)
+                                    <option value="{{ $semester }}"> {{ $semester }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="week-must" class="form-label"> هل التسميع إجباري ؟</label>
+                            <select name="week-must" id="week-must" class="form-select">
+                                <option value="1"> نعم </option>
+                                <option value="0"> لا </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق </button>
+                        <button type="button" class="btn btn-primary" onclick="saveWeek()"> حفظ </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection
 @section('scripts')
@@ -97,35 +140,9 @@
     </script>
     <script>
         var years = @php echo json_encode($years); @endphp;
-        var weeksByYear = @php echo json_encode($weeksByYear); @endphp;
-
-        weeksNamesChanges = {};
-        weeksMustsChanges = {};
-
-        function changeWeekNamebyId(id, name) {
-            weeksNamesChanges[id] = name;
-            var weeks = weeksByYear[getCurrentSelectedYear()];
-            for (let i = 0; i < weeks.length; i++) {
-                if (weeks[i].id === id) {
-                    weeks[i].name = name;
-                    break;
-                }
-            }
-        }
-
-        function changeWeekMustbyId(id, must) {
-            weeksMustsChanges[id] = must;
-            var weeks = weeksByYear[getCurrentSelectedYear()];
-            for (let i = 0; i < weeks.length; i++) {
-                if (weeks[i].id === id) {
-                    weeks[i].must = must;
-                    break;
-                }
-            }
-        }
+        var weeks = @php echo json_encode($weeks); @endphp;
 
         function setCurrentPageTo(page) {
-            if (pagination.currentPage === page) return;
             if (page < pagination.firstPage || page > pagination.lastPage) return;
             var tableData = $('#tbl-data');
             tableData.empty();
@@ -136,25 +153,17 @@
                 var week = pagination.data[row];
                 tableData.append(`
                     <tr>
-                        <td id="name-${week.id}" class="text-start" contenteditable> ${week.name} </td>
+                        <td class="text-start"> ${week.name} </td>
                         <td class="text-start"> ${week.start_date} </td>
                         <td class="text-start"> ${week.end_date} </td>
-                        <td class="text-center"> <input id="must-${week.id}" type="checkbox" class="form-check-input" ${week.must ? "checked" : ""} /> </td>
+                        <td class="text-center"> ${week.semester}  </td>
+                        <td class="text-center"> ${week.must ? "نعم" : "لا"} </td>
+                        <td class="text-center"> <button class="btn btn-primary btn-sm" onclick="openAndSetupEditWeekModal(${week.id})"> تعديل </button> </td>
                     </tr>
                 `);
 
-                var nameColumn = $(`#name-${week.id}`);
-                var mustCheckboxColumn = $(`#must-${week.id}`);
-                nameColumn.on('input', function(e) {
-                    var idFromIdTag = parseInt(e.target.id.split('-')[1]);
-                    changeWeekNamebyId(idFromIdTag, e.target.innerText);
-                });
-                mustCheckboxColumn.on('change', function(e) {
-                    var idFromIdTag = parseInt(e.target.id.split('-')[1]);
-                    changeWeekMustbyId(idFromIdTag, e.target.checked);
-                });
             }
-            // There two lines were written by Github Copilot
+            // These two lines were written by Github Copilot
             $('.pagination').find('.active').removeClass('active');
             $(`#page-${page}`).addClass('active');
         }
@@ -168,7 +177,7 @@
         }
 
         function createTableWithPagination() {
-            var data = weeksByYear[getCurrentSelectedYear()];
+            var data = weeks;
 
             var pageLength = 14;
 
@@ -178,7 +187,7 @@
             pagination.data = data;
             pagination.currentPage = -1;
 
-
+            // 
             $('.pagination').empty();
             $('.pagination').append(
                 `<li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#" onclick="goToPreviousPage()"> السابق </a></li>`
@@ -195,19 +204,79 @@
             setCurrentPageTo(1);
         }
 
-        function validateAndAssignValues() {
-            // check if weekNameChanges has empty values
-            const hasEmptyNames = Object.values(weeksNamesChanges).some(function(value) {
-                return value === "";
+        function assignWeeksAndSubmit() {
+            var getWeeksInput = document.getElementById('weeks');
+            getWeeksInput.value = JSON.stringify(weeks);
+            return true;
+        }
+
+        function openAndSetupEditWeekModal(weekId) {
+            // open the modal
+            var modal = new bootstrap.Modal(document.getElementById('edit-week-modal'));
+            modal.show();
+
+            var weekIdInput = document.getElementById('week-id');
+            var weekNameInput = document.getElementById('week-name');
+            var weekStartDateInput = document.getElementById('week-start-date');
+            var weekEndDateInput = document.getElementById('week-end-date');
+            var weekSemesterInput = document.getElementById('week-semester');
+            var weekMustInput = document.getElementById('week-must');
+
+            var week = weeks.find(function(week) {
+                return week.id === weekId;
             });
-            if (hasEmptyNames) {
-                alert('لا يمكن ترك اسم الأسبوع فارغاً');
-                return false;
-            } else {
-                $('#weeks-names-changes').val(JSON.stringify(weeksNamesChanges));
-                $('#weeks-musts-changes').val(JSON.stringify(weeksMustsChanges));
-                return true;
+
+            weekIdInput.value = weekId;
+            weekNameInput.value = week.name;
+            weekStartDateInput.value = week.start_date;
+            weekEndDateInput.value = week.end_date;
+            weekSemesterInput.value = week.semester;
+            weekMustInput.value = week.must;
+        }
+
+        function saveWeek(){
+            var weekId = parseInt(document.getElementById('week-id').value);
+            var weekName = document.getElementById('week-name').value;
+            var weekSemester = document.getElementById('week-semester').value;
+            var weekMust = parseInt(document.getElementById('week-must').value);
+
+            if (!weekName) {
+                alert("لا يمكن ترك حقل الاسم فارغا");
+                return ;
             }
+
+            weeks = weeks.map(function(week){
+                if(week.id === weekId){
+                    week.name = weekName;
+                    week.semester = weekSemester;
+                    week.must = weekMust;
+                }
+                return week;
+            });
+
+            render();
+
+            // close modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById("edit-week-modal"));
+            modal.hide();
+
+        }
+
+        function render(){
+            pagination.data = weeks;
+            setCurrentPageTo(pagination.currentPage);
+        }
+    
+        async function fetchWeeks(){
+            var year = getCurrentSelectedYear();
+            var response = await fetch(`http://localhost:8000/api/weeks/${year}`);
+            var data = await response.json();
+            return data;
+        }
+        async function fetchAndRenderNewWeeks(){
+            var newWeeks = await fetchWeeks();
+            weeks = newWeeks;
+            createTableWithPagination();
         }
     </script>
     <script>

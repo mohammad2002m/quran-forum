@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Accomplishment;
 use App\Models\Activity;
+use App\Models\Announcement;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\AnnouncementType;
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
         DatabaseSeeder::seedGroups();
         DatabaseSeeder::seedUsers();
         DatabaseSeeder::seedAnnouncementTypes();
+        DatabaseSeeder::seedAnnouncements();
         DatabaseSeeder::seedRecitation();
         DatabaseSeeder::seedExecuses();
     }
@@ -158,6 +160,22 @@ class DatabaseSeeder extends Seeder
     }
     public static function seedImages()
     {
+        
+        for ($c = 1; $c <= 13; $c++){
+            // get image width and height from full_path
+            $width = getimagesize(public_path("images/$c.jpg"))[0];
+            $height = getimagesize(public_path("images/$c.jpg"))[1];
+
+
+            Image::factory()->create([
+                "full_path" => "http://localhost:8000/images/$c.jpg",
+                "stored" => false,
+                "for" => "announcement",
+                "width" => $width,
+                "height" => $height,
+            ]);
+        }
+
         $doesntExist = [86, 97, 105, 138, 148, 150, 205, 207, 224, 226, 245, 246, 262, 285, 286, 298, 303, 332, 333, 346, 359, 394, 414, 422, 438, 462, 463, 470, 489, 540, 561, 578, 587, 589, 592, 595, 597, 601, 624, 632, 636, 644, 647, 673, 697, 706, 707, 708, 709, 710, 711, 712, 713, 714, 720, 725, 734, 745, 746, 747, 748, 749, 750, 751, 752, 753, 754, 759, 761, 762, 763, 771, 792, 801, 812, 843, 850, 854, 895, 897, 899, 917, 920, 934, 956, 963, 968];
         $notAppropriate = [31, 64, 65, 129, 325, 373, 375, 395, 399, 446, 449, 454, 497, 548, 501, 550, 580, 590, 596, 604, 628, 633, 646, 656, 660, 680, 686, 691, 742, 758, 760, 768, 777, 778, 786, 793, 800, 804, 818, 821, 823, 822, 832, 836, 839, 838, 837, 841, 855, 874, 978, 996, 1000];
 
@@ -177,6 +195,8 @@ class DatabaseSeeder extends Seeder
                 "for" => "cover",
             ]);
         }
+
+
     }
     public static function seedActivites()
     {
@@ -193,7 +213,6 @@ class DatabaseSeeder extends Seeder
             ['description' => 'موافقة إعلان']
         );
     }
-
     public static function seedColleges()
     {
         $colleges = [
@@ -300,18 +319,10 @@ class DatabaseSeeder extends Seeder
     }
     public static function seedAnnouncementTypes()
     {
-        AnnouncementType::factory()->create([
-            'name' => 'عام',
-        ]);
-        AnnouncementType::factory()->create([
-            'name' => 'الحصاد',
-        ]);
-        AnnouncementType::factory()->create([
-            'name' => 'المسابقات',
-        ]);
-        AnnouncementType::factory()->create([
-            'name' => 'الندوات',
-        ]);
+        AnnouncementType::factory()->create([ "name" => "عام", ]);
+        AnnouncementType::factory()->create([ 'name' => "الحصاد", ]);
+        AnnouncementType::factory()->create([ 'name' => "المسابقات", ]);
+        AnnouncementType::factory()->create([ 'name' => "لقاءات إلكترونية", ]);
     }
     public static function seedRoles()
     {
@@ -386,5 +397,16 @@ class DatabaseSeeder extends Seeder
     }
     public static function seedPlans()
     {
+    }
+    public static function seedAnnouncements(){
+        for ($rep = 1; $rep <= 100; $rep++){
+            $announcement = Announcement::factory()->create([
+                'title' => 'إعلان رقم ' . strval($rep),
+                'description' => 'هذا الإعلان رقم ' . strval($rep),
+                'status' => QFConstants::ANNOUNCEMENT_STATUS_APPROVED,
+                'type_id' => rand(1, 4),
+                'image_id' => rand(1, 13),
+            ]);
+        }
     }
 }

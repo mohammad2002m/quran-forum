@@ -141,9 +141,9 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#years-select2').select2();
-            $('#weeks-select2').select2();
-            $('#gender-select2').select2();
+            $('#years-select2').select2({theme: 'bootstrap-5'});
+            $('#weeks-select2').select2({theme: 'bootstrap-5'});
+            $('#gender-select2').select2({theme: 'bootstrap-5'});
         });
     </script>
 @endsection

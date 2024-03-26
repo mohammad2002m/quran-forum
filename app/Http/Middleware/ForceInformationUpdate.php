@@ -21,10 +21,10 @@ class ForceInformationUpdate
         $routeName = $request -> route() -> getName();
         if (Auth::check() &&
             Auth::user() -> force_information_update &&
-            $routeName !== QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_PAGE &&
+            $routeName !== QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_INDEX &&
             $routeName !== QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_UPDATE
         ){
-            return redirect() -> route(QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_PAGE);
+            return redirect() -> route(QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_INDEX);
         }
         return $next($request);
     }

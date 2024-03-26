@@ -1,5 +1,6 @@
-<?php 
+<?php
 
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use QF\Constants;
@@ -52,7 +53,12 @@ function getUserByEmail(string $email){
 
 function getSupervisorStudents($userId){
     $supervisor = User::find($userId);
-    return $supervisor -> group -> students ?? [];
+    $group = Group::where('supervisor_id', $supervisor -> id) -> first();
+    if (!$group){
+        QFLogger::error("supervisor doesn't have a group", strval($supervisor -> id));
+        return [];
+    }
+    return User::where('group_id', $group -> id) -> get();
 }
 
 function getMonitorStudents($userId){
@@ -75,4 +81,15 @@ function getMonitorStudents($userId){
         }
     }
     return $students;
+}
+
+function isUserAllowedToDoActivity($userId, $activity){
+    $user = User::find($userId);
+    $roles = $user -> roles;
+    $allowedUserActivities = [];
+    foreach ($roles as $role){
+        $rolePermissions = Constants::PERMISSIONS[$role -> id];
+        $allowedUserActivities = array_merge($allowedUserActivities, $rolePermissions);
+    }
+    return in_array($activity, $allowedUserActivities);
 }

@@ -1,0 +1,26 @@
+.lifestyle .lifestyle-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.lifestyle .lifestyle-item img {
+    transition: 0.5s;
+}
+
+.lifestyle .lifestyle-item:hover img {
+    transform: scale(1.2);
+}
+
+.lifestyle .lifestyle-item .lifestyle-content {
+    position: absolute;
+    width: 100%; 
+    height: 100%; 
+    top: 0; 
+    left: 0; 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+/*** Whats New End ***/

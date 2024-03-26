@@ -48,6 +48,7 @@ Route::group([], function () {
 
     Route::get('/announcement/create', [AnnouncementController::class, 'create'])->name(QFConstants::ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE)->middleware('auth');
     Route::post('/announcement/store', [AnnouncementController::class, 'store'])->name(QFConstants::ROUTE_NAME_STORE_ANNOUNCEMENT)->middleware('auth');
+    Route::get('/announcement/show/{id}', [AnnouncementController::class, 'show'])->name(QFConstants::ROUTE_NAME_SHOW_ANNOUNCEMENT);
 
     Route::get('/announcement/archived/index', [AnnouncementController::class, 'indexArchived'])->name(QFConstants::ROUTE_NAME_ARCHIVED_ANNOUNCEMENTS);
 
@@ -123,4 +124,6 @@ Route::group([], function () {
     Route::get('/api/excuses/{supervisorId}/{year}', [SearchController::class, 'excusesBySupervisorAndYear'])->name(QFConstants::ROUTE_NAME_API_EXECUSES)->middleware('auth');
     Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear'])->name(QFConstants::ROUTE_NAME_API_WEEKS)->middleware('auth');
     Route::get('/api/reports/{weekId}/{gender}', [ReportsController::class, 'getReport'])->name(QFConstants::ROUTE_NAME_API_WEEKLY_REPORT)->middleware('auth');
+    Route::get('/api/announcements', [SearchController::class, 'getAnnouncements'])->name(QFConstants::ROUTE_NAME_API_GET_ANNOUNCEMENTS);
+    Route::get('/api/announcements/{batch}', [SearchController::class, 'getAnnouncementsBatch'])->name(QFConstants::ROUTE_NAME_API_GET_ANNOUNCEMENTS);
 });
