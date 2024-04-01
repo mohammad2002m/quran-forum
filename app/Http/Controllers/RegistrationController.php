@@ -48,9 +48,10 @@ class RegistrationController extends Controller
             'locked' => false,
             'group_id' => null,
             'status' => QFConstants::STUDENT_STATUS_ACTIVE,
-            'can_be_teacher' => false,
-            'tajweed_certificate' => false,
+            'can_be_teacher' => $request -> can_be_teacher,
+            'tajweed_certificate' => $request -> tajweed_certificate,
             'force_information_update' => false,
+            'view_notify_on_landing_page' => true,
         ]);
 
         $user -> save();

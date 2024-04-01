@@ -50,4 +50,10 @@ class SearchController extends Controller
         $announcements = Announcement::with('image')->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> skip($batch * 10) -> take(10) -> get();
         return response()->json($announcements);
     }
+
+
+    function getUsers(Request $request){
+        $users = User::with(['group','supervisor','college', 'roles']) -> get();
+        return response()->json($users);
+    }
 }

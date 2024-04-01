@@ -74,6 +74,12 @@
                             </li>
                         @endif
 
+                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_STUDENTS))
+                            <li class="nav-item">
+                                <a class="nav-link" href="/students/index"> الطلاب </a>
+                            </li>
+                        @endif
+
                         <li class="nav-item">
                             <a class="nav-link" href="/announcement/archived/index"> الأرشيف </a>
                         </li>

@@ -304,6 +304,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'phone_number' => '0569' . strval(rand(99999, 999999)),
                 'group_id' => strval((($rep - 1) % 10) + 1 + $num * 10),
+                'view_notify_on_landing_page' => rand(0 , 1) == 1 ? true : false,
             ]);
 
             $user->roles()->attach($role);

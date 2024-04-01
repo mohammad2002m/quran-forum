@@ -65,6 +65,8 @@ class Constants {
     const ROUTE_NAME_API_EXECUSES = 'api.execuses';
     const ROUTE_NAME_API_RECITATIONS = 'api.recitations';
     const ROUTE_NAME_API_SUPERVISORS = 'api.supervisors';
+    const ROUTE_NAME_API_GET_ANNOUNCEMENTS = 'api.announcements';
+    const ROUTE_NAME_API_GET_USERS = 'api.users';
 
     const ROUTE_NAME_UNAUTHORIZED = 'unauthorized';
 
@@ -90,7 +92,8 @@ class Constants {
     const ROUTE_NAME_GROUP_STORE = 'group.store';
     const ROUTE_NAME_REPORTS_INDEX = 'reports.index';
 
-    const ROUTE_NAME_API_GET_ANNOUNCEMENTS = 'api.announcements';
+    const ROUTE_NAME_STUDENTS_INDEX = 'students.index';
+    const ROUTE_NAME_CHANGE_ROLES = 'roles.change';
 
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
@@ -139,12 +142,14 @@ class Constants {
     const ACTIVITY_GET_SUPERVISORS = 7;
     const ACTIVITY_MANAGE_GROUPS = 8;
     const ACTIVITY_MANAGE_FORUM = 9;
+    const ACTIVITY_STUDENTS = 10;
 
-    const ACTIVITY_API_WEEKS = 10;
-    const ACTIVITY_API_EXECUSES = 11;
-    const ACTIVITY_API_RECITATIONS = 12;
-    const ACTIVITY_API_SUPERVISORS = 13;
-    const ACTIVITY_API_ANNOUNCEMENTS = 14;
+    const ACTIVITY_API_WEEKS = 11;
+    const ACTIVITY_API_EXECUSES = 12;
+    const ACTIVITY_API_RECITATIONS = 13;
+    const ACTIVITY_API_SUPERVISORS = 14;
+    const ACTIVITY_API_ANNOUNCEMENTS = 15;
+    const ACTIVITY_API_USERS = 15;
 
     /******** IMAGES TYPES ********/
     const SUPPORTED_IMAGES_EXTENSIONS = ['jpg', 'jpeg', 'png'];
@@ -166,6 +171,7 @@ class Constants {
             self::ACTIVITY_MANAGE_WEEKS,
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
+            self::ACTIVITY_STUDENTS,
         ],
         self::ROLE_VICE_HEAD => [
             self::ACTIVITY_APPROVE_ANNOUNCEMENT,
@@ -173,6 +179,7 @@ class Constants {
             self::ACTIVITY_MANAGE_WEEKS,
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
+            self::ACTIVITY_STUDENTS,
         ],
         self::ROLE_STUDENT => [
             self::ACTIVITY_API_ANNOUNCEMENTS,
@@ -188,6 +195,7 @@ class Constants {
             self::ACTIVITY_GET_SUPERVISORS, 
             self::ACTIVITY_MANAGE_GROUPS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
+            self::ACTIVITY_STUDENTS,
         ],
         self::ROLE_MEDIA_COMMITTE_MEMBER => [
             self::ACTIVITY_CREATE_ANNOUNCEMENT,
@@ -199,6 +207,7 @@ class Constants {
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
+            self::ACTIVITY_STUDENTS,
         ],
         self::ROLE_SECRETARY_GENERAL => [
             self::ACTIVITY_API_ANNOUNCEMENTS,

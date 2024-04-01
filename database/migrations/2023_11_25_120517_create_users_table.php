@@ -23,6 +23,7 @@ return new class extends Migration
             $table-> enum('gender', QFQuestionsAnswers::WhatIsYourGender) -> nullable(false);
             $table-> enum('year', QFQuestionsAnswers::WhatIsYourStudyYear) -> nullable(false);
             $table-> enum("status", QFConstants::STUDENT_STATUSES) -> default("نشط") -> nullable(true);
+            $table -> tinyText('student_number') -> nullable(true);
 
             $table-> enum('schedule', QFQuestionsAnswers::WhatIsYourSchedule) -> nullable(false);
             $table-> boolean('can_be_teacher') -> nullable(false);
@@ -30,6 +31,7 @@ return new class extends Migration
 
             $table-> boolean('locked') -> nullable(false);
             $table-> boolean('force_information_update') -> nullable(false);
+            $table-> boolean('view_notify_on_landing_page') -> nullable(false);
 
             $table-> date('email_verified_at') -> nullable(true);
 

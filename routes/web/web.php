@@ -18,7 +18,9 @@ use App\Http\Controllers\RecitationController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\UnauthorizedController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\WeekController;
@@ -119,11 +121,17 @@ Route::group([], function () {
     Route::get('/monitoring/index', [MonitoringController::class, 'index'])->name(QFConstants::ROUTE_NAME_MONITORING_INDEX)->middleware('auth');
     Route::post('/monitoring/update', [MonitoringController::class, 'update'])->name(QFConstants::ROUTE_NAME_MONITORING_UPDATE)->middleware('auth');
 
+    Route::get('/students/index', [StudentsController::class, 'index'])->name(QFConstants::ROUTE_NAME_STUDENTS_INDEX)->middleware('auth');
+
     Route::get('/api/supervisors', [SearchController::class, 'supervisors'])->name(QFConstants::ROUTE_NAME_API_SUPERVISORS)->middleware('auth');
     Route::get('/api/recitations/{supervisorId}/{year}', [SearchController::class, 'recitationsBySupervisorAndYear'])->name(QFConstants::ROUTE_NAME_API_RECITATIONS)->middleware('auth');
     Route::get('/api/excuses/{supervisorId}/{year}', [SearchController::class, 'excusesBySupervisorAndYear'])->name(QFConstants::ROUTE_NAME_API_EXECUSES)->middleware('auth');
     Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear'])->name(QFConstants::ROUTE_NAME_API_WEEKS)->middleware('auth');
     Route::get('/api/reports/{weekId}/{gender}', [ReportsController::class, 'getReport'])->name(QFConstants::ROUTE_NAME_API_WEEKLY_REPORT)->middleware('auth');
     Route::get('/api/announcements', [SearchController::class, 'getAnnouncements'])->name(QFConstants::ROUTE_NAME_API_GET_ANNOUNCEMENTS);
+    Route::get('/api/users', [SearchController::class, 'getUsers'])->name(QFConstants::ROUTE_NAME_API_GET_USERS) -> middleware('auth');
     Route::get('/api/announcements/{batch}', [SearchController::class, 'getAnnouncementsBatch'])->name(QFConstants::ROUTE_NAME_API_GET_ANNOUNCEMENTS);
+    
+
+    Route::post('/change-roles', [RoleController::class, 'changeRoles'])->name(QFConstants::ROUTE_NAME_CHANGE_ROLES)->middleware('auth');
 });
