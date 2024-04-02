@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\College;
+use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +27,12 @@ class RegistrationController extends Controller
         ]);
     }
     function registerVolunteer(){
-        return view('registration.volunteer');
+        return view('registration.volunteer')
+         -> with([
+            'colleges' => College::all(),
+            'years' => QuestionsAnswers::WhatIsYourStudyYear,
+            'schedules' => QuestionsAnswers::WhatIsYourSchedule,
+        ]);
     }
 
     function registerStudentSubmit(Request $request){
@@ -48,11 +54,14 @@ class RegistrationController extends Controller
             'locked' => false,
             'group_id' => null,
             'status' => QFConstants::STUDENT_STATUS_ACTIVE,
-            'can_be_teacher' => $request -> can_be_teacher,
-            'tajweed_certificate' => $request -> tajweed_certificate,
+            'can_be_teacher' => boolval($request -> can_be_teacher),
+            'tajweed_certificate' => boolval($request -> tajweed_certificate),
             'force_information_update' => false,
             'view_notify_on_landing_page' => true,
         ]);
+
+
+        Settings::set('registration_allowed_number', intval(Settings::get('registration_allowed_number')) - 1);
 
         $user -> save();
 
@@ -70,6 +79,54 @@ class RegistrationController extends Controller
     }
 
     function registerVolunteerSubmit(Request $request){
+        [$status, $message] = $this->isValidRegisterVolunteerSubmit($request);
+        if ($status === 'error'){
+            return redirect() -> back() -> withInput() -> with($status, $message);
+        }
 
+        $user = User::create([
+            'name' => $request -> name,
+            'email' => $request -> email,
+            'password' => Hash::make($request -> password),
+            'gender' => $request -> gender,
+            'phone_number' => $request -> phone_number,
+            'college_id' => $request -> college_id,
+            'year' => $request -> year,
+            'schedule' => $request -> schedule,
+            'email_verified_at' => null,
+            'locked' => false,
+            'group_id' => null,
+            'status' => null,
+            'can_be_teacher' => boolval($request -> can_be_teacher),
+            'tajweed_certificate' => boolval($request -> tajweed_certificate),
+            'force_information_update' => false,
+            'view_notify_on_landing_page' => true,
+        ]);
+
+        $user -> save();
+
+        $user -> previous_parts() -> saveMany(getPreviousParts($request -> previous_parts ?? [], $user -> id));
+
+        // FIXME: add exams to the table
+
+        Session::put('email_for_verification', $user -> email);
+        Session::put('password_for_verification', Hash::make($user -> password));
+        $user -> sendEmailVerificationNotification();
+
+        return redirect() -> route('verification.notice') -> with([$status => $message]);
+    }
+
+    function openRegistration(Request $request){
+        [$status, $message] = $this->isValidOpenRegistration($request);
+
+        if ($status === "error"){
+            return redirect() -> back() -> with([$status => $message]);
+        }
+
+        $registrationAllowedNumber = $request -> registration_allowed_number;
+        
+        Settings::set('registration_allowed_number', $registrationAllowedNumber);
+
+        return redirect() -> route(QFConstants::ROUTE_NAME_MANAGEMENT_INDEX) -> with([$status => $message]);
     }
 }

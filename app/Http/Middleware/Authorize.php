@@ -74,6 +74,7 @@ class Authorize
         QFConstants::ROUTE_NAME_API_GET_USERS => [QFConstants::ACTIVITY_API_USERS, QFConstants::ACTIVITY_MANAGE_FORUM],
         QFConstants::ROUTE_NAME_STUDENTS_INDEX => [QFConstants::ACTIVITY_STUDENTS],
         QFConstants::ROUTE_NAME_CHANGE_ROLES => [QFConstants::ACTIVITY_STUDENTS],
+        QFConstants::ROUTE_NAME_OPEN_REGISTRATION => [QFConstants::ACTIVITY_MANAGE_FORUM],
     ];
 
     public function handle(Request $request, Closure $next): Response

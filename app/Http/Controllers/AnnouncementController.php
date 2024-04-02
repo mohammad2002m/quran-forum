@@ -7,6 +7,7 @@ use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Models\AnnouncementType;
 use App\Models\Image;
+use App\Models\User;
 // use App\Models\Image;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +20,18 @@ class AnnouncementController extends Controller
     use AnnouncementValidators;
     public function index()
     {
+        
+        $viewNotifyOnLandingPage = Auth::check() ? Auth::user()->view_notify_on_landing_page : false;
+
+        if ($viewNotifyOnLandingPage){
+            $user = User::find(Auth::user()->id);
+            $user->view_notify_on_landing_page = false;
+            $user->save();
+        }
+        
         return view('announcement.index') -> with([
-            'announcementTypes' => AnnouncementType::all()
+            'announcementTypes' => AnnouncementType::all(),
+            'viewNotifyOnLandingPage' => $viewNotifyOnLandingPage ? 'true' : 'false',
         ]);
     }
     public function indexArchived(){

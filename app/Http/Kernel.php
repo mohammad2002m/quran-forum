@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\ForceInformationUpdate::class,
             \App\Http\Middleware\Authorize::class,
+            \App\Http\Middleware\RegistrationClosed::class,
         ],
 
         'api' => [

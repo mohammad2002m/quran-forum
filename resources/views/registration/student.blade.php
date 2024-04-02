@@ -130,7 +130,29 @@
                         <h5> خاص بالملتقى </h5>
                     </div>
 
-                    <div class="mb-3">
+
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="can_be_teacher" class="mb-1"> هل تستطيع أن تكون من محفظي القرآن </label>
+                            <select name="can_be_teacher" class="form-select">
+                                <option value="true" {{ old('can_be_teacher') == true ? 'selected' : '' }}> نعم
+                                </option>
+                                <option value="false" {{ old('can_be_teacher') == false ? 'selected' : '' }}> لا
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="tajweed_certificate" class="mb-1"> هل لديك إجازة في التجويد </label>
+                            <select name="tajweed_certificate" class="form-select">
+                                <option value="true" {{ old('tajweed_certificate') == true ? 'selected' : '' }}> نعم
+                                </option>
+                                <option value="false" {{ old('tajweed_certificate') == false ? 'selected' : '' }}> لا
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-5">
                         <label class="mb-1"> ما هي الأجزاء الي تحفظها من القرآن الكريم </label>
                         <div>
                             <div class="table-responsive">
@@ -213,27 +235,6 @@
                                 </table>
                             </div>
 
-                        </div>
-                    </div>
-
-                    <div class="row mb-5">
-                        <div class="col-md-6">
-                            <label for="can_be_teacher" class="mb-1"> هل تستطيع أن تكون من محفظي القرآن </label>
-                            <select name="can_be_teacher" class="form-select">
-                                <option value="true" {{ old('can_be_teacher') == true ? 'selected' : '' }}> نعم
-                                </option>
-                                <option value="false" {{ old('can_be_teacher') == false ? 'selected' : '' }}> لا
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="tajweed_certificate" class="mb-1"> هل لديك إجازة في التجويد </label>
-                            <select name="tajweed_certificate" class="form-select">
-                                <option value="true" {{ old('tajweed_certificate') == true ? 'selected' : '' }}> نعم
-                                </option>
-                                <option value="false" {{ old('tajweed_certificate') == false ? 'selected' : '' }}> لا
-                                </option>
-                            </select>
                         </div>
                     </div>
                 </section>

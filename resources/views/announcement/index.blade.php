@@ -11,7 +11,7 @@
 @endsection
 @section('content')
     <!-- Most Populer News Start -->
-
+    <input hidden id="view-notify-on-landing-page" type="text" value={{$viewNotifyOnLandingPage}}>
     <div id="main-container" class="container mt-4">
         <div class="mb-4">
             <div class="lifestyle">
@@ -19,6 +19,23 @@
                     <!-- column 1 -->
                     <!-- column 2 -->
                     <!-- column 3 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> مرحبًا بك </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p> في حال قمت بالتسجيل كطالب أو كمشرف سيتم التواصل معك من قبل الملتقى لضمك لحلقة أو تعيينك كمشرف </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal"> متابعة </button>
                 </div>
             </div>
         </div>
@@ -31,9 +48,9 @@
         var columnsHeights = [];
         var batch = 0; // next batch to be fetched
 
-        function initiateColumnsAndLayout(){
+        function initiateColumnsAndLayout() {
             columnsHeights = Array(numberOfLayoutColumns).fill(0);
-            
+
             var columnsParentTag = document.getElementById('3-columns-parent-tag');
             for (var num = 0; num < numberOfLayoutColumns; num++) {
                 var column = document.createElement('div');
@@ -84,7 +101,7 @@
 
             announcements.forEach((announcement) => {
                 var minIndex = columnsHeights.indexOf(Math.min(...columnsHeights));
-                
+
                 var columnElement = document.getElementById(`layout-column-${minIndex}`);
                 columnElement.innerHTML += announcementElement(announcement);
 
@@ -96,20 +113,27 @@
                 columnsHeights[minIndex] += imageActualHeight;
             });
         }
+        
+        function showOnBoardingModal() {
+            var viewNotifyOnLandingPage = document.getElementById('view-notify-on-landing-page').value;
+            if (viewNotifyOnLandingPage === "true") {
+                var modal = new bootstrap.Modal(document.querySelector('.modal'));
+                modal.show();
+            }
+        }
     </script>
     <script>
-        
         initiateColumnsAndLayout();
 
         var mainPageContainer = document.getElementById('main-container');
-        
+
 
         var allowedToFetch = true;
         window.onscroll = async function() {
             var timeDelay = 500;
             var delayHeightFactor = 1.5;
             if ((delayHeightFactor * window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                if (allowedToFetch){
+                if (allowedToFetch) {
                     allowedToFetch = false;
                     await renderAnnouncementBatch();
                     setTimeout(() => {
@@ -119,8 +143,9 @@
             }
         };
 
-        (async function initialRender(){
+        (async function initialRender() {
             await renderAnnouncementBatch();
+            showOnBoardingModal();
         }());
     </script>
 @endsection

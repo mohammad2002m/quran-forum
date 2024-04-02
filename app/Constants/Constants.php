@@ -76,6 +76,7 @@ class Constants {
     const ROUTE_NAME_STUDNET_REGISTER_SUBMIT = 'registration.student.submit';
     const ROUTE_NAME_VOLUNTEER_REGISTER_PAGE = 'registration.volunteer';
     const ROUTE_NAME_VOLUNTEER_REGISTER_SUBMIT = 'registration.volunteer.submit';
+    const ROUTE_NAME_OPEN_REGISTRATION = 'registration.open';
 
     const ROUTE_NAME_PROFILE_INDEX = 'profile.index';
     const ROUTE_NAME_PROFILE_EDIT = 'profile.edit';
@@ -94,7 +95,6 @@ class Constants {
 
     const ROUTE_NAME_STUDENTS_INDEX = 'students.index';
     const ROUTE_NAME_CHANGE_ROLES = 'roles.change';
-
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
     const WEEK_RANGE = 3;

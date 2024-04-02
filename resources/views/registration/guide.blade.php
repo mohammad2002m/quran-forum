@@ -11,6 +11,12 @@
             <h5> تعليمات التسجيل والتطوع للإشراف واللجان </h5>
         </div>
 
+        @if (Session::has('error'))
+            <x-alert type="alert-danger" :message="session('error')" />
+        @elseif (Session::has('success'))
+            <x-alert type="alert-success" :message="session('success')" />
+        @endif
+
         @if (Auth::check() && Auth::user()->hasVerifiedEmail())
             <div>
                 إذا أردت التطوع للإشراف أو اللجان الأخرى أو أردت التطوع في المزيد من الأدوار فالرجاء الضغط على الرابط التالي

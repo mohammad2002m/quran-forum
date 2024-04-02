@@ -62,6 +62,8 @@ Route::group([], function () {
     Route::get('/registration/volunteer', [RegistrationController::class, 'registerVolunteer'])->name(QFConstants::ROUTE_NAME_VOLUNTEER_REGISTER_PAGE);
     Route::post('/registration/volunteer', [RegistrationController::class, 'registerVolunteerSubmit'])->name(QFConstants::ROUTE_NAME_VOLUNTEER_REGISTER_SUBMIT);
 
+    Route::post('/registration/open', [RegistrationController::class, 'openRegistration'])->name(QFConstants::ROUTE_NAME_OPEN_REGISTRATION)->middleware('auth');
+
     Route::get('/login', [LoginController::class, 'login'])->name(QFConstants::ROUTE_NAME_LOGIN_PAGE)->middleware('guest');
     Route::post('/login',  [LoginController::class, 'attemptLogin'])->name(QFConstants::ROUTE_NAME_ATTEMPT_LOGIN)->middleware('guest');
 
