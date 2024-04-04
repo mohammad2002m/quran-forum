@@ -343,12 +343,16 @@
                 return recitation;
             });
 
-            console.log(recitations);
             $('#editRecitationModal').modal('hide');
             render();
+
+            window.onbeforeunload = function() {
+                return "";
+            }
         }
 
         function submitRecitations() {
+            window.onbeforeunload = null;
             recitationChanges = [];
             changedRecitations.forEach((key) => {
                 recitation = recitations.find(recitation => recitation.key === key);

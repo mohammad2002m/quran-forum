@@ -1,8 +1,13 @@
 <?php
 
+use App\Models\MonitoringApplication;
+use App\Models\SupervisingApplication;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use QF\Constants;
 use QF\QuestionsAnswers;
 
 trait RegistrationValidators
@@ -46,7 +51,7 @@ trait RegistrationValidators
 
         return ['success', 'تمت عملية التسجيل بنجاح'];
     }
-    function isValidRegisterVolunteerSubmit(Request $request)
+    function isValidRegisterGuestVolunteerSubmit(Request $request)
     {
         $validator = Validator::make(
             $request->all(),
@@ -60,9 +65,7 @@ trait RegistrationValidators
                 'year' => ['required', Rule::in(QuestionsAnswers::WhatIsYourStudyYear)],
                 'schedule' => ['required', Rule::in(QuestionsAnswers::WhatIsYourSchedule)],
                 'previous_parts[]' => ['numeric', 'min:1', 'max:30'],
-                'roles[]' => ['required', 'array'],
-                'supervisor_notes' => ['present'],
-                'monitor_notes' => ['present'],
+                'roles' => ['required', 'array'],
             ],
             [
                 'name.required' => 'حقل الاسم مطلوب',
@@ -85,9 +88,111 @@ trait RegistrationValidators
             return ['error', $validator->messages()->first()];
         }
 
+        $roles = $request->roles;
+        if (in_array('supervisor', $roles)) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'supervisor_notes' => ['present'],
+                    'max_responsibilities' => ['required', 'numeric'],
+                ],
+
+            );
+
+            if ($validator->fails()) {
+                return ['error', $validator->messages()->first()];
+            }
+        }
+
+        if (in_array('monitor', $roles)) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'monitor_notes' => ['present'],
+                ],
+
+            );
+
+            if ($validator->fails()) {
+                return ['error', $validator->messages()->first()];
+            }
+        }
+
         return ['success', 'تمت عملية التسجيل بنجاح'];
     }
+    function isValidRegisterAuthVolunteerSubmit(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'roles' => ['required', 'array'],
+            ],
+        );
 
+        if ($validator->fails()) {
+            return ['error', $validator->messages()->first()];
+        }
+
+        $roles = $request->roles;
+        if (in_array('supervisor', $roles)) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'supervisor_notes' => ['present'],
+                    'max_responsibilities' => ['required', 'numeric'],
+                ],
+
+            );
+
+            if ($validator->fails()) {
+                return ['error', $validator->messages()->first()];
+            }
+
+            $user_roles = User::find(Auth::user()->id)->roles -> pluck('id')->toArray();
+            if (in_array(Constants::ROLE_SUPERVISOR, $user_roles)) {
+                return ['error', 'لا يمكن تقديم الطلب لأنك مشرف'];
+            }
+
+            $hasApplication = SupervisingApplication::where([
+                'user_id' => Auth::user()->id,
+                'status' => Constants::APPLICATION_STATUS_PENDING,
+            ]) -> first();
+
+            if ($hasApplication){
+                return ['error', 'لديك طلب معلق كمشرف'];
+            }
+        }
+
+        if (in_array('monitor', $roles)) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'monitor_notes' => ['present'],
+                ],
+
+            );
+
+            if ($validator->fails()) {
+                return ['error', $validator->messages()->first()];
+            }
+
+            $user_roles = User::find(Auth::user()->id)->roles -> pluck('id')->toArray();
+            if (in_array(Constants::ROLE_MONITORING_COMMITTE_MEMBER, $user_roles)) {
+                return ['error', 'لا يمكن تقديم الطلب لأنك عضو في لجنة المتابعة'];
+            }
+            
+            $hasApplication = MonitoringApplication::where([
+                'user_id' => Auth::user()->id,
+                'status' => Constants::APPLICATION_STATUS_PENDING,
+            ]) -> first();
+
+            if ($hasApplication){
+                return ['error', 'لديك طلب معلق للجنة المتابعة'];
+            }
+        }
+
+        return ['success', 'تمت عملية التسجيل بنجاح'];
+    }
     function isValidOpenRegistration(Request $request)
     {
         $validator = Validator::make(

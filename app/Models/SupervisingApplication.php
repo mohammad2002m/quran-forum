@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class monitoring_volunteer_applications extends Model
+class SupervisingApplication extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    function user(){
+        return $this -> belongsTo(User::class);
+    }
 }

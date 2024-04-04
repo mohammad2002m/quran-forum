@@ -277,21 +277,21 @@
                     <div class="m-0 p-0"> <!-- Question -->
                         <label class="mb-1"> كم عدد الأفراد الذين يمكنك الإشراف عليهم </label>
                         <div class="form-group mb-4 p-0">
-                            <select class="form-select ">
-                                <option selected>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
+                            <select class="form-select" name="max_responsibilities">
+                                <option selected value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
                             </select>
                         </div>
                     </div>
 
                     <div>
                         <label for="name" class="mb-1"> ملاحظات (اختياري)</label>
-                        <input type="text" value="{{ old('supervising-notes') }}" class="form-control"
-                            placeholder="ملاحظات" name="supervising_notes">
+                        <input type="text" value="{{ old('supervising_notes') }}" class="form-control"
+                            placeholder="ملاحظات" name="supervisor_notes">
                     </div>
                 </section>
 
@@ -308,25 +308,25 @@
                             <thead class="table-light">
                                 <tr>
                                     <td> العبارة </td>
-                                    <td> أوافق </td>
+                                    <td class="text-center"> أوافق </td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td> هل أنت مستعد للالتزام بالتواصل مع الطلاب في الموعد المحدد؟ </td>
-                                    <td> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
+                                    <td class="text-center"> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
                                 </tr>
                                 <tr>
                                     <td> هل أنت مستعد لتعبئة الأعذار التي يقدمها الطلبة في جدول المتابعة في الموعد المحدد؟ </td>
-                                    <td> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
+                                    <td class="text-center"> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
                                 </tr>
                                 <tr>
                                     <td> هل تعتبر نفسك قادراً على تشجيع الطلاب على الحفظ باستمرار؟ </td>
-                                    <td> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
+                                    <td class="text-center"> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
                                 </tr>
                                 <tr>
                                     <td> هل أنت مستعد للتعامل بروح الفريق مع بقية أعضاء اللجنة؟ </td>
-                                    <td> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
+                                    <td class="text-center"> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -334,8 +334,8 @@
 
                     <div>
                         <label for="name" class="mb-1"> ملاحظات (اختياري)</label>
-                        <input type="text" value="{{ old('monitoring-notes') }}" class="form-control"
-                            placeholder="ملاحظات" name="monitoring_notes">
+                        <input type="text" value="{{ old('monitor_notes') }}" class="form-control"
+                            placeholder="ملاحظات" name="monitor_notes">
                     </div>
                 </section>
 
@@ -379,7 +379,7 @@
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyEmail"> سجل بالملتقى
                 </button>
             </div>
-
+            
         </div>
     </div>
 @endsection
@@ -399,21 +399,36 @@
         function checkAgree(){
             // get all checkboxes with name agree[]
             const agreeCheckBoxs = document.getElementsByName("agree[]");
+
             // check if all checkboxes are checked
             const allChecked = Array.from(agreeCheckBoxs).every((checkbox) => checkbox.checked);
-            // check if monitor role is checked
-            const monitorRole = document.getElementsByName("roles").find((role) => role.value === "monitor").checked;
-            const supervisorRole = document.getElementsByName("roles").find((role) => role.value === "supervisor").checked;
-            if(!allChecked && monitorRole){
+
+            // check if monitor role is checked\
+            const roles = document.getElementsByName("roles[]");
+            var hasMonitorRole = false;
+            var hasSupervisorRole = false;
+            roles.forEach((role) => {
+                if(role.value === "monitor" && role.checked){
+                    hasMonitorRole = true;
+                }
+                if (role.value === "supervisor" && role.checked){
+                    hasSupervisorRole = true;
+                }
+            });
+            
+            if(!allChecked && hasMonitorRole){
                 alert("يجب الموافقة على كل شروط لجنة المتابعة");
                 return false;
             }
 
-            if (!monitorRole && !supervisorRole){
+            if (!hasMonitorRole && !hasSupervisorRole){
                 alert("يجب اختيار لجنة على الأقل");
                 return false;
             }
+
             return true;
         }
+
+
     </script>
 @endsection

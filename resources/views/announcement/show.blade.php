@@ -13,12 +13,16 @@
     <div class="container main-container mt-4">
         <div class="row">
             <div class="col-lg-8 col-md-8 mb-4">
-                <div class="d-flex justify-contenct-center align-items-center mb-3 rounded"
+                <div class="d-flex justify-contenct-center align-items-center mb-3 rounded position-relative"
                     style="max-height: 80vh; overflow:hidden;">
                     <img src="{{ $announcement->image->full_path }}" class="w-100">
+                    @if (Auth::check() && isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT))
+                        <button class="position-absolute btn btn-close fs-4" style="top: 15px; left: 15px;" data-bs-toggle="modal" data-bs-target="#confirm-delete"></button>
+                    @endif
+
                 </div>
-                <h3 class="mb-4"> {{ $announcement -> title }}</h3>
-                <p> {{$announcement -> description}} </p>
+                <h3 class="mb-4"> {{ $announcement->title }}</h3>
+                <p> {{ $announcement->description }} </p>
             </div>
             <div class="col-md-4">
                 <div class="card mb-3">
@@ -38,12 +42,11 @@
                             ]
 
                             // choose one saying randomly
-                            
+
                             randomIndex = Math.floor(Math.random() * sayings.length);
                             var li = document.createElement('li');
                             li.innerHTML = sayings[randomIndex];
                             element.appendChild(li);
-
                         </script>
                     </div>
                 </div>
@@ -71,49 +74,72 @@
                 </div>
             </div>
         </div>
-
     </div>
+    @if (Auth::check() && isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT))
+        <div id="confirm-delete" class="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> تأكيد حذف الإعلان </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p> هل أنت متأكد من أنك تريد حذف الإعلان </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إلغاء </button>
+                        <form action="/announcement/delete" method="POST">
+                            @csrf
+                            <input name="announcement_id" type="text" value={{ $announcement->id }} hidden>
+                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal"> حذف </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
 
 @section('scripts')
-<script>
-    async function fetchAnnouncements(){
-        var url = '/api/announcements/0'; // fetch the first batch
-        var response = await fetch(url);
-        var data = await response.json();
-        return data;
-    }
-    function formatDate(inputDate) {
-        // Create a new Date object from the input string
-        const date = new Date(inputDate);
+    <script>
+        async function fetchAnnouncements() {
+            var url = '/api/announcements/0'; // fetch the first batch
+            var response = await fetch(url);
+            var data = await response.json();
+            return data;
+        }
 
-        // Format the date using toLocaleDateString with options
-        const formattedDate = date.toLocaleDateString('ar-eg', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+        function formatDate(inputDate) {
+            // Create a new Date object from the input string
+            const date = new Date(inputDate);
 
-        return formattedDate;
-    }
-    async function renderLastAnnouncements(announcements){
-        var ul = document.getElementById('last-announcements');
-        var announcements = await fetchAnnouncements();
-        // take only 5 elements
-        announcements = announcements.slice(0, 5);
-        announcements.forEach(announcement => {
-            var li = document.createElement('li');
-            li.innerHTML = `
+            // Format the date using toLocaleDateString with options
+            const formattedDate = date.toLocaleDateString('ar-eg', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            return formattedDate;
+        }
+        async function renderLastAnnouncements(announcements) {
+            var ul = document.getElementById('last-announcements');
+            var announcements = await fetchAnnouncements();
+            // take only 5 elements
+            announcements = announcements.slice(0, 5);
+            announcements.forEach(announcement => {
+                var li = document.createElement('li');
+                li.innerHTML = `
                 <a href='/announcement/show/${announcement.id}' class="text-decoration-none text-dark fw-semibold"> ${announcement.title} </a>
                 <p class="text-muted"> ${formatDate(announcement.created_at)} </p>
             `;
-            ul.appendChild(li);
-        });
-    }
+                ul.appendChild(li);
+            });
+        }
 
-    (async function(){
-        await renderLastAnnouncements();
-    })();
-</script>
+        (async function() {
+            await renderLastAnnouncements();
+        })();
+    </script>
 @endsection

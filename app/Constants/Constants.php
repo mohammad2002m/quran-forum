@@ -31,6 +31,7 @@ class Constants {
     const ROUTE_NAME_LOGIN_PAGE = 'login';
     const ROUTE_NAME_STORE_ANNOUNCEMENT = 'store.announcement';
     const ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE = 'create.announcement';
+    const ROUTE_NAME_DELETE_ANNOUNCEMENT = 'delete.announcement';
     const ROUTE_NAME_SHOW_ANNOUNCEMENT = 'show.announcement';
     const ROUTE_NAME_ABOUT_PAGE = 'about';
     const ROUTE_NAME_RULES_PAGE = 'rules';
@@ -70,7 +71,6 @@ class Constants {
 
     const ROUTE_NAME_UNAUTHORIZED = 'unauthorized';
 
-    const ROUTE_NAME_ARCHIVED_ANNOUNCEMENTS = 'annoucnement.archived.index';
     const ROUTE_NAME_REGISTRATION_GUIDE = 'registration.guide';
     const ROUTE_NAME_STUDNET_REGISTER_PAGE = 'registration.student';
     const ROUTE_NAME_STUDNET_REGISTER_SUBMIT = 'registration.student.submit';
@@ -95,6 +95,15 @@ class Constants {
 
     const ROUTE_NAME_STUDENTS_INDEX = 'students.index';
     const ROUTE_NAME_CHANGE_ROLES = 'roles.change';
+    const ROUTE_NAME_APPLICATION_INDEX_SUPERVISING = 'applications.index.supervising';
+    const ROUTE_NAME_APPLICATION_INDEX_MONITORING = 'applications.index.monitoring';
+
+    const ROUTE_NAME_API_GET_SUPERVISING_APPLICATIONS = 'api.applications.supervising';
+    const ROUTE_NAME_API_GET_MONITORING_APPLICATIONS = 'api.applications.monitoring';
+
+    const ROUTE_NAME_ACTION_SUPERVISING_APPLICATION = 'application.action.supervising';
+    const ROUTE_NAME_ACTION_MONITORING_APPLICATION = 'application.action.monitoring';
+
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
     const WEEK_RANGE = 3;
@@ -130,10 +139,21 @@ class Constants {
         self::STUDENT_STATUS_STOPPED,
         self::STUDENT_STATUS_LEFT,
     ];
+    
+    /* APPLICATION STATUSES */
+    const APPLICATION_STATUS_ACCEPTED = 'مقبول';
+    const APPLICATION_STATUS_REJECTED = 'مرفوض';
+    const APPLICATION_STATUS_PENDING = 'قيد الانتظار';
 
+
+    const APPLICATION_STATUSES = [
+        self::APPLICATION_STATUS_ACCEPTED,
+        self::APPLICATION_STATUS_REJECTED,
+        self::APPLICATION_STATUS_PENDING,
+    ];
 
     /******** ACTIVITIES:SHOULD MATCH THE DATABASE ********/
-    const ACTIVITY_CREATE_ANNOUNCEMENT = 1;
+    const ACTIVITY_MANAGE_ANNOUNCEMENT = 1;
     const ACTIVITY_APPROVE_ANNOUNCEMENT = 2;
     const ACTIVITY_MANAGE_WEEKS = 3;
     const ACTIVITY_RECITATION = 4;
@@ -143,13 +163,14 @@ class Constants {
     const ACTIVITY_MANAGE_GROUPS = 8;
     const ACTIVITY_MANAGE_FORUM = 9;
     const ACTIVITY_STUDENTS = 10;
+    const ACTIVITY_APPLICATIONS = 11;
 
-    const ACTIVITY_API_WEEKS = 11;
-    const ACTIVITY_API_EXECUSES = 12;
-    const ACTIVITY_API_RECITATIONS = 13;
-    const ACTIVITY_API_SUPERVISORS = 14;
-    const ACTIVITY_API_ANNOUNCEMENTS = 15;
-    const ACTIVITY_API_USERS = 15;
+    const ACTIVITY_API_WEEKS = 12;
+    const ACTIVITY_API_EXECUSES = 13;
+    const ACTIVITY_API_RECITATIONS = 14;
+    const ACTIVITY_API_SUPERVISORS = 15;
+    const ACTIVITY_API_ANNOUNCEMENTS = 16;
+    const ACTIVITY_API_USERS = 17;
 
     /******** IMAGES TYPES ********/
     const SUPPORTED_IMAGES_EXTENSIONS = ['jpg', 'jpeg', 'png'];
@@ -172,6 +193,7 @@ class Constants {
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
             self::ACTIVITY_STUDENTS,
+            self::ACTIVITY_APPLICATIONS,
         ],
         self::ROLE_VICE_HEAD => [
             self::ACTIVITY_APPROVE_ANNOUNCEMENT,
@@ -180,6 +202,7 @@ class Constants {
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
             self::ACTIVITY_STUDENTS,
+            self::ACTIVITY_APPLICATIONS,
         ],
         self::ROLE_STUDENT => [
             self::ACTIVITY_API_ANNOUNCEMENTS,
@@ -196,9 +219,10 @@ class Constants {
             self::ACTIVITY_MANAGE_GROUPS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
             self::ACTIVITY_STUDENTS,
+            self::ACTIVITY_APPLICATIONS,
         ],
         self::ROLE_MEDIA_COMMITTE_MEMBER => [
-            self::ACTIVITY_CREATE_ANNOUNCEMENT,
+            self::ACTIVITY_MANAGE_ANNOUNCEMENT,
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
         ],
@@ -208,6 +232,7 @@ class Constants {
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
             self::ACTIVITY_STUDENTS,
+            self::ACTIVITY_APPLICATIONS,
         ],
         self::ROLE_SECRETARY_GENERAL => [
             self::ACTIVITY_API_ANNOUNCEMENTS,

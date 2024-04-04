@@ -24,8 +24,9 @@ class Authorize
         QFConstants::ROUTE_NAME_HOME_PAGE => null,
         QFConstants::ROUTE_NAME_REGISTER_PAGE => null,
         QFConstants::ROUTE_NAME_LOGIN_PAGE => null,
-        QFConstants::ROUTE_NAME_STORE_ANNOUNCEMENT => [QFConstants::ACTIVITY_CREATE_ANNOUNCEMENT],
-        QFConstants::ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE => [QFConstants::ACTIVITY_CREATE_ANNOUNCEMENT],
+        QFConstants::ROUTE_NAME_STORE_ANNOUNCEMENT => [QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT],
+        QFConstants::ROUTE_NAME_CREATE_ANNOUNCEMENT_PAGE => [QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT],
+        QFConstants::ROUTE_NAME_DELETE_ANNOUNCEMENT => [QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT],
         QFConstants::ROUTE_NAME_ABOUT_PAGE => null,
         QFConstants::ROUTE_NAME_RULES_PAGE => null,
         QFConstants::ROUTE_NAME_CONTACTS_US_PAGE => null,
@@ -51,7 +52,6 @@ class Authorize
         QFConstants::ROUTE_NAME_API_RECITATIONS => [QFConstants::ACTIVITY_API_RECITATIONS],
         QFConstants::ROUTE_NAME_API_SUPERVISORS => [QFConstants::ACTIVITY_API_SUPERVISORS],
         QFConstants::ROUTE_NAME_UNAUTHORIZED => null,
-        QFConstants::ROUTE_NAME_ARCHIVED_ANNOUNCEMENTS => null,
         QFConstants::ROUTE_NAME_REGISTRATION_GUIDE => null,
         QFConstants::ROUTE_NAME_STUDNET_REGISTER_PAGE => null,
         QFConstants::ROUTE_NAME_STUDNET_REGISTER_SUBMIT => null,
@@ -75,16 +75,18 @@ class Authorize
         QFConstants::ROUTE_NAME_STUDENTS_INDEX => [QFConstants::ACTIVITY_STUDENTS],
         QFConstants::ROUTE_NAME_CHANGE_ROLES => [QFConstants::ACTIVITY_STUDENTS],
         QFConstants::ROUTE_NAME_OPEN_REGISTRATION => [QFConstants::ACTIVITY_MANAGE_FORUM],
+        QFConstants::ROUTE_NAME_APPLICATION_INDEX_SUPERVISING => [QFConstants::ACTIVITY_APPLICATIONS],
+        QFConstants::ROUTE_NAME_APPLICATION_INDEX_MONITORING => [QFConstants::ACTIVITY_APPLICATIONS],
+
+        QFConstants::ROUTE_NAME_API_GET_SUPERVISING_APPLICATIONS => [QFConstants::ACTIVITY_APPLICATIONS],
+        QFConstants::ROUTE_NAME_API_GET_MONITORING_APPLICATIONS => [QFConstants::ACTIVITY_APPLICATIONS],
+        QFConstants::ROUTE_NAME_ACTION_SUPERVISING_APPLICATION => [QFConstants::ACTIVITY_APPLICATIONS],
+        QFConstants::ROUTE_NAME_ACTION_MONITORING_APPLICATION => [QFConstants::ACTIVITY_APPLICATIONS],
     ];
 
     public function handle(Request $request, Closure $next): Response
     {
         return $this -> basicPremissionAuthoization($request , $next);
-
-        
-        // after authorization we shouldn't reach this line
-        QFLogger::error("unhandled case in Authorize Middleware", json_encode($request -> all()));
-        return redirect() -> route(QFConstants::ROUTE_NAME_UNAUTHORIZED);
     }
 
     private function basicPremissionAuthoization(Request $request, Closure $next)

@@ -32,7 +32,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p> في حال قمت بالتسجيل كطالب أو كمشرف سيتم التواصل معك من قبل الملتقى لضمك لحلقة أو تعيينك كمشرف </p>
+                    <p> في حال قمت بالتسجيل كطالب أو كمشرف سيتم التواصل معك من قبل الملتقى لضمك لحلقة أو تعيينك كمشرف في حال تك قبولك </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"  data-bs-dismiss="modal"> متابعة </button>
@@ -40,6 +40,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('scripts')

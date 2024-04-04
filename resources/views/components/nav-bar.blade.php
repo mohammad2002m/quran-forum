@@ -26,7 +26,7 @@
                     <ul class="dropdown-menu  dropdown-menu-end">
                         <!-- FIXME should be based on role -->
                         <li><a class="dropdown-item" href="/profile"> الصفحة الشخصية </a></li>
-                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_CREATE_ANNOUNCEMENT))
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT))
                             <li> <a class="dropdown-item" href="/announcement/create"> إنشاء إعلان جديد </a> </li>
                         @endif
                         <li>
@@ -48,49 +48,62 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/messages/index"> الرسائل </a>
                         </li>
-                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_MANAGE_FORUM))
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_FORUM))
                             <li class="nav-item"> <a class="nav-link" href="/management/index"> الإدارة </a> </li>
                         @endif
 
-                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_MANAGE_WEEKS))
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_WEEKS))
                             <li class="nav-item"> <a class="nav-link" href="/week/edit"> الأسابيع </a> </li>
                         @endif
 
-                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_MANAGE_GROUPS))
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_GROUPS))
                             <li class="nav-item"> <a class="nav-link" href="/group/index"> الحلقات </a> </li>
                         @endif
 
-                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_RECITATION))
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_RECITATION))
                             <li class="nav-item"> <a class="nav-link" href="/recitation/index"> الإشراف </a> </li>
                         @endif
 
-                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_MONITORING))
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MONITORING))
                             <li class="nav-item"> <a class="nav-link" href="/monitoring/index"> المتابعة </a> </li>
                         @endif
 
-                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_REPORTS))
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_REPORTS))
                             <li class="nav-item">
                                 <a class="nav-link" href="/reports/index"> التقارير </a>
                             </li>
                         @endif
 
-                        @if (isUserAllowedToDoActivity(Auth::user() -> id, $QFConstants::ACTIVITY_STUDENTS))
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_APPLICATIONS))
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    طلبات التطوع
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link" href="/applications/index/supervising"> الإشراف</a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link" href="/applications/index/monitoring"> المتابعة </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_STUDENTS))
                             <li class="nav-item">
                                 <a class="nav-link" href="/students/index"> الطلاب </a>
                             </li>
                         @endif
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/announcement/archived/index"> الأرشيف </a>
-                        </li>
 
                     </ul>
 
                 </div>
             </div>
         </nav>
-
-        
     @else
         <nav class="navbar navbar-expand-lg shadow-sm">
             <div class="container">
@@ -104,7 +117,7 @@
                 <a class="navbar-brand py-0 " href="#">
                     <img class="d-none d-lg-inline-block" src="{{ asset('assets/images/logo.png') }}" alt="Logo"
                         width="26" height="30">
-                        ملتقى القرآن الكريم
+                    ملتقى القرآن الكريم
                 </a>
                 <img class="d-lg-none" src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="26"
                     height="30">

@@ -254,6 +254,10 @@
 
             $('#editExcuseModal').modal('hide');
             render();
+        
+            window.onbeforeunload = function() {
+            return "";
+            }
         }
 
         function updateNewWeeks() {
@@ -301,6 +305,7 @@
         }
 
         function submitExcuses() {
+            window.onbeforeunload = null;
             execuseChanges = [];
             changedExcuses.forEach((key) => {
                 excuse = excuses.find(excuse => excuse.key === key);

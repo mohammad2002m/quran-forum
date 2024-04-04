@@ -11,6 +11,8 @@ use App\Models\User;
 // use App\Models\Image;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use PHPUnit\TextUI\Configuration\Constant;
 use QF\Constants;
 
@@ -97,6 +99,21 @@ class AnnouncementController extends Controller
         ]);
 
         $announcement -> save();
+
+        return redirect()->route(Constants::ROUTE_NAME_HOME_PAGE);
+    }
+
+    function delete(Request $request){
+        $validator = Validator::make($request->all(), [
+            'announcement_id' => ['required', Rule::exists('announcements', 'id')],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', $validator->errors()->first());
+        }
+
+        $announcement = Announcement::find($request->announcement_id);
+        $announcement -> delete();
 
         return redirect()->route(Constants::ROUTE_NAME_HOME_PAGE);
     }
