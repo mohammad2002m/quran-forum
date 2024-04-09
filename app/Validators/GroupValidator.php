@@ -1,16 +1,19 @@
 <?php
 
 use App\Models\Group;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use QF\Constants;
 
 trait GroupValidator {
     function isValidGroupStore(Request $request){
         $validator = Validator::make($request -> all(),
             [
                 'group_name' => ['required', Rule::notIn(Group::all() -> pluck('name') -> toArray())],
-                'supervisor_id' => ['integer', Rule::exists('users', 'id'), Rule::notIn(Group::all() -> pluck('supervisor_id') -> toArray())]
+                'supervisor_id' => ['nullable','integer', Rule::exists('users', 'id'), Rule::notIn(Group::all() -> pluck('supervisor_id') -> toArray())],
+                'monitor_id' => ['nullable','integer', Rule::exists('users', 'id'), Rule::notIn(Group::all() -> pluck('supervisor_id') -> toArray())],
             ],
             [
                 'group_name.required' => 'لا يمكن ترك حقل اسم المجموعة فارغًا',
@@ -20,6 +23,20 @@ trait GroupValidator {
                 'supervisor_id.not_in' => 'المشرف المحدد مشرف لحلقة أخرى'
             ]
         );
+
+        $supervisor_id = $request -> supervisor_id;;
+        $monitor_id = $request -> monitor_id;
+        
+        
+        if ($supervisor_id && !in_array(Constants::ROLE_SUPERVISOR, User::find($supervisor_id) -> roles -> pluck('id') -> toArray())){
+            return ['error', 'المشرف المحدد ليس مشرفًا'];
+        }
+
+        if ($monitor_id &&  !in_array(Constants::ROLE_MONITORING_COMMITTE_MEMBER, User::find($monitor_id) -> roles -> pluck('id') -> toArray())){
+            return ['error', 'المتابع المحدد ليس متابعًا'];
+        }
+        
+
 
         if ($validator -> fails()){
             $message = $validator -> messages() -> first();

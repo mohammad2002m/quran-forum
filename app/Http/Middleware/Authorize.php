@@ -50,7 +50,8 @@ class Authorize
         QFConstants::ROUTE_NAME_API_WEEKS => [QFConstants::ACTIVITY_API_WEEKS, QFConstants::ACTIVITY_MANAGE_WEEKS],
         QFConstants::ROUTE_NAME_API_EXECUSES => [QFConstants::ACTIVITY_API_EXECUSES],
         QFConstants::ROUTE_NAME_API_RECITATIONS => [QFConstants::ACTIVITY_API_RECITATIONS],
-        QFConstants::ROUTE_NAME_API_SUPERVISORS => [QFConstants::ACTIVITY_API_SUPERVISORS],
+        QFConstants::ROUTE_NAME_API_SUPERVISORS => [QFConstants::ACTIVITY_API_SUPERVISORS], /* */
+        QFConstants::ROUTE_NAME_API_MONITORS => [QFConstants::ACTIVITY_API_MONITORS],
         QFConstants::ROUTE_NAME_UNAUTHORIZED => null,
         QFConstants::ROUTE_NAME_REGISTRATION_GUIDE => null,
         QFConstants::ROUTE_NAME_STUDNET_REGISTER_PAGE => null,
@@ -68,6 +69,11 @@ class Authorize
         QFConstants::ROUTE_NAME_FORCE_INFORMATION_UPDATE_UPDATE  => null,
         QFConstants::ROUTE_NAME_GROUP_INDEX => [QFConstants::ACTIVITY_MANAGE_GROUPS],
         QFConstants::ROUTE_NAME_GROUP_STORE => [QFConstants::ACTIVITY_MANAGE_GROUPS],
+        QFConstants::ROUTE_NAME_GROUP_DELETE => [QFConstants::ACTIVITY_MANAGE_GROUPS],
+        QFConstants::ROUTE_NAME_GROUP_UPDATE_MONITOR => [QFConstants::ACTIVITY_MANAGE_GROUPS],
+        QFConstants::ROUTE_NAME_GROUP_UPDATE_SUPERVISOR  => [QFConstants::ACTIVITY_MANAGE_GROUPS],
+        QFConstants::ROUTE_NAME_API_GROUPS => [QFConstants::ACTIVITY_MANAGE_GROUPS],
+        QFConstants::ROUTE_NAME_UPDATE_STUDENT_GROUP => [QFConstants::ACTIVITY_MANAGE_GROUPS],
         QFConstants::ROUTE_NAME_REPORTS_INDEX => [QFConstants::ACTIVITY_REPORTS],
         QFConstants::ROUTE_NAME_API_GET_ANNOUNCEMENTS => null,
         QFConstants::ROUTE_NAME_SHOW_ANNOUNCEMENT => null,
@@ -77,11 +83,18 @@ class Authorize
         QFConstants::ROUTE_NAME_OPEN_REGISTRATION => [QFConstants::ACTIVITY_MANAGE_FORUM],
         QFConstants::ROUTE_NAME_APPLICATION_INDEX_SUPERVISING => [QFConstants::ACTIVITY_APPLICATIONS],
         QFConstants::ROUTE_NAME_APPLICATION_INDEX_MONITORING => [QFConstants::ACTIVITY_APPLICATIONS],
-
         QFConstants::ROUTE_NAME_API_GET_SUPERVISING_APPLICATIONS => [QFConstants::ACTIVITY_APPLICATIONS],
         QFConstants::ROUTE_NAME_API_GET_MONITORING_APPLICATIONS => [QFConstants::ACTIVITY_APPLICATIONS],
         QFConstants::ROUTE_NAME_ACTION_SUPERVISING_APPLICATION => [QFConstants::ACTIVITY_APPLICATIONS],
         QFConstants::ROUTE_NAME_ACTION_MONITORING_APPLICATION => [QFConstants::ACTIVITY_APPLICATIONS],
+
+        QFConstants::ROUTE_NAME_SUPERVISING_EXAM_INDEX => [QFConstants::ACTIVITY_SUPERVISING_EXAMS],
+        QFConstants::ROUTE_NAME_SUPERVISING_EXAM_MARK_UPDATE=> [QFConstants::ACTIVITY_SUPERVISING_EXAMS],
+        QFConstants::ROUTE_NAME_API_GET_SUPERVISING_PENDING_APPLICATIONS => [QFConstants::ACTIVITY_SUPERVISING_EXAMS],
+
+        QFConstants::ROUTE_NAME_IMAGE_UPLOAD_INDEX => [QFConstants::ACTIVITY_UPLOAD_IMAGE],
+        QFConstants::ROUTE_NAME_IMAGE_UPLOAD_STORE => [QFConstants::ACTIVITY_UPLOAD_IMAGE],
+        QFConstants::ROUTE_NAME_IMAGE_DELETE => [QFConstants::ACTIVITY_UPLOAD_IMAGE],
     ];
 
     public function handle(Request $request, Closure $next): Response
@@ -104,6 +117,7 @@ class Authorize
             $rolePermissions = QFConstants::PERMISSIONS[$role -> id];
             $allowedUserActivities = array_merge($allowedUserActivities, $rolePermissions);
         }
+
 
         $desiredActivites = Authorize::ROUTE_ACTIVITY_MAPPER[$routeName];
         foreach ($desiredActivites as $desiredActivity){

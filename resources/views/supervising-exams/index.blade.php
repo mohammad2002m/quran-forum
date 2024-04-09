@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> طلبات التطوع للإشراف </title>
+    <title> اختبار المشرفين </title>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -14,7 +14,7 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header">
-                <h5> طلبات التطوع للإشراف </h5>
+                <h5> اختبار المشرفين </h5>
             </div>
             <div class="card-body">
                 @if (Session::has('error'))
@@ -23,10 +23,10 @@
                     <x-alert type="alert-success" :message="session('success')" />
                 @endif
 
-                <h5 class="mb-3"> الطلبات </h5>
-                <div style="max-height: 50vh;" >
+                <h5 class="mb-3"> اختبار المشرفين للتطوع </h5>
+                <div style="max-height: 50vh;">
                     <div class="mb-3">
-                        <div class="table-responsive " >
+                        <div class="table-responsive ">
                             <table id="tbl" class="table table-bordered">
                                 <thead class="table-light" id="tbl-header">
                                     <th> اسم الطالب </th>
@@ -36,14 +36,14 @@
                                     <th> حالة الطلب </th>
                                     <th> ملاحظات </th>
                                     <th> عدد مرات التقديم </th>
-                                    <th class="text-center"> إجراء </th>
+                                    <th class="text-center"> إدخال العلامة </th>
                                 </thead>
                                 <tbody id="tbl-data"></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -51,42 +51,49 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="confirm-action" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel"> قبول أو رفض </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/applications/supervising/take-action" method="POST" id="accept-reject-form">
+    <form action="/exam/supervising/mark/update" method="POST" id="enter-mark-form">
+        <div class="modal fade" id="enter-mark-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"> إدخال العلامة </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
                         @csrf
-                        <input type="text" name="application_id" id="application-id" hidden>
-                        <input type="text" name="action" id="action" hidden>
-                        <div>
-                            ماذا تريد أن تفعل بهذا الطلب 
+                        <input type="text" id="application-id" name="application_id" hidden>
+                        <div class="mb-3">
+                            <label for="mark-input" class="mb-1"> اسم الطالب </label>
+                            <input id="student-name" class="form-control text-start" type="text" disabled>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق</button>
-                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" onclick="takeAction('reject')"> رفض </button>
-                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal" onclick="takeAction('accept')"> قبول </button>
+                        <div class="mb-3">
+                            <label for="mark-input" class="mb-1"> علامة التجويد </label>
+                            <input id="mark-input" name="tajweed_mark" class="form-control text-start"
+                                type="number">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"> حفظ </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
+    </form>
 @endsection
 
 @section('scripts')
     <script>
         var applications = [];
 
-        function openConfirmActionModal(applicationID){
+        function openEnterMarkModal(applicationID) {
             var applicationIDInput = document.getElementById("application-id");
             applicationIDInput.value = applicationID;
+
+            var application = applications.find(app => app.id == applicationID);
+            var studentNameInput = document.getElementById("student-name");
+            studentNameInput.value = application.user.name;
+
         }
 
         function formatDate(inputDate) {
@@ -103,13 +110,6 @@
             return formattedDate;
         }
 
-        function takeAction(action){
-            var actionInput = document.getElementById("action");
-            actionInput.value = action;
-            // submit form using javascript
-            var form = document.getElementById("accept-reject-form");
-            form.submit();
-        }
 
         function render(applications) {
             var tblData = document.getElementById("tbl-data");
@@ -125,7 +125,7 @@
                         <td> ${application.status} </td>
                         <td> ${application.notes == null || application.notes == "" ? "لا يوجد" : application.notes} </td>
                         <td> ${application.applying_count} </td>
-                        <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openConfirmActionModal(${application.id})" data-bs-target="#confirm-action"> إجراء </button> </td>
+                        <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openEnterMarkModal(${application.id})" data-bs-target="#enter-mark-modal"> تغيير </button> </td>
                     </tr>
                 `;
 
@@ -133,20 +133,14 @@
         }
 
         async function fetchApplications() {
-            var response = await fetch('/api/applications/supervising');
+            var response = await fetch('/api/applications/supervising/pending');
             var data = await response.json();
             applications = data;
-
-            applications.sort((applicationA, applicationb) => {
-                if(applicationA.status === applicationb.status){
-                    return new Date(applicationb.created_at) - new Date(applicationA.created_at);
-                }
-                return applicationA.status.localeCompare(applicationb.status);
-            });
+            console.log(applications);
             render(applications);
         }
 
-        (async function(){
+        (async function() {
             await fetchApplications();
         })();
     </script>

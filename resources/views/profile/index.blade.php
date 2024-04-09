@@ -101,7 +101,7 @@
                     <div class="d-sm-flex justify-content-between sub-header-container">
                         <div class="main-info">
                             <h6 class="main-info-title fw-bold"> {{ $user->name }} </h6>
-                            <p class="text-muted m-0"> كلية {{ $user->college->name }} </p>
+                            <p class="text-muted m-0"> {{ $user->group ? $user->group->name : "لا تنتمي لحلقة" }} </p>
                         </div>
                         <div class="d-flex text-center">
                             <div class="d-none d-lg-block ms-4">
@@ -162,6 +162,10 @@
                             <tr>
                                 <td> الجنس </td>
                                 <td> {{ $user->gender }}</td>
+                            </tr>
+                            <tr>
+                                <td> الحلقة </td>
+                                <td> {{ $user->group ? $user->group->name : "لا تنتمي لحلقة" }} </td>
                             </tr>
                             <tr>
                                 <td> رقم الهاتف </td>

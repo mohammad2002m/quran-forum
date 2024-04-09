@@ -50,7 +50,7 @@
             "app/Validators/VerifyEmailValidator.php",
             "app/Validators/GroupValidator.php",
             "app/Validators/ProfileValidator.php",
-
+            "database/factories/UserFactory.php",
             "app/Constants/Constants.php",
             "app/Logger/Logger.php"
         ]

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use QF\Constants;
 
 return new class extends Migration
 {
@@ -17,9 +18,8 @@ return new class extends Migration
             $table->string('full_path') -> nullable(false);
             $table->boolean('stored') -> default(true);
             $table->enum('for', ['announcement', 'profile', 'cover']) -> default('announcement');
-
-            $table->integer('width') -> nullable(true);
-            $table->integer('height') -> nullable(true);
+            $table->integer('width') -> nullable(false);
+            $table->integer('height') -> nullable(false);
         });
     }
 

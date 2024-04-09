@@ -68,6 +68,8 @@ class Constants {
     const ROUTE_NAME_API_SUPERVISORS = 'api.supervisors';
     const ROUTE_NAME_API_GET_ANNOUNCEMENTS = 'api.announcements';
     const ROUTE_NAME_API_GET_USERS = 'api.users';
+    const ROUTE_NAME_API_MONITORS = 'api.monitors';
+    const ROUTE_NAME_API_GROUPS = 'api.groups';
 
     const ROUTE_NAME_UNAUTHORIZED = 'unauthorized';
 
@@ -91,18 +93,31 @@ class Constants {
 
     const ROUTE_NAME_GROUP_INDEX = 'group.index';
     const ROUTE_NAME_GROUP_STORE = 'group.store';
-    const ROUTE_NAME_REPORTS_INDEX = 'reports.index';
+    const ROUTE_NAME_GROUP_DELETE = 'group.delete';
+    const ROUTE_NAME_GROUP_UPDATE_SUPERVISOR = 'group.update.supervsior';
+    const ROUTE_NAME_GROUP_UPDATE_MONITOR = 'group.update.monitor';
+    const ROUTE_NAME_UPDATE_STUDENT_GROUP = 'update.student.group';
 
+
+    const ROUTE_NAME_REPORTS_INDEX = 'reports.index';
     const ROUTE_NAME_STUDENTS_INDEX = 'students.index';
     const ROUTE_NAME_CHANGE_ROLES = 'roles.change';
     const ROUTE_NAME_APPLICATION_INDEX_SUPERVISING = 'applications.index.supervising';
     const ROUTE_NAME_APPLICATION_INDEX_MONITORING = 'applications.index.monitoring';
 
+    const ROUTE_NAME_SUPERVISING_EXAM_INDEX = 'supervising.exam.index';
+    const ROUTE_NAME_SUPERVISING_EXAM_MARK_UPDATE = 'supervising.exam.mark.update';
+
+    const ROUTE_NAME_API_GET_SUPERVISING_PENDING_APPLICATIONS = 'api.applications.supervising.pending';
     const ROUTE_NAME_API_GET_SUPERVISING_APPLICATIONS = 'api.applications.supervising';
     const ROUTE_NAME_API_GET_MONITORING_APPLICATIONS = 'api.applications.monitoring';
 
     const ROUTE_NAME_ACTION_SUPERVISING_APPLICATION = 'application.action.supervising';
     const ROUTE_NAME_ACTION_MONITORING_APPLICATION = 'application.action.monitoring';
+
+    const ROUTE_NAME_IMAGE_UPLOAD_INDEX = 'image.upload.index';
+    const ROUTE_NAME_IMAGE_UPLOAD_STORE = 'image.upload.store';
+    const ROUTE_NAME_IMAGE_DELETE = 'image.delete';
 
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
@@ -164,13 +179,17 @@ class Constants {
     const ACTIVITY_MANAGE_FORUM = 9;
     const ACTIVITY_STUDENTS = 10;
     const ACTIVITY_APPLICATIONS = 11;
+    const ACTIVITY_SUPERVISING_EXAMS = 12;
 
-    const ACTIVITY_API_WEEKS = 12;
-    const ACTIVITY_API_EXECUSES = 13;
-    const ACTIVITY_API_RECITATIONS = 14;
-    const ACTIVITY_API_SUPERVISORS = 15;
-    const ACTIVITY_API_ANNOUNCEMENTS = 16;
-    const ACTIVITY_API_USERS = 17;
+    const ACTIVITY_API_WEEKS = 13;
+    const ACTIVITY_API_EXECUSES = 14;
+    const ACTIVITY_API_RECITATIONS = 15;
+    const ACTIVITY_API_SUPERVISORS = 16;
+    const ACTIVITY_API_MONITORS = 17;
+    const ACTIVITY_API_ANNOUNCEMENTS = 18;
+    const ACTIVITY_API_USERS = 19;
+    const ACTIVITY_UPLOAD_IMAGE = 19;
+    
 
     /******** IMAGES TYPES ********/
     const SUPPORTED_IMAGES_EXTENSIONS = ['jpg', 'jpeg', 'png'];
@@ -194,6 +213,7 @@ class Constants {
             self::ACTIVITY_API_ANNOUNCEMENTS,
             self::ACTIVITY_STUDENTS,
             self::ACTIVITY_APPLICATIONS,
+            self::ACTIVITY_UPLOAD_IMAGE,
         ],
         self::ROLE_VICE_HEAD => [
             self::ACTIVITY_APPROVE_ANNOUNCEMENT,
@@ -203,6 +223,7 @@ class Constants {
             self::ACTIVITY_API_ANNOUNCEMENTS,
             self::ACTIVITY_STUDENTS,
             self::ACTIVITY_APPLICATIONS,
+            self::ACTIVITY_UPLOAD_IMAGE,
         ],
         self::ROLE_STUDENT => [
             self::ACTIVITY_API_ANNOUNCEMENTS,
@@ -218,13 +239,15 @@ class Constants {
             self::ACTIVITY_GET_SUPERVISORS, 
             self::ACTIVITY_MANAGE_GROUPS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
-            self::ACTIVITY_STUDENTS,
             self::ACTIVITY_APPLICATIONS,
+            self::ACTIVITY_API_SUPERVISORS,
+            self::ACTIVITY_API_MONITORS,
         ],
         self::ROLE_MEDIA_COMMITTE_MEMBER => [
             self::ACTIVITY_MANAGE_ANNOUNCEMENT,
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
+            self::ACTIVITY_UPLOAD_IMAGE,
         ],
         self::ROLE_DATA_COMMITTE_MEMBER => [
             self::ACTIVITY_MANAGE_WEEKS,
@@ -259,6 +282,7 @@ class Constants {
         self::ROLE_TAJWEED_COMMITTE_MANAGER => [
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
+            self::ACTIVITY_SUPERVISING_EXAMS,
         ],
         self::ROLE_MONITORING_COMMITTE_MANAGER => [
             self::ACTIVITY_API_ANNOUNCEMENTS,

@@ -22,6 +22,10 @@ class ApplicationsController extends Controller
         $supervisingApplications = SupervisingApplication::with('user') -> get();
         return response()->json($supervisingApplications);
     }
+    function getPendingSupervisingApplication(Request $request){
+        $supervisingApplications = SupervisingApplication::with('user') -> where('status', Constants::APPLICATION_STATUS_PENDING) -> get();
+        return response()->json($supervisingApplications);
+    }
     function getMonitoringApplication(Request $request){
         $monitoringApplication = MonitoringApplication::with('user') -> get();
         return response()->json($monitoringApplication);

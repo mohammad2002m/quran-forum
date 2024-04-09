@@ -340,45 +340,18 @@
                 </section>
 
 
-                <div id="verifyEmail" class="modal " tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title"> التأكد من البريد الإلكتوني المستخدم </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>
-                                    تتمثل مهام لجنة المتابعة في:
-                                    التواصل مع الطلاب الذين لم يقوموا بالتسميع بشكل أسبوعي لتشجيعهم، والاستفسار عن الأسباب
-                                    وتسجيلها في
-                                    الجدول المخصص لذلك الأسبوع وفق مواعيد محددة.
-                                    التواصل مع المشرفين للاستفسار عن ضعف الإنجاز وتشجيعهم وتقديم النصائح لهم.
-                                    تتبُّع الطلاب الذين لا يلتزمون بلوائح وتعليمات الملتقى (على سبيل المثال: عدم التسميع لـ
-                                    3 أسابيع
-                                    متتالية).
-                                    اتخاذ قرار تجميد الطالب من عدمه بالتنسيق مع مسؤول اللجنة ومسؤول الطلاب.
-                                    إيصال طلبات النقل والانسحاب لمسؤول الطلاب.
-                                    هل تجد من نفسك (بشكل عام) نشاطًا لمتابعة التعليمات المعطاة للجنة، وقدرة على المتابعة
-                                    الدورية لمجمل ما
-                                    يجري في الحلقة؟
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إلغاء </button>
-                                <button type="submit" class="btn btn-primary"> التسجيل بالملتقى </button>
-                            </div>
-                        </div>
-                    </div>
+
+                <div class="mb-5">
+                    <strong class="text-danger">  الرجاء مراجعة مسؤوليات لجنة الإشراف ولجنة المتابعة في خان قوانين الملتقى قبل التسجيل   </strong>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyEmail"> سجل بالملتقى
+                    </button>
                 </div>
 
             </form>
 
-            <div class="text-center">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyEmail"> سجل بالملتقى
-                </button>
-            </div>
             
         </div>
     </div>

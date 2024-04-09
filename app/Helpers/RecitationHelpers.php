@@ -6,6 +6,9 @@ use \App\Models\Recitation;
 
 function getRecitationBySupervisorIdAndYear($supervisorId, $year){
     $group = Group::where('supervisor_id', $supervisorId) -> first();
+
+    if (!$group){ return []; }
+
     $studentsIds = User::where('group_id', $group -> id) -> get() -> pluck('id') -> toArray();
 
     

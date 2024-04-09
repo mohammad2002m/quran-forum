@@ -5,10 +5,12 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ApplicationsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactUs;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ForceInformationUpdate;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ForumRules;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ManagementController;
@@ -68,6 +70,12 @@ Route::group([], function () {
     Route::get('/applications/index/supervising', [ApplicationsController::class, 'indexSupervising'])->name(QFConstants::ROUTE_NAME_APPLICATION_INDEX_SUPERVISING)->middleware('auth');
     Route::get('/applications/index/monitoring', [ApplicationsController::class, 'indexMonitoring'])->name(QFConstants::ROUTE_NAME_APPLICATION_INDEX_MONITORING)->middleware('auth');
 
+    Route::get('/exam/supervising/index', [ExamController::class, 'supervisingExam'])->name(QFConstants::ROUTE_NAME_SUPERVISING_EXAM_INDEX)->middleware('auth');
+    Route::post('/exam/supervising/mark/update', [ExamController::class, 'updateSupervisingMark'])->name(QFConstants::ROUTE_NAME_SUPERVISING_EXAM_MARK_UPDATE)->middleware('auth');
+
+    Route::get('/image/upload/index', [ImageController::class, 'index'])->name(QFConstants::ROUTE_NAME_IMAGE_UPLOAD_INDEX)->middleware('auth');
+    Route::post('/image/upload/store', [ImageController::class, 'store'])->name(QFConstants::ROUTE_NAME_IMAGE_UPLOAD_STORE)->middleware('auth');
+    Route::post('/image/delete', [ImageController::class, 'delete'])->name(QFConstants::ROUTE_NAME_IMAGE_DELETE)->middleware('auth');
 
     Route::get('/login', [LoginController::class, 'login'])->name(QFConstants::ROUTE_NAME_LOGIN_PAGE)->middleware('guest');
     Route::post('/login',  [LoginController::class, 'attemptLogin'])->name(QFConstants::ROUTE_NAME_ATTEMPT_LOGIN)->middleware('guest');
@@ -118,7 +126,11 @@ Route::group([], function () {
 
     Route::get('/group/index', [GroupController::class, 'index'])->name(QFConstants::ROUTE_NAME_GROUP_INDEX)->middleware('auth');
     Route::post('/group/store', [GroupController::class, 'store'])->name(QFConstants::ROUTE_NAME_GROUP_STORE)->middleware('auth');
+    Route::post('/group/delete', [GroupController::class, 'delete'])->name(QFConstants::ROUTE_NAME_GROUP_DELETE)->middleware('auth');
+    Route::post('/group/update/supervisor', [GroupController::class, 'updateSupervisor'])->name(QFConstants::ROUTE_NAME_GROUP_UPDATE_SUPERVISOR)->middleware('auth');
+    Route::post('/group/update/monitor', [GroupController::class, 'updateMonitor'])->name(QFConstants::ROUTE_NAME_GROUP_UPDATE_MONITOR)->middleware('auth');
 
+    Route::post('/group/student/update', [GroupController::class, 'updateStudentGroup'])->name(QFConstants::ROUTE_NAME_UPDATE_STUDENT_GROUP)->middleware('auth');
 
     Route::get('/reports/index', [ReportsController::class, 'index'])->name(QFConstants::ROUTE_NAME_REPORTS_INDEX)->middleware('auth');
 
@@ -130,7 +142,10 @@ Route::group([], function () {
 
     Route::get('/students/index', [StudentsController::class, 'index'])->name(QFConstants::ROUTE_NAME_STUDENTS_INDEX)->middleware('auth');
 
-    Route::get('/api/supervisors', [SearchController::class, 'supervisors'])->name(QFConstants::ROUTE_NAME_API_SUPERVISORS)->middleware('auth');
+    Route::get('/api/supervisors/by-user-gender', [SearchController::class, 'getSupervisors'])->name(QFConstants::ROUTE_NAME_API_SUPERVISORS)->middleware('auth');
+    Route::get('/api/monitors/by-user-gender', [SearchController::class, 'getMonitors'])->name(QFConstants::ROUTE_NAME_API_MONITORS)->middleware('auth');
+    Route::get('/api/groups/by-user-gender', [SearchController::class, 'getGroups'])->name(QFConstants::ROUTE_NAME_API_GROUPS)->middleware('auth');
+
     Route::get('/api/recitations/{supervisorId}/{year}', [SearchController::class, 'recitationsBySupervisorAndYear'])->name(QFConstants::ROUTE_NAME_API_RECITATIONS)->middleware('auth');
     Route::get('/api/excuses/{supervisorId}/{year}', [SearchController::class, 'excusesBySupervisorAndYear'])->name(QFConstants::ROUTE_NAME_API_EXECUSES)->middleware('auth');
     Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear'])->name(QFConstants::ROUTE_NAME_API_WEEKS)->middleware('auth');
@@ -141,6 +156,8 @@ Route::group([], function () {
 
     Route::get('/api/applications/supervising', [ApplicationsController::class, 'getSupervisingApplication'])->name(QFConstants::ROUTE_NAME_API_GET_SUPERVISING_APPLICATIONS) -> middleware('auth');
     Route::get('/api/applications/monitoring', [ApplicationsController::class, 'getMonitoringApplication'])->name(QFConstants::ROUTE_NAME_API_GET_MONITORING_APPLICATIONS) -> middleware('auth');
+    Route::get('/api/applications/supervising/pending', [ApplicationsController::class, 'getPendingSupervisingApplication'])->name(QFConstants::ROUTE_NAME_API_GET_SUPERVISING_PENDING_APPLICATIONS) -> middleware('auth');
+    // /api/applications/supervising/pending'
 
     Route::post('/applications/supervising/take-action', [ApplicationsController::class, 'takeActionSupervisingApplication'])->name(QFConstants::ROUTE_NAME_ACTION_SUPERVISING_APPLICATION)->middleware('auth');
     Route::post('/applications/monitoring/take-action', [ApplicationsController::class, 'takeActionMonitoringApplication'])->name(QFConstants::ROUTE_NAME_ACTION_MONITORING_APPLICATION)->middleware('auth');

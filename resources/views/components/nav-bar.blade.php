@@ -29,6 +29,9 @@
                         @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT))
                             <li> <a class="dropdown-item" href="/announcement/create"> إنشاء إعلان جديد </a> </li>
                         @endif
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_UPLOAD_IMAGE))
+                            <li> <a class="dropdown-item" href="/image/upload/index"> رفع صورة جديدة </a> </li>
+                        @endif
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -94,10 +97,15 @@
 
                         @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_STUDENTS))
                             <li class="nav-item">
-                                <a class="nav-link" href="/students/index"> الطلاب </a>
+                                <a class="nav-link" href="/students/index"> الأعضاء </a>
                             </li>
                         @endif
 
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_SUPERVISING_EXAMS))
+                            <li class="nav-item">
+                                <a class="nav-link" href="/exam/supervising/index"> اختبار المشرفين </a>
+                            </li>
+                        @endif
 
                     </ul>
 

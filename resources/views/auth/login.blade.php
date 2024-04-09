@@ -52,7 +52,7 @@
                             <div class="mb-4">
                                 <label for="" class="mb-1"> البريد الإلكتروني </label>
                                 <input type="text" class="form-control p-2"
-                                    name="email">
+                                    name="email" value="{{old('email')}}">
                             </div>
                             <div class="mb-4">
                                 <div class="d-flex justify-content-between">

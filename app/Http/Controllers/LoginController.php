@@ -38,7 +38,7 @@ class LoginController extends Controller
         $user = getUserWithCredentials($email, $password);
 
         if (!$user){
-            return redirect() -> back() -> with('error', QFConstants::ERROR_MESSAGE_INVALID_CREDINTIALS);
+            return redirect() -> back() -> with('error', QFConstants::ERROR_MESSAGE_INVALID_CREDINTIALS) -> withInput();
         }
 
         if ($user -> email_verified_at === null){

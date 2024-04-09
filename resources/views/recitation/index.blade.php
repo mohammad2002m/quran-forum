@@ -296,7 +296,7 @@
                     <th class="text-center"> النقاط </th>
                 </tr>
                 <tr>
-                    <td class="text-center"> ${(recitedNum / students.length * 100).toFixed(2)}% </td>
+                    <td class="text-center"> ${students.length !== 0 ? (recitedNum / students.length * 100).toFixed(2) : 0}% </td>
                     <td class="text-center"> ${recitedNum !== 0 ? ((4 * memorizedPagesSum + repeatedPagesSum) / recitedNum).toFixed(2) : 0} </td>
                     <td class="text-center"> ${memorizedPagesSum} </td>
                     <td class="text-center"> ${repeatedPagesSum} </td>

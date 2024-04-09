@@ -73,6 +73,10 @@
                 </div>
             </div>
         @endif
-
+        
+        @if (!$registrationOpen)
+            <br>
+            <strong class="text-danger"> ملاحظة: تسجيل الطلاب مغلق حاليًا </strong>
+        @endif
     </div>
 @endsection

@@ -21,7 +21,18 @@ class RegistrationController extends Controller
 {
     use RegistrationValidators;
     function guide(){
-        return view('registration.guide');
+
+        $registrationAllowedNumber = Settings::get('registration_allowed_number');
+
+        $registrationOpen = false;
+
+        if ($registrationAllowedNumber && intval($registrationAllowedNumber) > 0){
+            $registrationOpen = true;
+        }
+
+        return view('registration.guide') -> with([
+            'registrationOpen' => $registrationOpen,
+        ]); 
     }
     function registerStudent(){
         return view('registration.student')

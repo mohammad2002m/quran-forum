@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('max_responsibilities') -> nullable(false);
             $table->integer('applying_count') -> default(0);
+            $table->integer('tajweed_mark') -> nullable(true);
+            $table->boolean('taken_test') -> default(false);
         });
     }
 

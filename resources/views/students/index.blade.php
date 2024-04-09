@@ -81,7 +81,10 @@
                             <input type="text" class="form-control" id="user-year" disabled>
                         </div>
                     </div>
-
+                    <div class="mb-3">
+                        <label class="mb-1" for="user-email"> البريد الإلكتروني </label>
+                        <input type="text" class="form-control" id="user-email" disabled>
+                    </div>
                     <div class="mb-3">
                         <label class="mb-1" for="user-college"> الكلية </label>
                         <input type="text" class="form-control" id="user-college" disabled>
@@ -208,14 +211,16 @@
             var userScheduleInput = document.getElementById("user-schedule");
             var userLockedInput = document.getElementById("user-locked");
             var userRolesInput = document.getElementById("user-roles");
-
+            var userEmailInput = document.getElementById("user-email");
+            
             userIDInput.value = user.id;
             userNameInput.value = user.name;
+            userEmailInput.value = user.email;
             userGenderInput.value = user.gender;
             userPhoneNumberInput.value = user.phone_number;
             userYearInput.value = user.year;
             userCollegeInput.value = user.college.name;
-            userGroupInput.value = user.group.name;
+            userGroupInput.value = user.group ? user.group.name : "لا ينتمي لحلقة";
             userStatusInput.value = user.status;
             userTajweedCertificateInput.value = user.tajweed_certificate ? "نعم" : "لا";
             userCanBeTeacherInput.value = user.can_be_teacher ? "نعم" : "لا";

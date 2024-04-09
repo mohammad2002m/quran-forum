@@ -38,8 +38,8 @@ return new class extends Migration
             $table-> unsignedBigInteger('college_id') -> nullable(false);
             $table-> unsignedBigInteger('group_id') -> nullable(true);
 
-            $table->unsignedBigInteger('profile_image_id') -> nullable(true) -> default(1); // FIXME : add default image
-            $table->unsignedBigInteger('cover_image_id') -> nullable(true) -> default(1);  // FIXME : add default image
+            $table->unsignedBigInteger('cover_image_id') -> nullable(true) -> default(1); 
+            $table->unsignedBigInteger('profile_image_id') -> nullable(true) -> default(2);
 
             $table-> foreign('college_id') -> references('id') -> on('colleges');
             $table-> foreign('profile_image_id') -> references('id') -> on('images');

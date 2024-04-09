@@ -11,6 +11,9 @@ class Group extends Model
     function supervisor(){
         return $this -> belongsTo(User::class, 'supervisor_id');
     }
+    function monitor(){
+        return $this -> belongsTo(User::class, 'monitor_id');
+    }
     function students(){
         return $this -> hasMany(User::class);
     }

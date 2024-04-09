@@ -5,21 +5,17 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Accomplishment;
-use App\Models\Activity;
 use App\Models\Announcement;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\AnnouncementType;
 use App\Models\College;
 use App\Models\Excuse;
-use App\Models\Execuse;
 use App\Models\Group;
 use App\Models\Image;
 use App\Models\Recitation;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use QF\Constants as QFConstants;
-use QF\QuestionsAnswers as QFQuestionsAnswers;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,7 +24,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        DatabaseSeeder::seedActivites();
         DatabaseSeeder::seedImages();
         DatabaseSeeder::seedWeeks();
         DatabaseSeeder::seedColleges();
@@ -36,9 +31,6 @@ class DatabaseSeeder extends Seeder
         DatabaseSeeder::seedGroups();
         DatabaseSeeder::seedUsers();
         DatabaseSeeder::seedAnnouncementTypes();
-        DatabaseSeeder::seedAnnouncements();
-        DatabaseSeeder::seedRecitation();
-        DatabaseSeeder::seedExecuses();
     }
     function seedGroups()
     {
@@ -161,7 +153,29 @@ class DatabaseSeeder extends Seeder
     public static function seedImages()
     {
         
-        for ($c = 1; $c <= 13; $c++){
+        $width = getimagesize(public_path("images/default/cover.jpg"))[0];
+        $height = getimagesize(public_path("images/default/cover.jpg"))[1];
+
+        Image::factory()->create([
+            "full_path" => "http://localhost:8000/images/default/cover.jpg",
+            "stored" => false,
+            "for" => "cover",
+            "width" => $width,
+            "height" => $height,
+        ]);
+
+        $width = getimagesize(public_path("images/default/profile.jpg"))[0];
+        $height = getimagesize(public_path("images/default/profile.jpg"))[1];
+
+        Image::factory()->create([
+            "full_path" => "http://localhost:8000/images/default/profile.jpg",
+            "stored" => false,
+            "for" => "profile",
+            "width" => $width,
+            "height" => $height,
+        ]);
+
+        for ($c = 1; $c <= 20; $c++){
             // get image width and height from full_path
             $width = getimagesize(public_path("images/$c.jpg"))[0];
             $height = getimagesize(public_path("images/$c.jpg"))[1];
@@ -175,44 +189,8 @@ class DatabaseSeeder extends Seeder
                 "height" => $height,
             ]);
         }
-
-        $doesntExist = [86, 97, 105, 138, 148, 150, 205, 207, 224, 226, 245, 246, 262, 285, 286, 298, 303, 332, 333, 346, 359, 394, 414, 422, 438, 462, 463, 470, 489, 540, 561, 578, 587, 589, 592, 595, 597, 601, 624, 632, 636, 644, 647, 673, 697, 706, 707, 708, 709, 710, 711, 712, 713, 714, 720, 725, 734, 745, 746, 747, 748, 749, 750, 751, 752, 753, 754, 759, 761, 762, 763, 771, 792, 801, 812, 843, 850, 854, 895, 897, 899, 917, 920, 934, 956, 963, 968];
-        $notAppropriate = [31, 64, 65, 129, 325, 373, 375, 395, 399, 446, 449, 454, 497, 548, 501, 550, 580, 590, 596, 604, 628, 633, 646, 656, 660, 680, 686, 691, 742, 758, 760, 768, 777, 778, 786, 793, 800, 804, 818, 821, 823, 822, 832, 836, 839, 838, 837, 841, 855, 874, 978, 996, 1000];
-
-        for ($id = 1; $id <= 100; $id++) {
-            if (in_array($id, $doesntExist) || in_array($id, $notAppropriate)) {
-                continue;
-            }
-
-            Image::factory()->create([
-                "full_path" => "https://picsum.photos/id/$id/400/400",
-                "stored" => false,
-                "for" => "profile"
-            ]);
-            Image::factory()->create([
-                "full_path" => "https://picsum.photos/id/$id/1200/600",
-                "stored" => false,
-                "for" => "cover",
-            ]);
-        }
-
-
     }
-    public static function seedActivites()
-    {
-        Activity::factory()->create(
-            ['description' => 'إدخال الأسابيع']
-        );
-        Activity::factory()->create(
-            ['description' => 'إقتراح أعلان']
-        );
-        Activity::factory()->create(
-            ['description' => 'نشر إعلان']
-        );
-        Activity::factory()->create(
-            ['description' => 'موافقة إعلان']
-        );
-    }
+
     public static function seedColleges()
     {
         $colleges = [
@@ -276,47 +254,38 @@ class DatabaseSeeder extends Seeder
     }
     public static function seedUsers()
     {
-        $genders = QFQuestionsAnswers::WhatIsYourGender;
-        $years = QFQuestionsAnswers::WhatIsYourStudyYear;
-        $schedules = QFQuestionsAnswers::WhatIsYourSchedule;
-        $majorityFalse = [true, false, false, false, false, false, false, false, false, false];
-        $canBeTeacher = [true, false];
-        for ($rep = 1; $rep <= 100; $rep++) {
-            $num = rand(0, 1);
-            $firstName = $num == 0 ? DatabaseSeeder::getRandomMaleName() : DatabaseSeeder::getRandomFemaleName();
-            $name = $firstName . ' ' . DatabaseSeeder::getRandomMaleName() . ' ' . DatabaseSeeder::getRandomMaleName();
-
-            $role = rand(1, 15);
-            $email = 'test' . strval($rep) . '@gmail.com';
-
-            $user = User::factory()->create([
-                'name' => $name,
-                'email' => $email,
-                'password' => Hash::make('mozart'),
-                'gender' => $genders[$num],
-                'locked' => $majorityFalse[rand(0, 9)],
-                'year' => $years[rand(0, 6)],
-                'schedule' => $schedules[rand(0, 2)],
-                'can_be_teacher' => $canBeTeacher[rand(0, 1)],
-                'force_information_update' => $majorityFalse[rand(0, 9)],
-                'tajweed_certificate' => $majorityFalse[rand(0, 9)],
-                'college_id' => rand(1, 10),
-                'email_verified_at' => date('Y-m-d H:i:s'),
-                'phone_number' => '0569' . strval(rand(99999, 999999)),
-                'group_id' => strval((($rep - 1) % 10) + 1 + $num * 10),
-                'view_notify_on_landing_page' => rand(0 , 1) == 1 ? true : false,
-            ]);
-
-            $user->roles()->attach($role);
-            $user->roles()->attach(QFConstants::ROLE_STUDENT);
+        User::factory() -> count(20) -> create();
+        foreach (User::all() as $user) {
+            // for the ones who has status add roles student to them
+            if ($user->status) {
+                $user->roles()->attach(QFConstants::ROLE_STUDENT);
+            }
         }
 
-        for ($rep = 0; $rep < Group::all()->count(); $rep++) {
-            $group = Group::all()[$rep];
-            $group->supervisor_id = $rep + 1;
-            $group->monitor_id = $rep + 2;
-            $group->save();
-        }
+        // seed head
+        $user = User::factory()->create([
+            'email' => 'head@gmail.com',
+            'password' => bcrypt('mozart'), // You may want to use a stronger password hashing mechanism
+            'name' => 'رئيس ملتقى القرآن الكريم',
+            'phone_number' => '0599123456',
+            'gender' => "ذكر",
+            'year' => "خريج",
+            'status' => "نشط",
+            'student_number' => '22011233',
+            'schedule' => "تدريب خارج الجامعة",
+            'can_be_teacher' => true,
+            'tajweed_certificate' => true,
+            'locked' => false,
+            'force_information_update' => false,
+            'view_notify_on_landing_page' => true,
+            'college_id' => 1,
+            'group_id' => null,
+            'cover_image_id' => 1,
+            'profile_image_id' => 2,
+            'email_verified_at' => '2024-01-01 00:00:00',
+        ]);
+
+        $user -> roles() -> attach(QFConstants::ROLE_HEAD);
     }
     public static function seedAnnouncementTypes()
     {
