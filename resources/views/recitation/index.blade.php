@@ -204,8 +204,8 @@
 
         async function fetchAndUpdateNewData(year) {
             // FIXME needs error handeling
-            var recitaionURL = 'http://localhost:8000/api/recitations/' + userId.toString() + '/' + year.toString();
-            var weeksURL = 'http://localhost:8000/api/weeks/' + year.toString();
+            var recitaionURL = '{{$QFConstants::APP_URL}}/api/recitations/' + userId.toString() + '/' + year.toString();
+            var weeksURL = '{{$QFConstants::APP_URL}}/api/weeks/' + year.toString();
 
             var dataWeeks = await fetch(weeksURL);
             var newWeeks = await dataWeeks.json()

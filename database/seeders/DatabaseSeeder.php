@@ -186,7 +186,7 @@ class DatabaseSeeder extends Seeder
         $height = getimagesize(public_path("images/default/cover.jpg"))[1];
 
         Image::factory()->create([
-            "full_path" => "http://localhost:8000/images/default/cover.jpg",
+            "full_path" => QFConstants::APP_URL . "/images/default/cover.jpg",
             "stored" => false,
             "for" => "cover",
             "width" => $width,
@@ -197,7 +197,7 @@ class DatabaseSeeder extends Seeder
         $height = getimagesize(public_path("images/default/profile.jpg"))[1];
 
         Image::factory()->create([
-            "full_path" => "http://localhost:8000/images/default/profile.jpg",
+            "full_path" => QFConstants::APP_URL . "/images/default/profile.jpg",
             "stored" => false,
             "for" => "profile",
             "width" => $width,
@@ -211,7 +211,7 @@ class DatabaseSeeder extends Seeder
 
 
             Image::factory()->create([
-                "full_path" => "http://localhost:8000/images/$c.jpg",
+                "full_path" =>  QFConstants::APP_URL . "/images/$c.jpg",
                 "stored" => false,
                 "for" => "announcement",
                 "width" => $width,

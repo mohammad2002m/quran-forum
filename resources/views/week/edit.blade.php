@@ -273,7 +273,7 @@
     
         async function fetchWeeks(){
             var year = getCurrentSelectedYear();
-            var response = await fetch(`http://localhost:8000/api/weeks/${year}`);
+            var response = await fetch(`{{$QFConstants::APP_URL}}/api/weeks/${year}`);
             var data = await response.json();
             return data;
         }

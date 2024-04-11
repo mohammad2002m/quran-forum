@@ -243,7 +243,6 @@
             changedExcuses.push(parseInt(key));
 
             excuses = excuses.map((excuse) => {
-                // console.log(excuse);
                 if (excuse.key === parseInt(key)) {
                     excuse.notes = excuseNotes;
                     excuse.status = excuseStatus;
@@ -272,10 +271,10 @@
             });
         }
         async function fetchAndUpdateNewData(year) {
-            var dataWeeks = await fetch('http://localhost:8000/api/weeks/' + year.toString());
+            var dataWeeks = await fetch('{{$QFConstants::APP_URL}}/api/weeks/' + year.toString());
             var newWeeks = await dataWeeks.json()
 
-            var dataExcuses = await fetch('http://localhost:8000/api/excuses/' + userId.toString() + '/' + year
+            var dataExcuses = await fetch('{{$QFConstants::APP_URL}}/api/excuses/' + userId.toString() + '/' + year
                 .toString());
             var newExcuses = await dataExcuses.json();
 
@@ -324,7 +323,6 @@
             $('#years-select2').select2({theme: 'bootstrap-5'});
             $('#weeks-select2').select2({theme: 'bootstrap-5'});
             processExcuses();
-            console.log(excuses)
             render();
         });
     </script>

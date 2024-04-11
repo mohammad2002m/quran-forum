@@ -102,7 +102,7 @@
 
         async function fetchNewData(year) {
             // FIXME needs error handeling
-            var weeksURL = 'http://localhost:8000/api/weeks/' + year.toString();
+            var weeksURL = '{{$QFConstants::APP_URL}}/api/weeks/' + year.toString();
             var data = await fetch(weeksURL);
             var newWeeks = await data.json()
             weeks = newWeeks;
@@ -127,7 +127,7 @@
         }
 
         async function getReport() {
-            var url = 'http://localhost:8000/api/reports/' +
+            var url = '{{$QFConstants::APP_URL}}/api/reports/' +
                 getCurrentSelectedWeek().toString() + '/' +
                 getCurrentSelectedGender().toString();
 

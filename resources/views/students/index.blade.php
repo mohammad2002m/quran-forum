@@ -249,7 +249,7 @@
 
 
         (async () => {
-            var response = await fetch("http://localhost:8000/api/users");
+            var response = await fetch("{{$QFConstants::APP_URL}}/api/users");
             var fetchedUsers = await response.json();
             users = fetchedUsers;
             render(users);

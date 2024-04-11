@@ -255,7 +255,7 @@
         $('.supervisor-select2-store').select2({
             dropdownParent: $('#store-group-modal'),
             ajax: {
-                url: 'http://localhost:8000/api/supervisors/by-user-gender',
+                url: '{{$QFConstants::APP_URL}}/api/supervisors/by-user-gender',
                 dataType: 'json',
                 processResults: function(data) {
                     results = data.map((supervisor) => {
@@ -276,7 +276,7 @@
         $('.monitor-select2-store').select2({
             dropdownParent: $('#store-group-modal'),
             ajax: {
-                url: 'http://localhost:8000/api/monitors/by-user-gender',
+                url: '{{$QFConstants::APP_URL}}/api/monitors/by-user-gender',
                 dataType: 'json',
                 processResults: function(data) {
                     results = data.map((monitor) => {
@@ -297,7 +297,7 @@
         $('.supervisor-select2-update').select2({
             dropdownParent: $('#update-group-supervisor-modal'),
             ajax: {
-                url: 'http://localhost:8000/api/supervisors/by-user-gender',
+                url: '{{$QFConstants::APP_URL}}/0/api/supervisors/by-user-gender',
                 dataType: 'json',
                 processResults: function(data) {
                     results = data.map((supervisor) => {
@@ -319,7 +319,7 @@
         $('.monitor-select2-update').select2({
             dropdownParent: $('#update-group-monitor-modal'),
             ajax: {
-                url: 'http://localhost:8000/api/monitors/by-user-gender',
+                url: '{{$QFConstants::APP_URL}}/api/monitors/by-user-gender',
                 dataType: 'json',
                 processResults: function(data) {
                     results = data.map((monitor) => {
@@ -341,7 +341,7 @@
         $('.groups-select2').select2({
             dropdownParent: $('#update-student-group-modal'),
             ajax: {
-                url: 'http://localhost:8000/api/groups/by-user-gender',
+                url: '{{$QFConstants::APP_URL}}/api/groups/by-user-gender',
                 dataType: 'json',
                 processResults: function(data) {
                     var isAssignedSupervisor = groups.some((group) => group.supervisor_id === data.id);

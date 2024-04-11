@@ -138,9 +138,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/"> الصفحة الرئيسية </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/announcement/archived/index"> الأرشيف </a>
-                        </li>
+
+                        <li class="nav-item d-md-none"> <a class="nav-link" href="/contact-us"> اتصل بنا </a> </li>
+
+                        <li class="nav-item d-sm-none"> <a class="nav-link" href="/about-us"> من نحن </a> </li>
+                        <li class="nav-item d-md-none"> <a class="nav-link" href="/forum-rules"> قوانين الملتقى </a> </li>
                     </ul>
 
                     <div class="d-flex gap-2">

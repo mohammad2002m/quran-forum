@@ -92,7 +92,7 @@
         }
 
         async function fetchAnnouncementBatch() {
-            var response = await fetch(`http://localhost:8000/api/announcements/${batch++}`);
+            var response = await fetch(`{{$QFConstants::APP_URL}}/api/announcements/${batch++}`);
             var announcements = await response.json();
             return announcements;
         }
