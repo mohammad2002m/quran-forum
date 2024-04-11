@@ -111,6 +111,11 @@
             $averageMemorizationMark /= $recitations->count();
         }
 
+        // make values 2 decimal points
+        $averageTajweedMark = number_format($averageTajweedMark, 2);
+        $averageMemorizationMark = number_format($averageMemorizationMark, 2);
+
+
     @endphp
 
     <div class="container main">

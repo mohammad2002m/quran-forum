@@ -42,6 +42,7 @@
                                 @foreach ($weeks as $week)
                                     <option value="{{ $week->id }}"
                                         {{ $week->id === $currentWeek->id ? 'selected' : '' }}> {{ $week->name }}
+                                        {{ $week->id === $currentWeek->id ? '(الأسبوع الحالي)' : '' }}
                                     </option>
                                 @endforeach
                             </select>
@@ -165,7 +166,7 @@
                 data: weeks.map(week => {
                     return {
                         id: week.id,
-                        text: week.name,
+                        text: week.name + (week.id === currentWeek.id ? ' (الأسبوع الحالي)' : ''),
                     };
                 }),
                 theme: 'bootstrap-5'

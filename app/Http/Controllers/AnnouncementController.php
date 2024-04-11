@@ -92,7 +92,6 @@ class AnnouncementController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'type_id' => $request->type_id,
-            'date' => date("Y-m-d H:i:s"),
             'status' => Constants::ANNOUNCEMENT_STATUS_APPROVED,
             'user_id' => Auth::user()->id,
             'image_id' => $image->id,

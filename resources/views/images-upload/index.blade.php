@@ -15,7 +15,7 @@
     <div id="main-container" class="container mt-4 mb-5">
         <div class="card">
             <div class="card-header">
-                <h5> الأسابيع </h5>
+                <h5> رفع صورة للملتقى </h5>
             </div>
             <div class="card-body">
                 @if (Session::has('error'))
@@ -82,7 +82,7 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="" class="form-label"> رقم الصورة </label>
-                            <input type="text" class="form-control" name="image_id" id="image-id-modal" disabled>
+                            <input type="text" class="form-control" id="image-key-modal" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label"> نوع الصورة </label>
@@ -132,10 +132,18 @@
 
             return formattedDate;
         }
-        initiateColumnsAndLayout();
     </script>
     <script>
         var images = @json($images);
+
+        function processImages(){
+            images.reverse();
+            counter = 1;
+            images.forEach(image => {
+                // add key to image
+                image.key = counter++;
+            })
+        }
 
         function imageElement(image) {
 
@@ -144,7 +152,7 @@
                 <div class="lifestyle-content">
                     <div class="mt-auto">
                         <div class="d-flex justify-content-between mt-4">
-                            <a href="#" class="small text-white link-hover" onclick="openImageDetailsModal(${image.id})" data-bs-toggle="modal" data-bs-target="#image-details"> ${image.id} : ${ image.for == 'cover' ? 'صورة غلاف' : 'صورة شخصية'}</a>
+                            <a href="#" class="small text-white link-hover" onclick="openImageDetailsModal(${image.id})" data-bs-toggle="modal" data-bs-target="#image-details"> ${image.key} : ${ image.for == 'cover' ? 'صورة غلاف' : 'صورة شخصية'}</a>
                             <small class="text-white d-block"> ${formatDate(image.created_at)} </small>
                         </div>
                     </div>
@@ -154,13 +162,13 @@
 
         function openImageDetailsModal(imageID) {
             var image = images.find(image => image.id == imageID);
-            var imageIDInputWithRequest = document.getElementById("image-id");
-            var imageIDInput = document.getElementById("image-id-modal");
+            var imageIDInput = document.getElementById("image-id");
+            var imageKeyInput = document.getElementById("image-key-modal");
             var imageTypeInput = document.getElementById("image-type-modal");
             var imageDateInput = document.getElementById("image-date-modal");
             
+            imageKeyInput.value = image.key;
             imageIDInput.value = image.id;
-            imageIDInputWithRequest.value = image.id;
 
             imageTypeInput.value = image.for == 'cover' ? 'صورة غلاف' : 'صورة شخصية';
             imageDateInput.value = formatDate(image.created_at);
@@ -177,12 +185,13 @@
 
                 var imageActualWidth = containerWidth / numberOfLayoutColumns;
                 var imageActualHeight = image.height * (imageActualWidth / image.width);
-                console.log(image.width);
                 columnsHeights[minIndex] += imageActualHeight;
             });
 
         }
 
+        initiateColumnsAndLayout();
+        processImages();
         renderImages();
     </script>
 @endsection

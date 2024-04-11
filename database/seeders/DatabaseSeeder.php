@@ -293,6 +293,7 @@ class DatabaseSeeder extends Seeder
             'media@gmail.com',
             'student.manager.male@gmail.com',
             'student.manager.female@gmail.com',
+            'data@gmail.com',
         ];
 
         $role_to_attach = [
@@ -304,6 +305,7 @@ class DatabaseSeeder extends Seeder
             QFConstants::ROLE_MEDIA_COMMITTE_MEMBER,
             QFConstants::ROLE_STUDENTS_MANAGER,
             QFConstants::ROLE_STUDENTS_MANAGER,
+            QFConstants::ROLE_DATA_COMMITTE_MEMBER
         ];
 
         $names = [
@@ -315,6 +317,7 @@ class DatabaseSeeder extends Seeder
             'مسؤول لجنة إعلامية',
             'مسؤول الطلاب للذكور',
             'مسؤول الطلاب للإناث',
+            'مسؤول لجنة البيانات',
         ];
 
         $phone_numbers = [
@@ -326,13 +329,14 @@ class DatabaseSeeder extends Seeder
             '0596153456',
             '0597123456',
             '0598123456',
+            '0599123456'
         ];
 
-        $genders = [ 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'أنثى', ];
+        $genders = [ 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'أنثى', 'أنثى' ];
 
-        $years = [ 'خريج', 'أولى', 'ثانية', 'ثالثة', 'رابعة', 'خامسة', 'خريج', 'خريج', ];
+        $years = [ 'خريج', 'أولى', 'ثانية', 'ثالثة', 'رابعة', 'خامسة', 'خريج', 'خريج', 'أولى'];
 
-        $statuses = ["نشط", "مجمد", "موقوف", "منسحب", null, null, null, null];
+        $statuses = ["نشط", "مجمد", "موقوف", "منسحب", null, null, null, null, "نشط"];
 
         $schedules = [
             'مستقرة بالحرم الجامعي',
@@ -342,6 +346,7 @@ class DatabaseSeeder extends Seeder
             'تدريب خارج الجامعة',
             'أتدرب خارج الجامعة بالإضافة إلى محاضرات منتظمة',
             'أتدرب خارج الجامعة بالإضافة إلى محاضرات منتظمة',
+            'مستقرة بالحرم الجامعي',
             'مستقرة بالحرم الجامعي',
         ];
 
@@ -354,21 +359,22 @@ class DatabaseSeeder extends Seeder
             '22016233',
             '22017233',
             '22018233',
+            '22019233',
         ];
 
-        $can_be_teachers = [true, false, true, false, false, true, true, true];
+        $can_be_teachers = [true, false, true, false, false, true, true, true, false];
 
-        $tajweed_certificates = [true, false, false, false, true, false, false, true];
-        $locked = [false, false, false, false, true, false, false, true];
+        $tajweed_certificates = [true, false, false, false, true, false, false, true , false];
+        $locked = [false, false, false, false, true, false, false, true, false];
 
-        $force_information_update = [true, true, false, false, true, false, false, true];
+        $force_information_update = [true, true, false, false, true, false, false, true, false];
 
-        $view_notify_on_landing_page = [true, true, false, false, true, false, false, true];
+        $view_notify_on_landing_page = [true, true, false, false, true, false, false, true, false];
 
-        $college_ids = [1, 2, 3, 4, 5, 6, 7, 8];
+        $college_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 9; $i++) {
             $user = User::create([
                 'email' => $emails[$i],
                 'password' => bcrypt('mozart'), // You may want to use a stronger password hashing mechanism

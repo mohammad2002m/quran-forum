@@ -188,7 +188,7 @@ class Constants {
     const ACTIVITY_API_MONITORS = 17;
     const ACTIVITY_API_ANNOUNCEMENTS = 18;
     const ACTIVITY_API_USERS = 19;
-    const ACTIVITY_UPLOAD_IMAGE = 19;
+    const ACTIVITY_UPLOAD_IMAGE = 20;
     
 
     /******** IMAGES TYPES ********/

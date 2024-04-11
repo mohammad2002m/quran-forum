@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users->take(8) as $user)
+                @foreach ($users->take(9) as $user)
                     <tr>
                         <td colspan="1"> {{ $user->id }} </td>
                         <td colspan="2"> {{ $user->name }} </td>
