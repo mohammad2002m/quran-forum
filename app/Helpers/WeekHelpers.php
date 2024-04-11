@@ -92,3 +92,9 @@ function getCurrentWeek(){
     $week = Week::whereDate('start_date', '<=', $currentDate) -> whereDate('end_date', '>=', $currentDate) -> first();
     return $week;
 }
+
+function inWeek($date, $week){
+    $startDate = $week -> start_date;
+    $endDate = $week -> end_date;
+    return $date >= $startDate && $date <= $endDate;
+}

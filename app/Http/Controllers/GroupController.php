@@ -16,7 +16,7 @@ class GroupController extends Controller
     use GroupValidator;
     function index(){
         
-        $gender = Auth::user() == "ذكر" ? "ذكور" : "إناث";
+        $gender = Auth::user() -> gender == "ذكر" ? "ذكور" : "إناث";
 
         $groups = Group::with(['supervisor','monitor','students']) -> where('gender', $gender) -> get();
         $users = User::with(['roles', 'college', 'group']) -> where('gender', Auth::user() -> gender) -> get();

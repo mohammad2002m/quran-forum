@@ -64,7 +64,11 @@ class ImageController extends Controller
 
     function delete(Request $request){
         $validator = Validator::make($request->all(), [
-            'image_id' => ['required', Rule::exists('images', 'id')],
+            'image_id' => ['required', Rule::exists('images', 'id'), Rule::notIn([1, 2])],
+        ], [
+            'image_id.required' => 'يجب تحديد الصورة',
+            'image_id.exists' => 'الصورة غير موجودة',
+            'image_id.not_in' => 'لا يمكن حذف هذه الصورة لأنها الصورة الافتراضية',
         ]);
 
         if ($validator->fails()) {

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use QF\Constants;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -75,6 +76,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     function supervisor(){
         return $this -> hasOneThrough(User::class, Group::class, 'id', 'id', 'group_id', 'supervisor_id');
+    }
+
+    function parts_before(){
+        return $this-> hasMany(PreviousPart::class);
+    }
+
+    function is_studnet(){
+        return $this -> roles() -> where('name', Constants::ROLE_STUDENT) -> exists();
     }
 
 }

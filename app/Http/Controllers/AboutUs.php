@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 
 class AboutUs extends Controller
 {
     function index(){
-        return view('about-us.index');
+        return view('about-us.index') ->with([
+            'users'=> User::all(),
+        ]);
     }
 }

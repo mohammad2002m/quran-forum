@@ -205,6 +205,7 @@
         }
 
         function assignWeeksAndSubmit() {
+            window.onbeforeunload = null;
             var getWeeksInput = document.getElementById('weeks');
             getWeeksInput.value = JSON.stringify(weeks);
             return true;
@@ -260,6 +261,9 @@
             var modal = bootstrap.Modal.getInstance(document.getElementById("edit-week-modal"));
             modal.hide();
 
+            window.onbeforeunload = function() {
+                return "";
+            }
         }
 
         function render(){

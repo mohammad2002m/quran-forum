@@ -247,7 +247,7 @@
         (function processStudents(){
             students.forEach(student => {
                 student["college-name"] = student.college.name;
-                student["group-name"] = student.group.name;
+                student["group-name"] = student.group ? student.group.name : "ليس منضم لحلقة";
             })
         })();
     </script>

@@ -51,8 +51,6 @@
 
             </div>
         </div>
-
-
     </div>
     <div class="modal fade" id="open-registration-form" tabindex="-1" aria-labelledby="open-registration-form"
         aria-hidden="true">

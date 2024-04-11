@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> الصفحة الشخصية </title>
+    <title>
+        الصفحة الشخصية </title>
     <style>
         hr {
             margin-top: 1rem;
@@ -89,6 +90,29 @@
 @section('content')
     <!-- End -->
 
+    @php
+        // calcualte all the recitations for the user
+        $recitations = $user->recitations;
+        $points = 0;
+        $averageTajweedMark = 0;
+        $averageMemorizationMark = 0;
+        $partsBeforeCount = $user->parts_before->count();
+        if ($is_student && $recitations->count() > 0) {
+            foreach ($recitations as $recitation) {
+                $points +=
+                    4 * $recitation->memorized_pages +
+                    2 * $recitation->repeated_pages +
+                    $recitation->memorization_mark +
+                    $recitation->tajweed_mark;
+                $averageTajweedMark += $recitation->tajweed_mark;
+                $averageMemorizationMark += $recitation->memorization_mark;
+            }
+            $averageTajweedMark /= $recitations->count();
+            $averageMemorizationMark /= $recitations->count();
+        }
+
+    @endphp
+
     <div class="container main">
         <div class="card fix-border">
 
@@ -101,26 +125,29 @@
                     <div class="d-sm-flex justify-content-between sub-header-container">
                         <div class="main-info">
                             <h6 class="main-info-title fw-bold"> {{ $user->name }} </h6>
-                            <p class="text-muted m-0"> {{ $user->group ? $user->group->name : "لا تنتمي لحلقة" }} </p>
+                            <p class="text-muted m-0"> {{ $user->group ? $user->group->name : 'ليس ضمن حلقة' }} </p>
                         </div>
-                        <div class="d-flex text-center">
-                            <div class="d-none d-lg-block ms-4">
-                                <h5> 0 </h5>
-                                <div class="text-muted"> الحفظ </div>
+                        @if ($is_student)
+                            <div class="d-flex text-center">
+                                <div class="d-none d-lg-block ms-4">
+                                    <h5> {{ $averageMemorizationMark }} </h5>
+                                    <div class="text-muted"> الحفظ </div>
+                                </div>
+                                <div class="d-none d-md-block ms-4">
+                                    <h5> {{ $averageTajweedMark }} </h5>
+                                    <div class="text-muted"> التجويد </div>
+                                </div>
+                                <div class="d-none d-md-block ms-4">
+                                    <h5> {{ $points }} </h5>
+                                    <div class="text-muted"> النقاط </div>
+                                </div>
+                                <div class="d-none d-md-block ms-4">
+                                    <h5> {{ $partsBeforeCount }} </h5>
+                                    <div class="text-muted"> الأجزاء </div>
+                                </div>
                             </div>
-                            <div class="d-none d-md-block ms-4">
-                                <h5> 0 </h5>
-                                <div class="text-muted"> التجويد </div>
-                            </div>
-                            <div class="d-none d-md-block ms-4">
-                                <h5> 0 </h5>
-                                <div class="text-muted"> الأجزاء </div>
-                            </div>
-                            <div class="d-none d-md-block ms-4">
-                                <h5> 0 </h5>
-                                <div class="text-muted"> النقاط </div>
-                            </div>
-                        </div>
+                        @endif
+
 
                     </div>
                 </div>
@@ -129,13 +156,15 @@
                 </div>
             </section>
 
-            <section class="p-4">
-                @if (Session::has('error'))
+            @if (Session::has('error'))
+                <div class="p-4">
                     <x-alert type="alert-danger" :message="session('error')" />
-                @elseif (Session::has('success'))
+                </div>
+            @elseif (Session::has('success'))
+                <div class="p-4">
                     <x-alert type="alert-success" :message="session('success')" />
-                @endif
-            </section>
+                </div>
+            @endif
 
             <section class="p-4"> <!-- PROFILE CONTENT -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -165,7 +194,7 @@
                             </tr>
                             <tr>
                                 <td> الحلقة </td>
-                                <td> {{ $user->group ? $user->group->name : "لا تنتمي لحلقة" }} </td>
+                                <td> {{ $user->group ? $user->group->name : 'ليس ضمن حلقة' }} </td>
                             </tr>
                             <tr>
                                 <td> رقم الهاتف </td>
@@ -181,7 +210,11 @@
                             </tr>
                             <tr>
                                 <td> الدور </td>
-                                <td> @foreach ($user->roles as $role) {{$role -> name . ($loop -> last ? "" : " |")}} @endforeach</td>
+                                <td>
+                                    @foreach ($user->roles as $role)
+                                        {{ $role->name . ($loop->last ? '' : ' |') }}
+                                    @endforeach
+                                </td>
                             </tr>
                             <tr>
                                 <td> تحديث الصورة </td>
@@ -194,26 +227,75 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
-                            <tr>
-                                <td> الحفظ </td>
-                                <td> التجويد </td>
-                                <td> الأجزاء </td>
-                                <td> النقاط </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> 8.1 </td>
-                                <td> 9.2 </td>
-                                <td> 2 </td>
-                                <td> 1233 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+
+                @if ($is_student)
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <td> الحفظ </td>
+                                    <td> التجويد </td>
+                                    <td> النقاط </td>
+                                    <td> الأجزاء </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> {{ $averageMemorizationMark }} </td>
+                                    <td> {{ $averageTajweedMark }} </td>
+                                    <td> {{ $points }} </td>
+                                    <td> {{ $partsBeforeCount }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <p class="lead fw-normal mb-0"> المتابعة الأسبوعية </p>
+                        <a href="#" class="text-muted"> عرض الكل </a>
+                    </div>
+
+                    @php
+                        $recitations = $user->recitations->take(5);
+                        $recitations = $recitations->reverse();
+                    @endphp
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <td class="text-center" colspan="7"> المتابعة الأسبوعية </td>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center"> الأسبوع </td>
+                                    <td class="text-center"> السنة </td>
+                                    <td class="text-center"> صفحات الحفظ </td>
+                                    <td class="text-center"> صفحات التثبيت </td>
+                                    <td class="text-center"> علامة الحفظ </td>
+                                    <td class="text-center"> علامة التجويد </td>
+                                    <td class="text-center"> النقاط </td>
+                                </tr>
+                                @foreach ($recitations as $recitation)
+                                    <tr>
+                                        <td class="text-center"> {{ $recitation->week->name }} </td>
+                                        <td class="text-center"> {{ $recitation->week->start_date }} </td>
+                                        <td class="text-center"> {{ $recitation->memorized_pages }} </td>
+                                        <td class="text-center"> {{ $recitation->repeated_pages }} </td>
+                                        <td class="text-center"> {{ $recitation->memorization_mark }} </td>
+                                        <td class="text-center"> {{ $recitation->tajweed_mark }} </td>
+                                        <td class="text-center">
+                                            {{ 4 * $recitation->memorized_pages + 2 * $recitation->repeated_pages + $recitation->memorization_mark + $recitation->tajweed_mark }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <p class="lead fw-normal mb-0"> الإنجازات </p>
@@ -224,12 +306,6 @@
                     <p class="lead fw-normal mb-0"> الخطة </p>
                     <a href="#" class="text-muted"> عرض الخطط </a>
                 </div>
-
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <p class="lead fw-normal mb-0"> المتابعة الأسبوعية </p>
-                    <a href="#" class="text-muted"> عرض الكل </a>
-                </div>
-
             </section>
 
 

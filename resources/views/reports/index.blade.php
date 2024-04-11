@@ -19,8 +19,7 @@
                 <div class="mb-3 d-flex justify-content-between">
                     <h5> التقارير </h5>
                     <div>
-                        <button class="btn btn-primary" onclick="getReport()"> التقرير الأسبوعي </button>
-                        <button class="btn btn-primary" onclick="getReport()"> تقرير التجويد </button>
+                        <button class="btn btn-primary" onclick="getReport()"> تنزيل التقرير </button>
                     </div>
                 </div>
                 <div class="row">

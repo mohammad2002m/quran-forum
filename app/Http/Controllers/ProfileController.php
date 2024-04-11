@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ProfileValidator;
+use QF\Constants;
 use QF\QuestionsAnswers;
 
 class ProfileController extends Controller
@@ -15,7 +16,16 @@ class ProfileController extends Controller
     use ProfileValidator;
     function index()
     {
-        return view('profile.index')->with('user', Auth::user());
+        
+        $user = User::with(['college','group','roles',]) -> where('id', Auth::user() -> id) -> first();
+
+
+        $is_student = in_array(Constants::ROLE_STUDENT, $user->roles->pluck('id')->toArray());
+
+        return view('profile.index')->with([
+            'user' => $user,
+            'is_student' => $is_student,
+        ]);
     }
     function edit()
     {

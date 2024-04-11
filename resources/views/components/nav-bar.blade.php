@@ -48,9 +48,6 @@
                             <a class="nav-link" href="/"> الصفحة الرئيسية </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/messages/index"> الرسائل </a>
-                        </li>
                         @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_FORUM))
                             <li class="nav-item"> <a class="nav-link" href="/management/index"> الإدارة </a> </li>
                         @endif
@@ -70,6 +67,7 @@
                         @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MONITORING))
                             <li class="nav-item"> <a class="nav-link" href="/monitoring/index"> المتابعة </a> </li>
                         @endif
+
 
                         @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_REPORTS))
                             <li class="nav-item">
@@ -106,6 +104,11 @@
                                 <a class="nav-link" href="/exam/supervising/index"> اختبار المشرفين </a>
                             </li>
                         @endif
+
+                        <li class="nav-item d-md-none"> <a class="nav-link" href="/contact-us"> اتصل بنا </a> </li>
+
+                        <li class="nav-item d-sm-none"> <a class="nav-link" href="/about-us"> من نحن </a> </li>
+                        <li class="nav-item d-md-none"> <a class="nav-link" href="/forum-rules"> قوانين الملتقى </a> </li>
 
                     </ul>
 
