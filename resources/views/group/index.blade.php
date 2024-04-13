@@ -297,7 +297,7 @@
         $('.supervisor-select2-update').select2({
             dropdownParent: $('#update-group-supervisor-modal'),
             ajax: {
-                url: '{{$QFConstants::APP_URL}}/0/api/supervisors/by-user-gender',
+                url: '{{$QFConstants::APP_URL}}/api/supervisors/by-user-gender',
                 dataType: 'json',
                 processResults: function(data) {
                     results = data.map((supervisor) => {

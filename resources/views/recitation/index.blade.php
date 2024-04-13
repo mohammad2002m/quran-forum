@@ -126,6 +126,10 @@
             return val === null || val === '';
         }
 
+        function isZero(val) {
+            return val === 0 || val === '0';
+        }
+
         function getWeekYear(week) {
             return new Date(week.start_date).getFullYear();
         }
@@ -250,13 +254,13 @@
                     <tr>
                         <td class="line"> ${recitation.user.name} </td>
                         <td class="text-center">
-                             ${recitation.memorized_pages && recitation.repeated_pages ?
-                                 4 * recitation.memorized_pages + recitation.repeated_pages : ''}
+                             ${(recitation.memorized_pages || recitation.repeated_pages) ?
+                                 (4 * recitation.memorized_pages + 2 * recitation.repeated_pages + recitation.memorization_mark + recitation.tajweed_mark)  : '0'}
                         </td>
-                        <td class="text-center"> ${recitation.memorized_pages || ''} </td>
-                        <td class="text-center"> ${recitation.repeated_pages || ''} </td>
-                        <td class="text-center"> ${recitation.memorization_mark || ''} </td>
-                        <td class="text-center"> ${recitation.tajweed_mark || ''} </td>
+                        <td class="text-center"> ${recitation.memorized_pages ? recitation.memorized_pages : '0'} </td>
+                        <td class="text-center"> ${recitation.repeated_pages ? recitation.repeated_pages : '0'} </td>
+                        <td class="text-center"> ${recitation.memorization_mark ? recitation.memorization_mark : '0'} </td>
+                        <td class="text-center"> ${recitation.tajweed_mark ? recitation.tajweed_mark : '0'} </td>
                         <td class="text-center"> <button class="btn btn-primary btn-sm" onclick="editRecitation(${recitation.key})" data-bs-toggle="modal" data-bs-target="#editRecitationModal"> تعديل </button> </td>
                     </tr>
                 `;
@@ -270,8 +274,10 @@
 
             var recitedNum = 0;
             currentRecitations.forEach(recitation => {
-                if (recitation.memorized_pages) {
+                if (recitation.memorized_pages || recitation.repeated_pages) {
                     recitedNum++;
+                }
+                if (recitation.memorized_pages) {
                     memorizedPagesSum += recitation.memorized_pages;
                 }
                 if (recitation.repeated_pages) {
@@ -284,6 +290,10 @@
                     tajweedMarkSum += recitation.tajweed_mark;
                 }
             });
+
+            console.log(currentRecitations);
+
+            console.log(memorizedPagesSum, repeatedPagesSum, memorizationMarkSum, tajweedMarkSum, recitedNum)
 
             var tableFoot = document.getElementById('tbl-foot');
             tableFoot.innerHTML = `
@@ -303,7 +313,7 @@
                     <td class="text-center"> ${repeatedPagesSum} </td>
                     <td class="text-center"> ${recitedNum !== 0 ? (memorizationMarkSum / recitedNum).toFixed(2) : 0} </td>
                     <td class="text-center"> ${recitedNum !== 0 ? (tajweedMarkSum / recitedNum).toFixed(2) : 0} </td>
-                    <td class="text-center"> ${4 * memorizedPagesSum + repeatedPagesSum} </td>
+                    <td class="text-center"> ${4 * memorizedPagesSum + 2 * repeatedPagesSum + memorizationMarkSum + tajweedMarkSum} </td>
                 </tr>
             `;
         }
@@ -331,6 +341,13 @@
                 alert('يجب ملئ جميع الحقول');
                 return;
             }
+            
+            // check if all zero
+            if (isZero(memorizedPages) && isZero(repeatedPages)) {
+                alert('يجب ملئ حقل واحد على الأقل');
+                return;
+            }
+
 
             changedRecitations.push(parseInt(key));
 

@@ -9,7 +9,7 @@
         }
 
         .img-div {
-            background: -webkit-linear-gradient(right top, rgba(0, 0, 0, 0.4), rgba(0, 75, 65, 0.5)), url('assets/images/wallpaper.jpg');
+            background: -webkit-linear-gradient(right top, rgba(0, 0, 0, 0.4), rgba(0, 75, 65, 0.5)), url('../assets/images/wallpaper.jpg');
             background-repeat: none;
             background-size: cover;
         }

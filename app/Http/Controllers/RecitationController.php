@@ -20,8 +20,39 @@ class RecitationController extends Controller
         ]);;
     }
 
+    function empty($val){
+        if ($val === null || $val === "" || $val === "null"){
+            return true;
+        }
+        return false;
+    }
+
+    function zero($val){
+        if ($val === "0" || $val === 0){
+            return true;
+        }
+        return false;
+    }
+
     function update(Request $request){
         $recitations = json_decode($request -> new_recitations);
+        
+        // validate all recitations
+        foreach ($recitations as $recitation) {
+            if ($this -> empty($recitation -> memorized_pages) || $this -> empty($recitation -> repeated_pages) || $this -> empty($recitation -> memorization_mark) || $this -> empty($recitation -> tajweed_mark)){
+                return redirect() -> route('recitation.index') -> with('error', 'لا يمكن تعبئة حقل فارغ');
+            }
+
+            // check if all zero
+            if ($this -> zero($recitation -> memorized_pages) && $this -> zero($recitation -> repeated_pages)){
+                return redirect() -> route('recitation.index') -> with('error', 'لا يمكن ترك صفحات الحفظ والتثبيت صفرا');
+            }
+
+            // validate they are numbers
+            if (!is_numeric($recitation -> memorized_pages) || !is_numeric($recitation -> repeated_pages) || !is_numeric($recitation -> memorization_mark) || !is_numeric($recitation -> tajweed_mark)){
+                return redirect() -> route('recitation.index') -> with('error', 'الرجاء إدخال أرقام فقط');
+            }
+        }
         
         foreach ($recitations as $recitation) {
             if ($recitation -> id == null){
@@ -44,12 +75,12 @@ class RecitationController extends Controller
                     'notes' => ''
                 ]);
             } else {
-                $recitation = Recitation::find($recitation -> id);
-                $recitation -> memorized_pages = $recitation -> memorized_pages;
-                $recitation -> repeated_pages = $recitation -> repeated_pages;
-                $recitation -> memorization_mark = $recitation -> memorization_mark;
-                $recitation -> tajweed_mark = $recitation -> tajweed_mark;
-                $recitation -> save();
+                $oldRecitation = Recitation::find($recitation -> id);
+                $oldRecitation -> memorized_pages = $recitation -> memorized_pages;
+                $oldRecitation -> repeated_pages = $recitation -> repeated_pages;
+                $oldRecitation -> memorization_mark = $recitation -> memorization_mark;
+                $oldRecitation -> tajweed_mark = $recitation -> tajweed_mark;
+                $oldRecitation -> save();
             }
         }
         return redirect() -> route('recitation.index') -> with('success', 'تم حفظ التسميع بنجاح');
