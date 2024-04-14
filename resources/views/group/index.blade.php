@@ -181,14 +181,14 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"> تعديل المشرف </h5>
+                            <h5 class="modal-title"> تعديل المتابع </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <input type="text" id="monitor-update-group-id" name="group_id" hidden>
                             <div class="mb-3">
-                                <label for="group-monitor-name-update" class="col-form-label"> اسم المشرف </label> <br>
+                                <label for="group-monitor-name-update" class="col-form-label"> اسم عضو لجنة المتابعة </label> <br>
                                 <select class="monitor-select2-update" name="monitor_id" style="width:100%;"></select>
                             </div>
                         </div>
