@@ -20,7 +20,7 @@
         @if (Auth::check() && Auth::user()->hasVerifiedEmail())
             <div>
                 إذا أردت التطوع للإشراف أو اللجان الأخرى أو أردت التطوع في المزيد من الأدوار فالرجاء الضغط على الرابط التالي
-                <a href="/registartion/volunteer"> التسجيل للإشراف أو التطوع </a>
+                <a href="/registration/volunteer"> التسجيل للإشراف أو التطوع </a>
             </div>
         @else
             <div class="accordion" id="accordionFlush">

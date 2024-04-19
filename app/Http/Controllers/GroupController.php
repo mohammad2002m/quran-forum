@@ -48,7 +48,7 @@ class GroupController extends Controller
         $group -> supervisor_id = $supervisor_id;
         $group -> name = $group_name;
 
-        $groupGender = Auth::user() == "ذكر" ? "ذكور" : "إناث";
+        $groupGender = Auth::user() -> gender == "ذكر" ? "ذكور" : "إناث";
         $group -> gender = $groupGender;
 
         $group -> save();
