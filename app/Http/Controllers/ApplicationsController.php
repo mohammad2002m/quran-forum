@@ -47,6 +47,10 @@ class ApplicationsController extends Controller
             return redirect()->back()->with('error', 'تمت معالجة الطلب');
         }
 
+        if (!$supervisingApplication -> taken_test){
+            return redirect()->back()->with('error', 'لم يتم الاختبار بعد');
+        }
+
         if ($request->action === 'accept') {
             $supervisingApplication->status = Constants::APPLICATION_STATUS_ACCEPTED;
 
