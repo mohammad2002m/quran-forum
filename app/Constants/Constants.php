@@ -255,7 +255,6 @@ class Constants {
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
             self::ACTIVITY_STUDENTS,
-            self::ACTIVITY_APPLICATIONS,
         ],
         self::ROLE_SECRETARY_GENERAL => [
             self::ACTIVITY_API_ANNOUNCEMENTS,
