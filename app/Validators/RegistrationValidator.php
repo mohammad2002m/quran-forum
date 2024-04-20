@@ -19,6 +19,7 @@ trait RegistrationValidators
             $request->all(),
             [
                 'name' => ['required'],
+                'student_number' => ['required', Rule::unique('users', 'student_number'), 'regex:/(2)[0-9]{7}$/'],
                 'email' => ['required', 'email', Rule::unique('users', 'email'), 'confirmed'],
                 'password' => ['required', 'confirmed'],
                 'gender' => ['required', Rule::in(['ذكر', 'أنثى'])],
@@ -42,6 +43,8 @@ trait RegistrationValidators
                 'password.confirmed' => 'كلمة المرور غير متطابقة',
                 'email.confirmed' => 'البريد الإلكتوني غير متطابق',
                 'phone_number.regex' => 'رقم الهاتف غير صالح',
+                'student_number.required' => 'حقل رقم الطالب مطلوب',
+                'student_number.regex' => 'رقم الطالب غير صالح',
             ]
         );
 
@@ -57,6 +60,7 @@ trait RegistrationValidators
             $request->all(),
             [
                 'name' => ['required'],
+                'student_number' => ['required', Rule::unique('users', 'student_number'), 'regex:/(2)[0-9]{7}$/'],
                 'email' => ['required', 'email', Rule::unique('users', 'email'), 'confirmed'],
                 'password' => ['required', 'confirmed'],
                 'gender' => ['required', Rule::in(['ذكر', 'أنثى'])],
@@ -81,6 +85,9 @@ trait RegistrationValidators
                 'password.confirmed' => 'كلمة المرور غير متطابقة',
                 'email.confirmed' => 'البريد الإلكتوني غير متطابق',
                 'phone_number.regex' => 'رقم الهاتف غير صالح',
+                'roles.required' => 'حقل الأدوار مطلوب',
+                'student_number.required' => 'حقل رقم الطالب مطلوب',
+                'student_number.regex' => 'رقم الطالب غير صالح',
             ]
         );
 
