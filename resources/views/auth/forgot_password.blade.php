@@ -14,6 +14,15 @@
             background-repeat: none;
             background-size: cover;
         }
+
+        .responsive-width {
+            width: 50%;
+        }
+        @media screen and (max-width: 576px) {
+            .responsive-width {
+                width: 100%;
+            }
+        }
     </style>
 @endsection
 
@@ -27,7 +36,7 @@
         <div class="col-lg-7 vh-100 p-0">
             <div class="px-5 w-100 h-100">
                 <div class="d-flex align-items-center justify-content-center w-100 h-100">
-                    <form action="/forgot_password" method="post" class="w-50">
+                    <form action="/forgot_password" method="post" class="responsive-width">
                         @csrf
                         <div class="mb-5">
                             <div class="mb-2">
@@ -39,9 +48,9 @@
                             <p class="text-secondary text-center"> أدخل البريد الإلكتروني الخاص بك </p>
                         </div>
                         <div>
-                            <div class="mb-2">
+                            <div class="mb-3">
                                 <label for="" class="mb-1"> البريد الإلكتروني </label>
-                                <input type="text" placeholder="البريد الإلكتروني" class="form-control bg-light-subtle p-2" name="email">
+                                <input type="text" placeholder="البريد الإلكتروني" class="form-control p-2" name="email">
                             </div>
 
                             @if (Session::has('error'))

@@ -16,21 +16,21 @@ class ResetPasswordController extends Controller
     }
     function resetPasswordSubmit(Request $request){
         $validator = Validator::make($request-> all(), [
-            'email' => 'required|email',
-            'token' => 'required',
-            'password' => 'required|min:8|confirmed',
+            'email' => ['required','email'],
+            'token' => ['required'],
+            'password' => ['required','min:6','confirmed'],
         ],
         [
             'email.required' => 'البريد الإلكتروني مطلوب',
             'email.email' => 'البريد الإلكتروني يجب أن يكون صالح',
             'token.required' => 'الرمز المميز مطلوب',
             'password.required' => 'كلمة المرور مطلوبة',
-            'password.min' => 'كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل',
+            'password.min' => 'كلمة المرور يجب أن تحتوي على 6 أحرف على الأقل',
             'password.confirmed' => 'كلمتا المرور غير متطابقتان'
         ]
         );
 
-        if ($validator -> fails() === 'failed'){
+        if ($validator -> fails()){
             return redirect() -> back() -> with('error', $validator -> messages() -> first());
         }
 
@@ -38,7 +38,7 @@ class ResetPasswordController extends Controller
             'email', 'password', 'password_confirmation', 'token'
         );
     
-        $status = Password::reset(
+        Password::reset(
             $credentials,
             function (User $user, string $password) {
                 $user->forceFill([

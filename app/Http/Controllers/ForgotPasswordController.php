@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use QF\Constants as QFConstants;
 
 class ForgotPasswordController extends Controller
@@ -13,8 +15,17 @@ class ForgotPasswordController extends Controller
         return view('auth.forgot_password');
     }
     function forgotPasswordSubmit(Request $request){
-         $request->validate(['email' => 'required|email']);
- 
+         $validator = Validator::make($request-> all(), [
+            'email' => ['required','email', Rule::exists('users', 'email')],
+        ], [
+            'email.required' => 'البريد الإلكتروني مطلوب',
+            'email.email' => 'البريد الإلكتروني يجب أن يكون صالح',
+            'email.exists' => 'البريد الإلكتروني غير مسجل'
+        ]);
+
+        if ($validator -> fails()){
+            return redirect() -> back() -> with('error', $validator -> messages() -> first());
+        }
 
         $status = Password::sendResetLink(
             $request->only('email')
