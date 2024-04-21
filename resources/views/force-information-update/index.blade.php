@@ -78,6 +78,14 @@
                                     <button type="submit" class="btn btn-primary"> المتابعة إلى الحساب </button>
                                 </div>
                             </div>
+
+                            @if (Session::has('error'))
+                                <div class="text-danger"> {{ Session::get('error')}} </div>
+                            @elseif (Session::has('success'))
+                                <div class="text-success"  > {{ Session::get('success')}} </div>
+                            @endif
+
+                        </div>
                     </form>
                 </div>
 

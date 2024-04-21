@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use QF\Constants as QFConstants;
 use QF\QuestionsAnswers;
 
@@ -24,6 +26,26 @@ class ForceInformationUpdate extends Controller
         ]);
     }
     function update(Request $request){
+        
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'phone_number' => ['required', 'regex:/(05)[0-9]{8}$/'],
+                'college_id' => ['required', 'integer', Rule::exists('colleges', 'id')],
+                'year' => ['required', Rule::in(QuestionsAnswers::WhatIsYourStudyYear)],
+            ],
+            [
+                'phone_number.required' => 'حقل رقم الهاتف مطلوب',
+                'college_id.required' => 'حقل الكلية مطلوب',
+                'year.required' => 'حقل السنة مطلوب',
+                'phone_number.regex' => 'رقم الهاتف غير صالح',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()-> with('error', $validator->messages()->first());
+        }
+
         $user = User::find(Auth::user() -> id);
         $phone_number = $request -> phone_number;
         $college_id = $request -> college_id;
@@ -34,7 +56,8 @@ class ForceInformationUpdate extends Controller
         $user -> year = $year;
         $user -> force_information_update = false;
         $user -> save();
-        return redirect() -> route(QFConstants::ROUTE_NAME_HOME_PAGE);
+
+        return redirect() -> route(QFConstants::ROUTE_NAME_HOME_PAGE) -> with('success', 'تم تحديث البيانات بنجاح');
     }
     function force()
     {

@@ -10,7 +10,13 @@
     </style>
 @endsection
 @section('content')
-    <!-- Most Populer News Start -->
+
+    @if (Session::has('error'))
+        <x-alert type="alert-danger" :message="session('error')" />
+    @elseif (Session::has('success'))
+        <x-alert type="alert-success" :message="session('success')" />
+    @endif
+
     <input hidden id="view-notify-on-landing-page" type="text" value={{$viewNotifyOnLandingPage}}>
     <div id="main-container" class="container mt-4">
         <div class="mb-4">
