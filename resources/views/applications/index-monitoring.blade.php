@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> طلبات التطوع للإشراف </title>
+    <title> طلبات التطوع للمتابعة</title>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -14,7 +14,7 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header">
-                <h5> طلبات التطوع للإشراف </h5>
+                <h5> طلبات التطوع للمتابعة </h5>
             </div>
             <div class="card-body">
                 @if (Session::has('error'))

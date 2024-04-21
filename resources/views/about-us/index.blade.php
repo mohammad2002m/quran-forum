@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> من نحن </title>
+    <title> عن الملتقى </title>
 @endsection
 
 
 @section('content')
     <div class="container pt-4">
-        <h3> من نحن </h3>
+        <h3> عن الملتقى </h3>
         <br>
         <table class="table table-bordered">
             <thead>

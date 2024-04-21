@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
+    <title> التقارير </title>
     <style>
         td,
         th {

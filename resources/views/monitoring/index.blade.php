@@ -14,7 +14,7 @@
     <div class="container mt-4 mb-5">
         <div class="card">
             <div class="card-header">
-                <h5> الإشراف </h5>
+                <h5> المتابعة </h5>
             </div>
             <div class="card-body">
 

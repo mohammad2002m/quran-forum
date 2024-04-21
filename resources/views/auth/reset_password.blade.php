@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> نسيت كلمة المرور </title>
+    <title> تغيير كلمة المرور </title>
     <style>
         .box {
             margin: 0px;

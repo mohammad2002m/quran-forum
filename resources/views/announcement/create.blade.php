@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> تسجيل حساب </title>
+    <title> إعلان جديد </title>
     <style>
         button {
             white-space: nowrap;

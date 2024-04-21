@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> الصفحة الشخصية </title>
+    <title> دليل التسجيل </title>
 @endsection
 
 

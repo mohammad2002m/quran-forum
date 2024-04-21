@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('head')
-    <title> تسجيل حساب </title>
+    <title> التطوع بالملتقى </title>
     <style>
         .hide {
             display: none;

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> رفع صورة </title>
+    <title> صور الملتقى </title>
     <style>
         button {
             white-space: nowrap;

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> الإعلانات </title>
+    <title> إعلان </title>
     <style>
 
     </style>
