@@ -73,17 +73,18 @@
                                 <input type="number" value="{{ $user_phone_number }}" class="form-control"
                                     style="text-align: right;" name="phone_number" placeholder="رقم الهاتف">
                             </div>
-                            <div class="mb-3">
-                                <div class="text-end">
-                                    <button type="submit" class="btn btn-primary"> المتابعة إلى الحساب </button>
-                                </div>
-                            </div>
 
                             @if (Session::has('error'))
                                 <div class="text-danger"> {{ Session::get('error')}} </div>
                             @elseif (Session::has('success'))
                                 <div class="text-success"  > {{ Session::get('success')}} </div>
                             @endif
+
+                            <div class="mb-3">
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary"> المتابعة إلى الحساب </button>
+                                </div>
+                            </div>
 
                         </div>
                     </form>
