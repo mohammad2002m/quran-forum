@@ -103,25 +103,6 @@
                             <h6 class="main-info-title fw-bold"> {{ $user -> name }} </h6>
                             <p class="text-muted m-0"> كلية  {{ $user -> college -> name }} </p>
                         </div>
-                        <div class="d-flex text-center">
-                            <div class="d-none d-lg-block ms-4">
-                                <h5> 8.1 </h5>
-                                <div class="text-muted"> الحفظ </div>
-                            </div>
-                            <div class="d-none d-md-block ms-4">
-                                <h5> 9.1 </h5>
-                                <div class="text-muted"> التجويد </div>
-                            </div>
-                            <div class="d-none d-md-block ms-4">
-                                <h5> 3 </h5>
-                                <div class="text-muted"> الأجزاء </div>
-                            </div>
-                            <div class="d-none d-md-block ms-4">
-                                <h5> 1934 </h5>
-                                <div class="text-muted"> النقاط </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
                 <div class="px-4 d-sm-none">

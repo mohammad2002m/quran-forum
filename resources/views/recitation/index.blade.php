@@ -158,11 +158,6 @@
         var recitations = @php echo json_encode($recitations); @endphp;
 
         var changedRecitations = [];
-
-        console.log(recitations)
-        console.log(@php echo Auth::user() -> id @endphp) 
-        console.log(@php echo $currentWeek @endphp) 
-
     </script>
     <script>
         function updateNewWeeks() {
@@ -197,10 +192,10 @@
                             id: null,
                             user: student,
                             week: week,
-                            memorized_pages: null,
-                            repeated_pages: null,
-                            memorization_mark: null,
-                            tajweed_mark: null,
+                            memorized_pages: 0,
+                            repeated_pages: 0,
+                            memorization_mark: 0,
+                            tajweed_mark: 0,
                         });
                     }
                 })
@@ -254,13 +249,12 @@
                     <tr>
                         <td class="line"> ${recitation.user.name} </td>
                         <td class="text-center">
-                             ${(recitation.memorized_pages || recitation.repeated_pages) ?
-                                 (4 * recitation.memorized_pages + 2 * recitation.repeated_pages + recitation.memorization_mark + recitation.tajweed_mark)  : '0'}
+                             ${(4 * recitation.memorized_pages + 2 * recitation.repeated_pages + recitation.memorization_mark + recitation.tajweed_mark)}
                         </td>
-                        <td class="text-center"> ${recitation.memorized_pages ? recitation.memorized_pages : '0'} </td>
-                        <td class="text-center"> ${recitation.repeated_pages ? recitation.repeated_pages : '0'} </td>
-                        <td class="text-center"> ${recitation.memorization_mark ? recitation.memorization_mark : '0'} </td>
-                        <td class="text-center"> ${recitation.tajweed_mark ? recitation.tajweed_mark : '0'} </td>
+                        <td class="text-center"> ${recitation.memorized_pages} </td>
+                        <td class="text-center"> ${recitation.repeated_pages} </td>
+                        <td class="text-center"> ${recitation.memorization_mark} </td>
+                        <td class="text-center"> ${recitation.tajweed_mark} </td>
                         <td class="text-center"> <button class="btn btn-primary btn-sm" onclick="editRecitation(${recitation.key})" data-bs-toggle="modal" data-bs-target="#editRecitationModal"> تعديل </button> </td>
                     </tr>
                 `;
@@ -290,10 +284,6 @@
                     tajweedMarkSum += recitation.tajweed_mark;
                 }
             });
-
-            console.log(currentRecitations);
-
-            console.log(memorizedPagesSum, repeatedPagesSum, memorizationMarkSum, tajweedMarkSum, recitedNum)
 
             var tableFoot = document.getElementById('tbl-foot');
             tableFoot.innerHTML = `
@@ -336,18 +326,10 @@
             memorizationMark = document.getElementById('memorization-mark').value;
             tajweedMark = document.getElementById('tajweed-mark').value;
 
-            if (isNullOrEmtpy(memorizedPages) || isNullOrEmtpy(repeatedPages) || isNullOrEmtpy(memorizationMark) ||
-                isNullOrEmtpy(tajweedMark)) {
-                alert('يجب ملئ جميع الحقول');
+            if (isNullOrEmtpy(memorizedPages) || isNullOrEmtpy(repeatedPages) || isNullOrEmtpy(memorizationMark) || isNullOrEmtpy(tajweedMark)) {
+                alert('الرجاء ملء جميع الحقول');
                 return;
             }
-            
-            // check if all zero
-            if (isZero(memorizedPages) && isZero(repeatedPages)) {
-                alert('يجب ملئ حقل واحد على الأقل');
-                return;
-            }
-
 
             changedRecitations.push(parseInt(key));
 

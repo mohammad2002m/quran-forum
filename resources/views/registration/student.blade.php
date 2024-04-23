@@ -125,7 +125,7 @@
 
                 </section>
 
-                <section>
+                <section class="mb-2">
                     <div class="border-bottom  p-0 pb-1 mb-4">
                         <h5> خاص بالملتقى </h5>
                     </div>
@@ -152,7 +152,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mb-5">
+                    <div>
                         <label class="mb-1"> ما هي الأجزاء الي تحفظها من القرآن الكريم </label>
                         <div>
                             <div class="table-responsive">
@@ -239,53 +239,18 @@
                     </div>
                 </section>
 
-                <div id="verifyEmail" class="modal " tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title"> اللوائح والتعليمات </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <ol>
-                                    <li class="mb-1"> يلتزم الطالب مع مشرفه بالحفظ والتثبيت وفق برنامج يناسب همته ووقت
-                                        فراغه بالمقدار الذي يريد على
-                                        اساس التزام أسبوعي. </li>
-                                    <li class="mb-1"> يبدأ الطالب الحفظ من الجزء الثلاثين على أن يتقدم الطالب لاختبار عند
-                                        انتهائه من كل جزء يحفظه
-                                    </li>
-                                    <li class="mb-1"> عند إتمام الطالب حفظ خمسة اجزاء، يتقدم الطالب لاختبار عند لجنة
-                                        مكونة من أعضاء الهيئة التدريسية
-                                        لكلية الشريعة. </li>
-                                    <li class="mb-1"> يحق للطالب المشاركة في المسابقات التي يعقدها الملتقى وفقا لشروط
-                                        المسابقة </li>
-                                    <li class="mb-1"> عند امتناع الطالب عن التسميع لمشرفه لمدة ثلاثة أسابيع تجمد عضويته
-                                        ثمّ يتم إعطاؤه مدة أقصاها
-                                        أسبوع إن أراد أن يكمل مسيرته في الملتقى </li>
-                                    <li class="mb-1"> يتم حساب إنجاز الطالب الأسبوعي بنظام النقاط، وهو المعيار الأساسي في
-                                        اختيار الطلبة الأكثر
-                                        إنجازاً لنشرها في الحصاد الأسبوعي.
-                                        ويكون عدد نقاط الطالب في أسبوع معين مساوياً لمجموع التالي:
-                                        - 4 × عدد الصفحات المحفوظة في الأسبوع (4 نقاط لكل صفحة حفظ).
-                                        - 2 × عدد صفحات التثبيت في الأسبوع (نقطتان لكل صفحة تثبيت).
-                                        - مستوى التجويد ( من 10).</li>
-                                </ol>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إلغاء </button>
-                                <button type="submit" class="btn btn-primary"> التسجيل بالملتقى </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mb-4">
+                    <strong class="text-danger">  الرجاء مراجعة مسؤوليات لجنة الإشراف ولجنة المتابعة في خان قوانين الملتقى قبل التسجيل   </strong>
                 </div>
 
+                
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary"> سجل بالملتقى
+                    </button>
+                </div>
             </form>
 
-            <div class="text-center">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyEmail"> سجل بالملتقى
-                </button>
-            </div>
 
         </div>
     </div>

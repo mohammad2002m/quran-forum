@@ -339,8 +339,6 @@
                     </div>
                 </section>
 
-
-
                 <div class="mb-5">
                     <strong class="text-danger">  الرجاء مراجعة مسؤوليات لجنة الإشراف ولجنة المتابعة في خان قوانين الملتقى قبل التسجيل   </strong>
                 </div>
