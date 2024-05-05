@@ -52,10 +52,11 @@
 
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
+                    <table class="table table-bordered table-hover">
+                        <thead>
                             <tr>
                                 <th> الطالب/ة</th>
+                                <th> رقم الطالب </th>
                                 <th> المشرف/ة</th>
                                 <th> حالة الطالب/ة </th>
                                 <th> سبب عدم التسميع </th>
@@ -219,6 +220,7 @@
                 tableBody.innerHTML += `
                     <tr>
                         <td> ${excuse.user.name} </td>
+                        <td> ${excuse.user.phone_number} </td>
                         <td> ${excuse.user.supervisor.name}   </td>
                         <td> ${excuse.user.status} </td>
                         <td> ${excuse.excuse} </td>

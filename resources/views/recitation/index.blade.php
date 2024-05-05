@@ -51,10 +51,11 @@
 
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
+                    <table class="table table-bordered table-hover">
+                        <thead>
                             <tr>
                                 <th> الطالب </th>
+                                <th> حالة الطالب </th>
                                 <th> النقاط </th>
                                 <th> صفحات الحفظ </th>
                                 <th> صفحات التثبيت </th>
@@ -248,6 +249,7 @@
                 tableBody.innerHTML += `
                     <tr>
                         <td class="line"> ${recitation.user.name} </td>
+                        <td class="line"> ${recitation.user.status} </td>
                         <td class="text-center">
                              ${(4 * recitation.memorized_pages + 2 * recitation.repeated_pages + recitation.memorization_mark + recitation.tajweed_mark)}
                         </td>
@@ -267,7 +269,11 @@
             var tajweedMarkSum = 0;
 
             var recitedNum = 0;
+            var freezedNum = 0;
             currentRecitations.forEach(recitation => {
+                if (recitation.user.status === "مجمد"){
+                    freezedNum++;
+                }
                 if (recitation.memorized_pages || recitation.repeated_pages) {
                     recitedNum++;
                 }
@@ -287,23 +293,23 @@
 
             var tableFoot = document.getElementById('tbl-foot');
             tableFoot.innerHTML = `
-                <tr class="table-light">
+                <tr>
                     <th> نسبة التسميع </th>
                     <th> المعدل </th>
                     <th> مجموع الحفظ </th>
                     <th> مجموع التثبيت </th>
                     <th> معدل الحفظ </th>
                     <th> معدل التجويد </th>
-                    <th class="text-center"> النقاط </th>
+                    <th class="text-center" colspan="2"> النقاط </th>
                 </tr>
                 <tr>
-                    <td class="text-center"> ${students.length !== 0 ? (recitedNum / students.length * 100).toFixed(2) : 0}% </td>
+                    <td class="text-center"> ${(students.length - freezedNum) !== 0 ? ((recitedNum - freezedNum) / (students.length - freezedNum) * 100).toFixed(2) : 0}% </td>
                     <td class="text-center"> ${recitedNum !== 0 ? ((4 * memorizedPagesSum + repeatedPagesSum) / recitedNum).toFixed(2) : 0} </td>
                     <td class="text-center"> ${memorizedPagesSum} </td>
                     <td class="text-center"> ${repeatedPagesSum} </td>
                     <td class="text-center"> ${recitedNum !== 0 ? (memorizationMarkSum / recitedNum).toFixed(2) : 0} </td>
                     <td class="text-center"> ${recitedNum !== 0 ? (tajweedMarkSum / recitedNum).toFixed(2) : 0} </td>
-                    <td class="text-center"> ${4 * memorizedPagesSum + 2 * repeatedPagesSum + memorizationMarkSum + tajweedMarkSum} </td>
+                    <td class="text-center" colspan="2"> ${4 * memorizedPagesSum + 2 * repeatedPagesSum + memorizationMarkSum + tajweedMarkSum} </td>
                 </tr>
             `;
         }

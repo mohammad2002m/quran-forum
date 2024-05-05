@@ -126,8 +126,8 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="exampleInputEmail1" class="form-label"> الاسم الشخصي </label>
-                            <input type="text" name="name" class="form-control" value="{{old('name',$user-> name)}}">
+                            <label for="exampleInputEmail1" class="form-label"> رقم الهاتف </label>
+                            <input type="text" class="form-control" name="phone_number" value="{{old('phone_number',$user -> phone_number)}}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label"> الكلية </label>
@@ -139,23 +139,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="exampleInputEmail1" class="form-label"> الجنس</label>
-                            <select class="form-select" name="gender">
-                                @php $genders = ['ذكر', 'أنثى'] @endphp
-                                @foreach ($genders as $gender)
-                                    <option value="{{$gender}}" {{ old('gender',$user->$gender) === $gender ? 'selected' : '' }}> {{ $gender }}  </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="exampleInputEmail1" class="form-label"> رقم الهاتف </label>
-                            <input type="text" class="form-control" name="phone_number" value="{{old('phone_number',$user -> phone_number)}}">
-                        </div>
-                    </div>
 
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-md-6 mb-3">
                             <label for="exampleInputEmail1" class="form-label"> السنة </label>
                             <select class="form-select" name="year">
@@ -173,6 +158,8 @@
                             </select>
                         </div>
                     </div>
+                    
+
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary"> حفظ </button>
                     </div>

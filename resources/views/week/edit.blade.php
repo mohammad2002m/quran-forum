@@ -36,8 +36,8 @@
                 <div class="mb-3">
                     <!-- Just to store the weeks from backend so that I can access them via js -->
                     <div class="table-responsive" style="border-bottom: none;">
-                        <table id="weeks-tbl" class="table table-bordered mb-0" style="transition: 1s;">
-                            <thead class="table-light">
+                        <table id="weeks-tbl" class="table table-bordered mb-0 table-hover" style="transition: 1s;">
+                            <thead>
                                 <tr>
                                     <th class="text-start"> اسم الأسبوع </th>
                                     <th class="text-start"> بداية الأسبوع </th>

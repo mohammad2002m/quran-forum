@@ -27,8 +27,8 @@
                 <div style="max-height: 50vh;">
                     <div class="mb-3">
                         <div class="table-responsive ">
-                            <table id="tbl" class="table table-bordered">
-                                <thead class="table-light" id="tbl-header">
+                            <table id="tbl" class="table table-bordered table-hover">
+                                <thead id="tbl-header">
                                     <th> اسم الطالب </th>
                                     <th> عدد الأفراد </th>
                                     <th> علامة الاختبار </th>

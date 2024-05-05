@@ -178,8 +178,8 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
+                    <table class="table table-bordered table-hover">
+                        <thead>
                             <tr>
                                 <td colspan="2"> المعلومات الشخصية </td>
                             </tr>
@@ -235,8 +235,8 @@
 
                 @if ($is_student)
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead class="table-light">
+                        <table class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
                                     <td> الحفظ </td>
                                     <td> التجويد </td>
@@ -267,8 +267,8 @@
                         $recitations = $recitations->reverse();
                     @endphp
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead class="table-light">
+                        <table class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
                                     <td class="text-center" colspan="7"> المتابعة الأسبوعية </td>
                                 </tr>

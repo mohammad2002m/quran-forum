@@ -21,8 +21,8 @@
                     @endif
 
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead class="table-light">
+                        <table class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
                                     <th colspan="2" class="text-center"> إدارة الملتقى </th>
                                 </tr>

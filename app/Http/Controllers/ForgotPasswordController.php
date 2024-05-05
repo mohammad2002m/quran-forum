@@ -16,11 +16,12 @@ class ForgotPasswordController extends Controller
     }
     function forgotPasswordSubmit(Request $request){
          $validator = Validator::make($request-> all(), [
-            'email' => ['required','email', Rule::exists('users', 'email')],
+            'email' => ['required','email', Rule::exists('users', 'email'), 'max:255'],
         ], [
             'email.required' => 'البريد الإلكتروني مطلوب',
             'email.email' => 'البريد الإلكتروني يجب أن يكون صالح',
-            'email.exists' => 'البريد الإلكتروني غير مسجل'
+            'email.exists' => 'البريد الإلكتروني غير مسجل',
+            'email.max' => 'البريد الإلكتروني يجب أن يكون أقل من 255 حرف',
         ]);
 
         if ($validator -> fails()){

@@ -9,7 +9,7 @@
     <div class="container pt-4">
         <h3> عن الملتقى </h3>
         <br>
-        <table class="table table-bordered">
+        <table class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th colspan="1" class="head-cell"> الرقم </th>

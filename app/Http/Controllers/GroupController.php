@@ -19,7 +19,7 @@ class GroupController extends Controller
         $gender = Auth::user() -> gender == "ذكر" ? "ذكور" : "إناث";
 
         $groups = Group::with(['supervisor','monitor','students']) -> where('gender', $gender) -> get();
-        $users = User::with(['roles', 'college', 'group']) -> where('gender', Auth::user() -> gender) -> get();
+        $users = User::with(['roles', 'college', 'group']) -> where("banned", false) ->  where('gender', Auth::user() -> gender) -> get();
 
         $students = [];
         foreach ($users as $user){

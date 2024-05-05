@@ -15,7 +15,7 @@ class SearchController extends Controller
     {
 
         $input = $request->query('term');
-        $users = User::with('roles') -> where('name', 'LIKE', "%$input%")
+        $users = User::with('roles') -> where('name', 'LIKE', "%$input%")-> where("banned", false)
             -> where('gender' , Auth::user()->gender) -> get()->toArray();
 
 
@@ -33,7 +33,7 @@ class SearchController extends Controller
     function getMonitors(Request $request)
     {
         $input = $request->query('term');
-        $users = User::with('roles') -> where('name', 'LIKE', "%$input%")
+        $users = User::with('roles') -> where('name', 'LIKE', "%$input%")-> where("banned", false)
             -> where('gender' , Auth::user()->gender) -> get()->toArray();
 
 
@@ -90,8 +90,4 @@ class SearchController extends Controller
     }
 
 
-    function getUsers(Request $request){
-        $users = User::with(['group','supervisor','college', 'roles']) -> get();
-        return response()->json($users);
-    }
 }

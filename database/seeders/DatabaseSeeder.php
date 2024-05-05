@@ -135,7 +135,7 @@ class DatabaseSeeder extends Seeder
         foreach ($students as $student) {
             for ($week_id = 1; $week_id <= 60; $week_id++){
                 $rand = rand(1, 100);
-                if ($rand <= 80){
+                if ($rand <= 80 && ($student -> status != QFConstants::STUDENT_STATUS_FREEZED)){
                     Recitation::factory()->create([
                         'user_id' => $student->id,
                         'week_id' => $week_id,
@@ -336,7 +336,7 @@ class DatabaseSeeder extends Seeder
 
         $years = [ 'خريج', 'أولى', 'ثانية', 'ثالثة', 'رابعة', 'خامسة', 'خريج', 'خريج', 'أولى'];
 
-        $statuses = ["نشط", "مجمد", "موقوف", "منسحب", null, null, null, null, "نشط"];
+        $statuses = ["نشط", "نشط", "نشط", "نشط", "نشط","مجمد",  "مجمد", null, null, null];
 
         $schedules = [
             'مستقرة بالحرم الجامعي',
@@ -365,7 +365,7 @@ class DatabaseSeeder extends Seeder
         $can_be_teachers = [true, false, true, false, false, true, true, true, false];
 
         $tajweed_certificates = [true, false, false, false, true, false, false, true , false];
-        $locked = [false, false, false, false, true, false, false, true, false];
+        $banned = [false, false, false, false, true, false, false, true, false];
 
         $force_information_update = [true, true, false, false, true, false, false, true, false];
 
@@ -387,7 +387,7 @@ class DatabaseSeeder extends Seeder
                 'schedule' => $schedules[$i],
                 'can_be_teacher' => $can_be_teachers[$i],
                 'tajweed_certificate' => $tajweed_certificates[$i],
-                'locked' => $locked[$i],
+                'banned' => $banned[$i],
                 'force_information_update' => $force_information_update[$i],
                 'view_notify_on_landing_page' => $view_notify_on_landing_page[$i],
                 'college_id' => $college_ids[$i],

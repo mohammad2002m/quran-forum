@@ -156,8 +156,8 @@
                         <label class="mb-1"> ما هي الأجزاء الي تحفظها من القرآن الكريم </label>
                         <div>
                             <div class="table-responsive">
-                                <table id="parts-tbl" class="table table-sm table-bordered ">
-                                    <thead class="table-light">
+                                <table id="parts-tbl" class="table table-sm table-bordered table-hover">
+                                    <thead>
                                         <tr id="head-tbl-row">
                                             <th class="text-start"> رقم الجزء </th>
                                             <th class="text-center"></th>

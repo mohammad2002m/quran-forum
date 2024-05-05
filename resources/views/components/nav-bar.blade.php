@@ -1,19 +1,17 @@
 <div>
+
     @auth
-        <nav class="navbar navbar-expand-lg border-bottom">
+        <nav class="navbar navbar-expand-lg shadow-sm">
             <div class="container">
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
                     aria-controls="menu" aria-label="Toggle navigation">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" viewBox="0 0 448 512">
-                        <path
-                            d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
-                    </svg>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <a class="navbar-brand py-0 " href="/">
+                <a class="navbar-brand py-0 m-0" href="/">
                     <img class="d-none d-lg-inline-block" src="{{ asset('assets/images/logo.png') }}" alt="Logo"
                         width="26" height="30">
-                    ملتقى القرآن الكريم
+                        ملتقى القرآن الكريم
                 </a>
 
                 <div class="nav dropdown text-end order-lg-last">
@@ -24,7 +22,6 @@
                             class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end">
-                        <!-- FIXME should be based on role -->
                         <li><a class="dropdown-item" href="/profile"> الصفحة الشخصية </a></li>
                         @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT))
                             <li> <a class="dropdown-item" href="/announcement/create"> إنشاء إعلان جديد </a> </li>
@@ -41,7 +38,7 @@
                     </ul>
                 </div>
 
-                <div class="collapse navbar-collapse" id="menu">
+                <div class="collapse navbar-collapse ms-3" id="menu">
                     <!-- FIXME: should show choices based on the role -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -93,9 +90,21 @@
                             </li>
                         @endif
 
-                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_STUDENTS))
-                            <li class="nav-item">
-                                <a class="nav-link" href="/students/index"> الأعضاء </a>
+                        @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_USERS))
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    المستخدمين
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link" href="/members/index"> الأعضاء </a>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <a class="nav-link" href="/formers/index"> المنسحبين </a>
+                                    </li>
+                                </ul>
                             </li>
                         @endif
 
@@ -118,12 +127,9 @@
     @else
         <nav class="navbar navbar-expand-lg shadow-sm">
             <div class="container">
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#menu-authed" aria-controls="menu" aria-label="Toggle navigation">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" viewBox="0 0 448 512">
-                        <path
-                            d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
-                    </svg>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand py-0 " href="/">
                     <img class="d-none d-lg-inline-block" src="{{ asset('assets/images/logo.png') }}" alt="Logo"

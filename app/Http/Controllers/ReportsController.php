@@ -32,7 +32,7 @@ class ReportsController extends Controller
 
     function getWeeklyRecitationReportHTML($weekId, $gender)
     {
-        $users =  User::with(['group', 'supervisor', 'recitations'])
+        $users =  User::with(['group', 'supervisor', 'recitations'])->where("banned", false)
             ->where('gender', $gender == "male" ? "ذكر" : "أنثى")->get();
 
         $students = [];

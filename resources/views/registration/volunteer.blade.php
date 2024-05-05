@@ -154,8 +154,8 @@
                             <label class="mb-1"> ما هي الأجزاء الي تحفظها من القرآن الكريم </label>
                             <div>
                                 <div class="table-responsive">
-                                    <table id="parts-tbl" class="table table-sm table-bordered ">
-                                        <thead class="table-light">
+                                    <table id="parts-tbl" class="table table-sm table-bordered table-hover">
+                                        <thead>
                                             <tr id="head-tbl-row">
                                                 <th class="text-start"> رقم الجزء </th>
                                                 <th class="text-center"></th>
@@ -247,8 +247,8 @@
                     </div>
                     <label class="mb-1"> ما هي اللجان التي تود التطوع بها في الملتقى
                     </label>
-                    <table class="table table-sm table-bordered">
-                        <thead class="table-light">
+                    <table class="table table-sm table-bordered table-hover">
+                        <thead>
                             <tr>
                                 <th class="text-start"> اللجنة </th>
                                 <th class="text-center"> أود التطوع </th>
@@ -304,8 +304,8 @@
 
 
                     <div class="table-responsive mb-3">
-                        <table class="table table-bordered">
-                            <thead class="table-light">
+                        <table class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
                                     <td> العبارة </td>
                                     <td class="text-center"> أوافق </td>

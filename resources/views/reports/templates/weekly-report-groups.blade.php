@@ -60,14 +60,13 @@
                 }
             }
 
-            $groups100 += $allRecited && ($students->count()) ? 1 : 0;
+            $groups100 += $allRecited && $students->count() ? 1 : 0;
 
             $record = [
                 'group_name' => $group->name,
                 'number_of_students' => $students->count(),
                 'pointsAverage' => $students->count() > 0 ? number_format($points / $students->count(), 2) : '0.00',
                 'percentage_recited' =>
-                    $students->count() > 0 ? number_format($points / ($students->count() * 100), 2) : '0.00',
                 'color' => ($allRecited && $students->count() != 0) ? 'green' : 'white',
             ];
 

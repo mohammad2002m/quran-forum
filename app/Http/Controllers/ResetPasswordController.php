@@ -18,7 +18,7 @@ class ResetPasswordController extends Controller
         $validator = Validator::make($request-> all(), [
             'email' => ['required','email'],
             'token' => ['required'],
-            'password' => ['required','min:6','confirmed'],
+            'password' => ['required','min:6', 'max:255','confirmed'],
         ],
         [
             'email.required' => 'البريد الإلكتروني مطلوب',
@@ -26,6 +26,7 @@ class ResetPasswordController extends Controller
             'token.required' => 'الرمز المميز مطلوب',
             'password.required' => 'كلمة المرور مطلوبة',
             'password.min' => 'كلمة المرور يجب أن تحتوي على 6 أحرف على الأقل',
+            'password.max' => 'كلمة المرور يجب أن تحتوي على 255 حرف كحد أقصى',
             'password.confirmed' => 'كلمتا المرور غير متطابقتان'
         ]
         );

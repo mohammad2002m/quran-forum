@@ -34,8 +34,8 @@
                         onkeyup="searchGroup()">
                     <div class="overflow-scroll mb-3" style="max-height: 50vh;">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="table-light">
+                            <table class="table table-bordered table-hover">
+                                <thead>
                                     <tr>
                                         <th> اسم الحلقة </th>
                                         <th> اسم المشرف </th>
@@ -61,8 +61,8 @@
                         onkeyup="searchStudent()">
                     <div class="mb-3 overflow-scroll" style="max-height: 50vh;">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="table-light">
+                            <table class="table table-bordered table-hover">
+                                <thead>
                                     <tr>
                                         <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('name')"> اسم الطالب <i
                                                     id="name-sort-icon" class="fa-solid fa-sort"

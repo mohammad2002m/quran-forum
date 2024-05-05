@@ -18,10 +18,10 @@ trait RegistrationValidators
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => ['required'],
+                'name' => ['required', 'string', 'max:255'],
                 'student_number' => ['required', Rule::unique('users', 'student_number'), 'regex:/(2)[0-9]{7}$/'],
-                'email' => ['required', 'email', Rule::unique('users', 'email'), 'confirmed'],
-                'password' => ['required','min:6', 'confirmed'],
+                'email' => ['required', 'email', Rule::unique('users', 'email'), 'confirmed', 'max:255'],
+                'password' => ['required','min:6', 'confirmed', 'max:255'],
                 'gender' => ['required', Rule::in(['ذكر', 'أنثى'])],
                 'phone_number' => ['required', 'regex:/(05)[0-9]{8}$/'],
                 'college_id' => ['required', 'integer', Rule::exists('colleges', 'id')],
@@ -31,9 +31,12 @@ trait RegistrationValidators
             ],
             [
                 'name.required' => 'حقل الاسم مطلوب',
+                'name.max' => 'الاسم يجب أن يكون أقل من 255 حرف',
                 'email.required' => 'حقل البريد الإلكتروني مطلوب',
+                'email.max' => 'البريد الإلكتروني يجب أن يكون أقل من 255 حرف',
                 'password.required' => 'كلمة المرور مطلوبة',
                 'password.min' => 'كلمة المرور يجب أن تكون على الأقل 6 أحرف',
+                'password.max' => 'كلمة المرور يجب أن تكون أقل من 255 حرف',
                 'gender.required' => 'حقل الجنس مطلوب',
                 'phone_number.required' => 'حقل رقم الهاتف مطلوب',
                 'college_id.required' => 'حقل الكلية مطلوب',
@@ -60,10 +63,10 @@ trait RegistrationValidators
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => ['required'],
+                'name' => ['required', 'string', 'max:255'],
                 'student_number' => ['required', Rule::unique('users', 'student_number'), 'regex:/(2)[0-9]{7}$/'],
-                'email' => ['required', 'email', Rule::unique('users', 'email'), 'confirmed'],
-                'password' => ['required', 'min:6', 'confirmed'],
+                'email' => ['required', 'email', Rule::unique('users', 'email'), 'confirmed', 'max:255'],
+                'password' => ['required', 'min:6', 'confirmed', 'max:255'],
                 'gender' => ['required', Rule::in(['ذكر', 'أنثى'])],
                 'phone_number' => ['required', 'regex:/(05)[0-9]{8}$/'],
                 'college_id' => ['required', 'integer', Rule::exists('colleges', 'id')],
@@ -74,15 +77,19 @@ trait RegistrationValidators
             ],
             [
                 'name.required' => 'حقل الاسم مطلوب',
+                'name.string' => 'الاسم يجب أن يكون نص',
+                'name.max' => 'الاسم يجب أن يكون أقل من 255 حرف',
                 'email.required' => 'حقل البريد الإلكتروني مطلوب',
                 'password.required' => 'كلمة المرور مطلوبة',
                 'password.min' => 'كلمة المرور يجب أن تكون على الأقل 6 أحرف',
+                'password.max' => 'كلمة المرور يجب أن تكون أقل من 255 حرف',
                 'gender.required' => 'حقل الجنس مطلوب',
                 'phone_number.required' => 'حقل رقم الهاتف مطلوب',
                 'college_id.required' => 'حقل الكلية مطلوب',
                 'year.required' => 'حقل السنة مطلوب',
                 'schedule.required' => 'حقل طبيعة الدوام مطلوب',
                 'email.email' => 'البريد الإلكتروني غير صالح',
+                'email.max' => 'البريد الإلكتروني يجب أن يكون أقل من 255 حرف',
                 'email.unique' => 'البريد الإلكتروني مستخدم من قبل',
                 'password.confirmed' => 'كلمة المرور غير متطابقة',
                 'email.confirmed' => 'البريد الإلكتوني غير متطابق',
@@ -102,9 +109,17 @@ trait RegistrationValidators
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'supervisor_notes' => ['present'],
-                    'max_responsibilities' => ['required', 'numeric'],
+                    'supervisor_notes' => ['present', 'string', 'max:255'],
+                    'max_responsibilities' => ['required', 'numeric', 'max:100'],
                 ],
+                [
+                    'supervisor_notes.present' => 'حقل ملاحظات المشرف مطلوب',
+                    'max_responsibilities.required' => 'حقل الحد الأقصى للمسؤوليات مطلوب',
+                    'max_responsibilities.numeric' => 'حقل الحد الأقصى للمسؤوليات يجب أن يكون رقم',
+                    'max_responsibilities.max' => 'حقل الحد الأقصى للمسؤوليات يجب أن يكون أقل من 100',
+                    'supervisor_notes.string' => 'حقل ملاحظات المشرف يجب أن يكون نص',
+                    'supervisor_notes.max' => 'حقل ملاحظات المشرف يجب أن يكون أقل من 255 حرف',
+                ]
 
             );
 
@@ -117,8 +132,12 @@ trait RegistrationValidators
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'monitor_notes' => ['present'],
-                ],
+                    'monitor_notes' => ['present', 'string', 'max:255'],
+                ],[
+                    'monitor_notes.present' => 'حقل ملاحظات المتابع مطلوب',
+                    'monitor_notes.string' => 'حقل ملاحظات المتابع يجب أن يكون نص',
+                    'monitor_notes.max' => 'حقل ملاحظات المتابع يجب أن يكون أقل من 255 حرف',
+                ]
 
             );
 
@@ -147,10 +166,16 @@ trait RegistrationValidators
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'supervisor_notes' => ['present'],
-                    'max_responsibilities' => ['required', 'numeric'],
-                ],
-
+                    'supervisor_notes' => ['present', 'string', 'max:255'],
+                    'max_responsibilities' => ['required', 'numeric', 'max:100'],
+                ],[
+                    'supervisor_notes.present' => 'حقل ملاحظات المشرف مطلوب',
+                    'max_responsibilities.required' => 'حقل الحد الأقصى للمسؤوليات مطلوب',
+                    'max_responsibilities.numeric' => 'حقل الحد الأقصى للمسؤوليات يجب أن يكون رقم',
+                    'max_responsibilities.max' => 'حقل الحد الأقصى للمسؤوليات يجب أن يكون أقل من 100',
+                    'supervisor_notes.string' => 'حقل ملاحظات المشرف يجب أن يكون نص',
+                    'supervisor_notes.max' => 'حقل ملاحظات المشرف يجب أن يكون أقل من 255 حرف',
+                ]
             );
 
             if ($validator->fails()) {
@@ -176,8 +201,13 @@ trait RegistrationValidators
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'monitor_notes' => ['present'],
+                    'monitor_notes' => ['present', 'string', 'max:255'],
                 ],
+                [
+                    'monitor_notes.present' => 'حقل ملاحظات المتابع مطلوب',
+                    'monitor_notes.string' => 'حقل ملاحظات المتابع يجب أن يكون نص',
+                    'monitor_notes.max' => 'حقل ملاحظات المتابع يجب أن يكون أقل من 255 حرف',
+                ]
 
             );
 
@@ -207,12 +237,13 @@ trait RegistrationValidators
         $validator = Validator::make(
             $request->all(),
             [
-                'registration_allowed_number' => ['required', 'numeric', 'min:0'],
+                'registration_allowed_number' => ['required', 'numeric', 'min:0', 'max:1001'],
             ],
             [
                 'registration_allowed_number.required' => 'حقل السماح بالتسجيل مطلوب',
                 'registration_allowed_number.numeric' => 'حقل السماح بالتسجيل يجب أن يكون رقم',
                 'registration_allowed_number.min' => 'يجب أن يكون رقم أكبر أو يساوي صفر',
+                'registration_allowed_number.max' => 'يجب أن يكون رقم أقل من أو يساوي 1000',
             ]
 
         );

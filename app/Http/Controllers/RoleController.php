@@ -13,6 +13,10 @@ class RoleController extends Controller
         $rolesIDs = $request -> input('roles') ?? [];
         $user = User::find($request -> input('user_id'));
         $userPreviousRolesIDs = $user -> roles -> pluck('id') -> toArray();
+
+        if (!$user || $user -> banned){
+            return redirect() -> back() -> with('error', 'المستخدم غير موجود');
+        }
         
         // we can't assign head role to anybody
         if (in_array(Constants::ROLE_HEAD, $rolesIDs)){

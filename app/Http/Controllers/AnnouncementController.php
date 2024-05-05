@@ -58,12 +58,9 @@ class AnnouncementController extends Controller
 
     public function store(Request $request)
     {
-        /** TODO  **/
-        /* authenticate */
-        /* authorize */
+
         /* fix uploaded file vulnerability */
 
-        /* validate */ 
         [$status, $message] = $this->isValidAnnouncementStore($request);
         
         if ($status === 'error'){

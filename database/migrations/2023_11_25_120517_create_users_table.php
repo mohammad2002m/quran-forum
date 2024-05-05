@@ -29,7 +29,7 @@ return new class extends Migration
             $table-> boolean('can_be_teacher') -> nullable(false);
             $table-> boolean('tajweed_certificate') -> nullable(false);
 
-            $table-> boolean('locked') -> nullable(false);
+            $table-> boolean('banned') -> nullable(false);
             $table-> boolean('force_information_update') -> nullable(false);
             $table-> boolean('view_notify_on_landing_page') -> nullable(false);
 

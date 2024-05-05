@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('head')
-    <title> أعضاء الملتقى </title>
+    <title> المنسحبين </title>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -14,7 +14,7 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header">
-                <h5> أعضاء الملتقى </h5>
+                <h5> المنسحبين </h5>
             </div>
             <div class="card-body">
                 @if (Session::has('error'))
@@ -22,28 +22,28 @@
                 @elseif (Session::has('success'))
                     <x-alert type="alert-success" :message="session('success')" />
                 @endif
-                <h5 class="mb-3"> أعضاء الملتقى </h5>
+                <h5 class="mb-3"> المنسحبين من الملتقى </h5>
                 <input type="text" class="form-control mb-3" placeholder="البحث" onkeyup="searchUser()">
                 <div style="height: 50vh;" class="overflow-scroll">
                     <div class="mb-3">
                         <div class="table-responsive">
-                            <table id="tbl" class="table table-bordered">
-                                <thead class="table-light" id="tbl-header">
-                                    <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('name')"> الاسم <i
-                                                id="name-sort-icon" class="fa-solid fa-sort"
-                                                style="color:grey;"></i></button> </th>
-                                    <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('phone_number')"> الهاتف <i
-                                                id="phone_number-sort-icon" class="fa-solid fa-sort"
-                                                style="color:grey;"></i></button> </th>
-                                    <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('gender')"> الجنس <i
-                                                id="gender-sort-icon" class="fa-solid fa-sort"
-                                                style="color:grey;"></i></button> </th>
-                                    <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('year')"> السنة <i
-                                                id="year-sort-icon" class="fa-solid fa-sort"
-                                                style="color:grey;"></i></button> </th>
-                                    <th class="text-center"> <button class="btn p-0 m-0 fw-bold"> التفاصيل </button> </th>
-                                    <th class="text-center"> <button class="btn p-0 m-0 fw-bold"> تعيين الدور </button>
-                                    </th>
+                            <table id="tbl" class="table table-bordered table-hover">
+                                <thead id="tbl-header">
+                                    <tr>
+                                        <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('name')"> الاسم <i
+                                                    id="name-sort-icon" class="fa-solid fa-sort"
+                                                    style="color:grey;"></i></button> </th>
+                                        <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('gender')"> الجنس <i
+                                                    id="gender-sort-icon" class="fa-solid fa-sort"
+                                                    style="color:grey;"></i></button> </th>
+                                        <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('year')"> السنة <i
+                                                    id="year-sort-icon" class="fa-solid fa-sort"
+                                                    style="color:grey;"></i></button> </th>
+                                        <th class="text-center"> <button class="btn p-0 m-0 fw-bold"> التفاصيل </button>
+                                        </th>
+                                        <th class="text-center"> <button class="btn p-0 m-0 fw-bold"> استعادة </button>
+                                        </th>
+                                    </tr>
                                 </thead>
                                 <tbody id="tbl-data"></tbody>
                             </table>
@@ -54,7 +54,6 @@
             </div>
         </div>
     </div>
-
 
 
     <!-- Modal -->
@@ -121,11 +120,6 @@
                         <label class="mb-1" for="user-can-be-teacher"> هل تستطيع أن تكون محفظ قرآن </label>
                         <input type="text" class="form-control" id="user-can-be-teacher" disabled>
                     </div>
-                    <div class="mb-3">
-                        <label class="mb-1" for="user-locked"> هل الحساب مقفل </label>
-                        <input type="text" class="form-control" id="user-locked" disabled>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق</button>
@@ -134,37 +128,26 @@
         </div>
     </div>
 
-    <div class="modal fade" id="change-roles-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="restore-former-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/change-roles" method="POST">
+            <form action="/restore-former" method="POST">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"> تفاصيل الطالب </h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"> استرجاع العضو </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                            <input type="text" class="form-control" name="user_id" id="user-id-2" hidden>
-                            <div class="mb-3">
-                                <label class="mb-1" for="user-name"> اسم الطالب </label>
-                                <input type="text" class="form-control" id="user-name-2" disabled>
-                            </div>
-                            <div class="mb-3">
-                                <label class="mb-1" for="user-roles"> الأدوار </label>
-                                <input type="text" class="form-control" id="user-roles-2" disabled>
-                            </div>
-                            <div class="mb-3">
-                                <label class="mb-1" for="user-roles"> تغيير الأدوار </label>
-                                <select name="roles[]" class="select2-roles" id="" multiple>
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}"> {{ $role->name }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <input type="text" class="form-control" name="user_id" id="user-id-4" hidden>
+                        <div class="mb-3">
+                            <label class="mb-1" for="user-name"> اسم العضو </label>
+                            <input type="text" class="form-control" id="user-name-4" disabled>
+                        </div>
+                        <p class="text-danger"> في حال قمت باسترجاع العضو سترجع له الصلاحيات كما كانت سابقًا </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"> حفظ </button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"> استرجاع </button>
                     </div>
                 </div>
             </form>
@@ -181,15 +164,13 @@
             var tblData = document.getElementById("tbl-data");
             tblData.innerHTML = "";
             users.forEach(user => {
-
                 tblData.innerHTML += `
                     <tr>
                         <td> ${user.name} </td>
-                        <td> ${user.phone_number} </td>
                         <td> ${user.gender} </td>
                         <td> ${user.year} </td>
                         <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openStudentDetailsModal(${user.id})" data-bs-target="#student-details-modal"> تفاصيل </button> </td>
-                        <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openChangeRolesModal(${user.id})" data-bs-target="#change-roles-modal"> تعيين الأدوار </button> </td>
+                        <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openRestoreUserModal(${user.id})" data-bs-target="#restore-former-modal"> استعادة </button> </td>
                     </tr>
                 `;
 
@@ -204,15 +185,13 @@
             var userPhoneNumberInput = document.getElementById("user-phone-number");
             var userYearInput = document.getElementById("user-year");
             var userCollegeInput = document.getElementById("user-college");
-            var userGroupInput = document.getElementById("user-group");
             var userStatusInput = document.getElementById("user-status");
             var userTajweedCertificateInput = document.getElementById("user-tajweed-certificate");
             var userCanBeTeacherInput = document.getElementById("user-can-be-teacher");
             var userScheduleInput = document.getElementById("user-schedule");
-            var userLockedInput = document.getElementById("user-locked");
             var userRolesInput = document.getElementById("user-roles");
             var userEmailInput = document.getElementById("user-email");
-            
+
             userIDInput.value = user.id;
             userNameInput.value = user.name;
             userEmailInput.value = user.email;
@@ -220,36 +199,24 @@
             userPhoneNumberInput.value = user.phone_number;
             userYearInput.value = user.year;
             userCollegeInput.value = user.college.name;
-            userGroupInput.value = user.group ? user.group.name : "لا ينتمي لحلقة";
             userStatusInput.value = user.status;
             userTajweedCertificateInput.value = user.tajweed_certificate ? "نعم" : "لا";
             userCanBeTeacherInput.value = user.can_be_teacher ? "نعم" : "لا";
             userScheduleInput.value = user.schedule;
-            userLockedInput.value = user.locked ? "مقفل" : "غير مقفل";
             userRolesInput.value = user.roles.map(role => role.name).join(" | ");
 
         }
 
-        function openChangeRolesModal(userID) {
+        function openRestoreUserModal(userID){
             var user = users.find(user => user.id === userID);
-            var userIDInput = document.getElementById("user-id-2");
-            var userNameInput = document.getElementById("user-name-2");
-            var userRolesInput = document.getElementById("user-roles-2");
-
+            var userIDInput = document.getElementById("user-id-4");
+            var userNameInput = document.getElementById("user-name-4");
             userIDInput.value = user.id;
             userNameInput.value = user.name;
-            userRolesInput.value = user.roles.map(role => role.name).join(" | ");
-
-            $(document).ready(function() {
-                $('.select2-roles').select2({
-                    theme: 'bootstrap-5',
-                });
-            });
         }
 
-
         (async () => {
-            var response = await fetch("{{$QFConstants::APP_URL}}/api/users");
+            var response = await fetch("{{ $QFConstants::APP_URL }}/api/formers");
             var fetchedUsers = await response.json();
             users = fetchedUsers;
             render(users);

@@ -131,7 +131,7 @@
             announcements.forEach(announcement => {
                 var li = document.createElement('li');
                 li.innerHTML = `
-                <a href='/announcement/show/${announcement.id}' class="text-decoration-none text-dark fw-semibold"> ${announcement.title} </a>
+                <a href='/announcement/show/${announcement.id}' class="btn text-decoration-none fw-semibold"> <span> ${announcement.title} </span>  </a>
                 <p class="text-muted"> ${formatDate(announcement.created_at)} </p>
             `;
                 ul.appendChild(li);
