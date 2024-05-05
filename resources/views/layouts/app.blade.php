@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.rtl.css') }}">
     <link rel="stylesheet" href="{{ asset('bootstrap/icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/select2-bootstrap5-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/select2-bootstrap5-light-theme.css') }}">
 
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -50,8 +50,6 @@
                 head.classList.add('table-light')
             })
 
-            // all select tags
-
         }
 
         function additionalDarkThemeChanges() {
@@ -59,12 +57,6 @@
             tableHeads.forEach((head) => {
                 head.classList.remove('table-light')
                 head.classList.add('table-dark')
-            })
-            // change on select2 classes
-            const select2 = document.querySelectorAll('.select2-container')
-            select2.forEach((select) => {
-                select.classList.add('bg-dark');
-                select.classList.add('text-white');
             })
         }
 

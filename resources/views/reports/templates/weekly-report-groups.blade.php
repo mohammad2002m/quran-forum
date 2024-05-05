@@ -41,6 +41,8 @@
 
         $groups100 = 0;
 
+        $recitedActive = 0;
+        $activeStudents = 0;
         foreach ($groups as $group) {
             $points = 0;
             $allRecited = true;
@@ -48,6 +50,13 @@
             foreach ($students as $student) {
                 $studentRecitation = $student->recitations->where('week_id', $week->id)->first();
                 $hasRecited = $studentRecitation ? true : false;
+                
+                if ($student->status != "مجمد") {
+                    $activeStudents++;
+                    if ($hasRecited) {
+                        $recitedActive++;
+                    }
+                }
 
                 if ($hasRecited) {
                     $points +=
@@ -56,7 +65,9 @@
                         $studentRecitation->memorization_mark +
                         $studentRecitation->tajweed_mark;
                 } else {
-                    $allRecited = false;
+                    if ($student->status != "مجمد") {
+                        $allRecited = false;
+                    }
                 }
             }
 
@@ -66,7 +77,7 @@
                 'group_name' => $group->name,
                 'number_of_students' => $students->count(),
                 'pointsAverage' => $students->count() > 0 ? number_format($points / $students->count(), 2) : '0.00',
-                'percentage_recited' =>
+                'percentage_recited' => $activeStudents > 0 ? number_format($recitedActive / $activeStudents, 2) : '0.00',
                 'color' => ($allRecited && $students->count() != 0) ? 'green' : 'white',
             ];
 
