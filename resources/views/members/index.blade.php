@@ -159,7 +159,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="mb-1" for="user-roles"> تغيير الأدوار </label>
-                            <select name="roles[]" class="select2-roles" id="" multiple>
+                            <select name="roles[]" class="select2-roles" id="" multiple style="width:100%;">
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}"> {{ $role->name }} </option>
                                 @endforeach

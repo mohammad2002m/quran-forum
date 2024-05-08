@@ -27,7 +27,7 @@
                             <li> <a class="dropdown-item" href="/announcement/create"> إنشاء إعلان جديد </a> </li>
                         @endif
                         @if (isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_UPLOAD_IMAGE))
-                            <li> <a class="dropdown-item" href="/image/upload/index"> رفع صورة جديدة </a> </li>
+                            <li> <a class="dropdown-item" href="/image/upload/index"> صور الملتقى </a> </li>
                         @endif
                         <li>
                             <hr class="dropdown-divider">

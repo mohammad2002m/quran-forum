@@ -26,7 +26,7 @@ class StudentStatusController extends Controller
             return redirect() -> back() -> with('error', 'لا يمكن تحديد حالة لغير الطالب');
         }
 
-        $newStatus = Constants::ROUTE_NAME_FREEZE_STUDENT;
+        $newStatus = Constants::STUDENT_STATUS_FREEZED;
 
         if ($user->status == $newStatus){
             return redirect() -> back() -> with('error', 'الحالة هي نفسها بالفعل');
@@ -45,5 +45,6 @@ class StudentStatusController extends Controller
 
         $user->status = $newStatus;
         $user->save();
+        return redirect() -> back() -> with('success', 'تم التجميد بنجاح');
     }
 }
