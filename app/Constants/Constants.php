@@ -124,7 +124,7 @@ class Constants {
     const ROUTE_NAME_BAN_MEMBER = 'ban.member';
     const ROUTE_NAME_RESTORE_FORMER = 'restore.former';
 
-    const ROUTE_NAME_FREEZE_STUDENT = 'freeze.student';
+    const ROUTE_NAME_CHANGE_STUDENT_STATUS = 'change.student.status';
 
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date

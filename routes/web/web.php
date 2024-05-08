@@ -168,7 +168,7 @@ Route::group([], function () {
     // Route::get("action-supervisor-application"
 
     Route::post('/change-roles', [RoleController::class, 'changeRoles'])->name(QFConstants::ROUTE_NAME_CHANGE_ROLES)->middleware('auth');
-    Route::post('/freeze-student', [StudentStatusController::class, 'freezeStudent'])->name(QFConstants::ROUTE_NAME_FREEZE_STUDENT)->middleware('auth');
+    Route::post('/change-student-status', [StudentStatusController::class, 'changeStatus'])->name(QFConstants::ROUTE_NAME_CHANGE_STUDENT_STATUS)->middleware('auth');
     Route::post('/ban-member', [MembersController::class, 'banMember'])->name(QFConstants::ROUTE_NAME_BAN_MEMBER)->middleware('auth');
     Route::post('/restore-former', [FormersController::class, 'restoreFormer'])->name(QFConstants::ROUTE_NAME_RESTORE_FORMER)->middleware('auth');
 });

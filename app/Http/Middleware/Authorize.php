@@ -104,7 +104,7 @@ class Authorize
 
         QFConstants::ROUTE_NAME_BAN_MEMBER => [QFConstants::ACTIVITY_USERS],
         QFConstants::ROUTE_NAME_RESTORE_FORMER => [QFConstants::ACTIVITY_USERS],
-        QFConstants::ROUTE_NAME_FREEZE_STUDENT => [QFConstants::ACTIVITY_USERS],
+        QFConstants::ROUTE_NAME_CHANGE_STUDENT_STATUS => [QFConstants::ACTIVITY_USERS],
     ];
 
     public function handle(Request $request, Closure $next): Response

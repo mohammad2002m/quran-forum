@@ -49,7 +49,7 @@
                                         </th>
                                         <th class="text-center"> <button class="btn p-0 m-0 fw-bold"> تعيين الدور </button>
                                         </th>
-                                        <th class="text-center"> <button class="btn p-0 m-0 fw-bold"> تجميد </button>
+                                        <th class="text-center"> <button class="btn p-0 m-0 fw-bold"> تغيير الحالة </button>
                                         </th>
                                         <th class="text-center"> <button class="btn p-0 m-0 fw-bold"> انسحاب </button>
                                         </th>
@@ -177,7 +177,7 @@
 
     <div class="modal fade" id="change-student-status-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/freeze-student" method="POST" id="change-student-status-form">
+            <form action="/change-student-status" method="POST" id="change-student-status-form">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -186,6 +186,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="text" class="form-control" name="user_id" id="user-id-3" hidden>
+                        <input type="text" class="form-control" name="status" id="student-status" hidden>
                         <div class="mb-3">
                             <label class="mb-1" for="user-name"> اسم الطالب </label>
                             <input type="text" class="form-control" id="user-name-3" disabled>
@@ -195,7 +196,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق</button>
-                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal"> تجميد </button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="freezeStudent()"> تجميد </button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="activateStudent()"> تنشيط </button>
                     </div>
                 </div>
             </form>
@@ -248,7 +250,7 @@
                         <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openStudentDetailsModal(${user.id})" data-bs-target="#student-details-modal"> تفاصيل </button> </td>
                         <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openChangeRolesModal(${user.id})" data-bs-target="#change-roles-modal"> تعيين </button> </td>
                         <td class="text-center">
-                           <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openChangeStudentStatusModel(${user.id})" data-bs-target="#change-student-status-modal"> تجميد </button>
+                           <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openChangeStudentStatusModel(${user.id})" data-bs-target="#change-student-status-modal"> تغيير </button>
                         </td>
                         <td class="text-center"> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" onclick="openBanMemberModal(${user.id})" data-bs-target="#ban-member-modal"> انسحاب </button> </td>
                     </tr>
@@ -320,9 +322,23 @@
             userNameInput.value = user.name;
         }
 
+        function freezeStudent(){
+            var form = document.getElementById("change-student-status-form");
+            var statusInput = document.getElementById("student-status");
+            statusInput.value = "مجمد";
+            form.submit();
+        }
+
+        function activateStudent(){
+            var form = document.getElementById("change-student-status-form");
+            var statusInput = document.getElementById("student-status");
+            statusInput.value = "نشط";
+            form.submit();
+        }
+
 
         (async () => {
-            var response = await fetch("{{ $QFConstants::APP_URL }}/api/members");
+            var response = await fetch("{{$QFConstants::APP_URL}}/api/members");
             var fetchedUsers = await response.json();
             users = fetchedUsers;
             render(users);
