@@ -68,7 +68,7 @@
                     : 0,
                 'color' => $hasRecited ? $color : 'red',
                 'has_recited' => $hasRecited,
-                'freezed' => $student->status == 'مجمد' ? true : false,
+                'freezed' => $student->status == $STUDENT_FREEZED_STATUS ? true : false,
             ]);
 
             $previousStudent = $student;
@@ -210,9 +210,9 @@
                 <td> {{ number_format($reciationPrecentage,2) }} % </td>
             </tr>
             <tr>
-                <td colspan="2" class="stat-label">عدد الطلاب المجمدين</td>
+                <td colspan="2" class="stat-label"> عدد التجميد </td>
                 <td> {{ $numberOfFreezedStudents }} </td>
-                <td colspan="2" class="stat-label">نسبة الطلاب المجمدين</td>
+                <td colspan="2" class="stat-label"> نسبة التجميد </td>
                 <td> {{ number_format($freezedPrecentage,2) }} % </td>
                 <td colspan="2" class="stat-label"> صفحات الحفظ </td>
                 <td> {{ $totalMemorizedPages }} </td>

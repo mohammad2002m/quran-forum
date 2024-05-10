@@ -120,16 +120,15 @@ class GroupController extends Controller
         $validator = Validator::make($request -> all(),
             [
                 'group_id' => ['required', 'integer', Rule::exists('groups', 'id')],
-                'monitor_id' => ['nullable', 'integer', Rule::exists('users', 'id'), Rule::unique('groups', 'monitor_id')]
+                'monitor_id' => ['nullable', 'integer', Rule::exists('users', 'id')]
             ],
             [
                 'group_id.required' => 'لا يمكن ترك حقل رقم المجموعة فارغًا',
                 'group_id.integer' => 'رقم المجموعة يجب أن يكون رقمًا صحيحًا',
                 'group_id.exists' => 'الحلقة غير موجودة',
-                'monitor_id.required' => 'لا يمكن ترك حقل رقم المشرف فارغًا',
-                'monitor_id.integer' => 'رقم المشرف يجب أن يكون رقمًا صحيحًا',
-                'monitor_id.exists' => 'المشرف غير موجود',
-                'monitor_id.unique' => 'المشرف مشرف لحلقة أخرى'
+                'monitor_id.required' => 'لا يمكن ترك حقل رقم المتابع فارغًا',
+                'monitor_id.integer' => 'رقم المتابع يجب أن يكون رقمًا صحيحًا',
+                'monitor_id.exists' => 'المتابع غير موجود',
             ]
         );
 
@@ -141,7 +140,7 @@ class GroupController extends Controller
         $monitor_id = $request -> monitor_id;
 
         if ($monitor_id && !in_array(Constants::ROLE_MONITORING_COMMITTE_MEMBER, User::find($monitor_id) -> roles -> pluck('id') -> toArray())){
-            return redirect() -> back() -> with('error', 'المشرف المحدد ليس مشرفًا');
+            return redirect() -> back() -> with('error', 'المتابع المحدد ليس متابعًا');
         }
 
         $group = Group::find($request -> group_id);
@@ -149,7 +148,7 @@ class GroupController extends Controller
 
         $group -> save();
 
-        return redirect() -> back() -> with('success', 'تم تغيير المشرف بنجاح');
+        return redirect() -> back() -> with('success', 'تم تغيير المتابع بنجاح');
     }
 
     function updateStudentGroup(Request $request){

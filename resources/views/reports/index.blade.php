@@ -24,42 +24,43 @@
                     </div>
                 </div>
                 <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="year" class="mb-1"> السنة </label>
-                                <select id="years-select2" name="year" class="form-select" onchange="fetchAndSetup()">
-                                    @foreach ($years as $year)
-                                        <option value="{{ $year }}" {{ $year === $currentYear ? 'selected' : '' }}>
-                                            {{ $year }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    <div class="col-md-4">
+
+                        <div class="mb-3">
+                            <label for="year" class="mb-1"> السنة </label>
+                            <select id="years-select2" name="year" class="form-select" onchange="fetchAndSetup()">
+                                @foreach ($years as $year)
+                                    <option value="{{ $year }}" {{ $year === $currentYear ? 'selected' : '' }}>
+                                        {{ $year }} </option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="week" class="mb-1"> الأسبوع </label>
-                                <select name="week" id="weeks-select2" class="form-select">
-                                    @foreach ($weeks as $week)
-                                        <option value="{{ $week->id }}"
-                                            {{ $week->id === $currentWeek->id ? 'selected' : '' }}> {{ $week->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="week" class="mb-1"> الأسبوع </label>
+                            <select name="week" id="weeks-select2" class="form-select">
+                                @foreach ($weeks as $week)
+                                    <option value="{{ $week->id }}"
+                                        {{ $week->id === $currentWeek->id ? 'selected' : '' }}> {{ $week->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="gender" class="mb-1"> الجنس </label>
-                                <select name="gender" id="gender-select2" class="form-select">
-                                    <option value="male"> تقرير الذكور </option>
-                                    <option value="female"> تقرير الإناث </option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="gender" class="mb-1"> الجنس </label>
+                            <select name="gender" id="gender-select2" class="form-select">
+                                <option value="male"> تقرير الذكور </option>
+                                <option value="female"> تقرير الإناث </option>
+                            </select>
                         </div>
+                    </div>
 
                 </div>
 
-                
+
             </div>
         </div>
     </div>
@@ -97,13 +98,14 @@
                         id: week.id,
                         text: week.name,
                     };
-                })
+                }),
+                theme: 'bootstrap-5',
             });
         }
 
         async function fetchNewData(year) {
             // FIXME needs error handeling
-            var weeksURL = '{{$QFConstants::APP_URL}}/api/weeks/' + year.toString();
+            var weeksURL = '{{ $QFConstants::APP_URL }}/api/weeks/' + year.toString();
             var data = await fetch(weeksURL);
             var newWeeks = await data.json()
             weeks = newWeeks;
@@ -128,7 +130,7 @@
         }
 
         async function getReport() {
-            var url = '{{$QFConstants::APP_URL}}/api/reports/' +
+            var url = '{{ $QFConstants::APP_URL }}/api/reports/' +
                 getCurrentSelectedWeek().toString() + '/' +
                 getCurrentSelectedGender().toString();
 
@@ -141,9 +143,15 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#years-select2').select2({theme: 'bootstrap-5'});
-            $('#weeks-select2').select2({theme: 'bootstrap-5'});
-            $('#gender-select2').select2({theme: 'bootstrap-5'});
+            $('#years-select2').select2({
+                theme: 'bootstrap-5'
+            });
+            $('#weeks-select2').select2({
+                theme: 'bootstrap-5'
+            });
+            $('#gender-select2').select2({
+                theme: 'bootstrap-5'
+            });
         });
     </script>
 @endsection

@@ -310,7 +310,7 @@
                 </section>
 
                 <div class="mb-5">
-                    <strong class="text-danger">  الرجاء مراجعة مسؤوليات لجنة الإشراف ولجنة المتابعة في خان قوانين الملتقى قبل التسجيل   </strong>
+                    <strong class="text-danger"> الرجاء مراجعة القوانين في صفحة القوانين قبل التسجيل أو التطوع </strong>
                 </div>
 
                 <div class="text-center">

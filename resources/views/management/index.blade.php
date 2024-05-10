@@ -94,8 +94,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    هل أنت متأكد من أنك تريد فرض التحديث الإجباري؟
-                    سيتم تسجيل الخروج من جميع حسابات المستخدمين وسيتم فرض التحديث الإجباري عند الدخول مرة أخرى.
+                    <div class="mb-3">
+                        هل أنت متأكد من أنك تريد فرض التحديث الإجباري؟
+                        سيتم تسجيل الخروج من جميع حسابات المستخدمين وسيتم فرض التحديث الإجباري عند الدخول مرة أخرى.
+                    </div>
+                    <div>
+                        <label class="mb-1"> آخر تاريخ تم في التحديث الإجباري </label>
+                        <input type="text" class="form-control" value="{{$lastForceInformationUpdateDate ? $lastForceInformationUpdateDate : 'لم يتم التحديث الإجباري بعد'}}" disabled>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إغلاق </button>

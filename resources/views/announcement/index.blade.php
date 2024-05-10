@@ -12,7 +12,6 @@
 @section('content')
 
 
-
     <input hidden id="view-notify-on-landing-page" type="text" value={{$viewNotifyOnLandingPage}}>
     <div id="main-container" class="container mt-4">
         @if (Session::has('error'))
@@ -90,7 +89,7 @@
                     <div class="mt-auto">
                         <a href="/announcement/show/${announcement.id}" class="h4 text-white link-hover"> ${announcement.title} </a>
                         <div class="d-flex justify-content-between mt-4">
-                            <a href="#" class="small text-white link-hover"> اللجنة الإعلامية </a>
+                            <a href="#" class="small text-white link-hover"> ${announcement.type.name} </a>
                             <small class="text-white d-block"> ${formatDate(announcement.created_at)} </small>
                         </div>
                     </div>

@@ -150,8 +150,8 @@ class Constants {
     const SUCCESS_MESSAGE_WEEKS_ADDED = 'تم إضافة 53 أسبوعًا بنجاح';
 
     /******** STUDENTS STATUSES ********/
-    const STUDENT_STATUS_ACTIVE = 'نشط';
-    const STUDENT_STATUS_FREEZED = 'مجمد';
+    const STUDENT_STATUS_ACTIVE = 'نشط/ة';
+    const STUDENT_STATUS_FREEZED = 'مجمد/ة';
     const STUDENT_STATUS_STOPPED = 'موقوف';
     const STUDENT_STATUS_LEFT = 'منسحب';
 

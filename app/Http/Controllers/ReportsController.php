@@ -47,6 +47,7 @@ class ReportsController extends Controller
             'gender' => self::Translator[$gender],
             'recitations' => Recitation::with(['user', 'user.group', 'user.supervisor'])->where('week_id', $weekId)->get(),
             'students' => $students,
+            'STUDENT_FREEZED_STATUS' => Constants::STUDENT_STATUS_FREEZED,
         ])->render();
     }
 
@@ -56,6 +57,7 @@ class ReportsController extends Controller
             'week' => Week::find($weekId),
             'groups' => Group::where('gender', self::Translator[$gender])->get(),
             'gender' => self::Translator[$gender],
+            'STUDENT_FREEZED_STATUS' => Constants::STUDENT_STATUS_FREEZED,
         ])->render();
     }
 

@@ -271,7 +271,7 @@
             var recitedNum = 0;
             var freezedNum = 0;
             currentRecitations.forEach(recitation => {
-                if (recitation.user.status === "مجمد"){
+                if (recitation.user.status === "مجمد/ة"){
                     freezedNum++;
                 }
                 if (recitation.memorized_pages || recitation.repeated_pages) {

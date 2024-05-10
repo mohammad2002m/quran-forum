@@ -22,7 +22,7 @@ return new class extends Migration
             $table-> tinyText('phone_number') -> nullable(false);
             $table-> enum('gender', QFQuestionsAnswers::WhatIsYourGender) -> nullable(false);
             $table-> enum('year', QFQuestionsAnswers::WhatIsYourStudyYear) -> nullable(false);
-            $table-> enum("status", QFConstants::STUDENT_STATUSES) -> default("نشط") -> nullable(true);
+            $table-> enum("status", QFConstants::STUDENT_STATUSES) -> default("نشط/ة") -> nullable(true);
             $table -> tinyText('student_number') -> nullable(true);
 
             $table-> enum('schedule', QFQuestionsAnswers::WhatIsYourSchedule) -> nullable(false);

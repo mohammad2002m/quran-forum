@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'phone_number' => '05' . $this->faker->numberBetween(100000000, 999999999),
             'gender' => $gender,
             'year' => $this->faker->randomElement(["أولى", "ثانية", "ثالثة", "رابعة", "خامسة", "خريج"]),
-            'status' => $this->faker->randomElement(["نشط", "نشط","نشط","نشط","نشط","نشط","مجمد",null]),
+            'status' => $this->faker->randomElement(["نشط/ة", "نشط/ة","نشط/ة","نشط/ة","نشط/ة","نشط/ة","مجمد/ة",null]),
             'student_number' => $this->faker->numberBetween(10000000, 99999999),
             'schedule' => $this->faker->randomElement([
                 'مستقرة بالحرم الجامعي',

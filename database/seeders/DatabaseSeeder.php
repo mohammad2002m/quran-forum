@@ -14,7 +14,6 @@ use App\Models\Excuse;
 use App\Models\Group;
 use App\Models\Image;
 use App\Models\Recitation;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use QF\Constants as QFConstants;
 
@@ -131,7 +130,6 @@ class DatabaseSeeder extends Seeder
             }
         }
         
-        $booleans = [];
         foreach ($students as $student) {
             for ($week_id = 1; $week_id <= 60; $week_id++){
                 $rand = rand(1, 100);
@@ -146,14 +144,16 @@ class DatabaseSeeder extends Seeder
                         'notes' => $rand > 50 ? '' : 'ملاحظة' . strval($rand),
                     ]);
                 } else {
-                    Excuse::factory()->create([
-                        'user_id' => $student->id,
-                        'week_id' => $week_id,
-                        'status' => ['مقبول', 'مرفوض'][rand(0, 1)],
-                        'excuse' => ['لا أستطيع الحضور لظروف خاصة', 'مرض', 'مشكلة مواعيد', 'لا عذر'][rand(0, 3)],
-                        'notes' => ['لا ملاحظات', ''][rand(0, 1)]
-                    ]);
-                
+                    $addExcuse = rand(0, 1);
+                    if ($addExcuse === 1){
+                        Excuse::factory()->create([
+                            'user_id' => $student->id,
+                            'week_id' => $week_id,
+                            'status' => ['مقبول', 'مرفوض'][rand(0, 1)],
+                            'excuse' => ['لا أستطيع الحضور لظروف خاصة', 'مرض', 'مشكلة مواعيد', 'لا عذر'][rand(0, 3)],
+                            'notes' => ['لا ملاحظات', ''][rand(0, 1)]
+                        ]);
+                    }
                 }
             }
         }
@@ -336,7 +336,7 @@ class DatabaseSeeder extends Seeder
 
         $years = [ 'خريج', 'أولى', 'ثانية', 'ثالثة', 'رابعة', 'خامسة', 'خريج', 'خريج', 'أولى'];
 
-        $statuses = ["نشط", "نشط", "نشط", "نشط", "نشط","مجمد",  "مجمد", null, null, null];
+        $statuses = ["نشط/ة", "نشط/ة", "نشط/ة", "نشط/ة", "نشط/ة","مجمد/ة",  "مجمد/ة", null, null, null];
 
         $schedules = [
             'مستقرة بالحرم الجامعي',
@@ -414,7 +414,7 @@ class DatabaseSeeder extends Seeder
     {
         AnnouncementType::factory()->create([ "name" => "عام", ]);
         AnnouncementType::factory()->create([ 'name' => "الحصاد", ]);
-        AnnouncementType::factory()->create([ 'name' => "المسابقات", ]);
+        AnnouncementType::factory()->create([ 'name' => "مسابقات", ]);
         AnnouncementType::factory()->create([ 'name' => "لقاءات إلكترونية", ]);
     }
     public static function seedRoles()

@@ -48,9 +48,7 @@
                         </button>
                     </h2>
                     <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlush">
-                        <!-- FIXME Ask what we should do with this -->
-                        <div class="accordion-body"> إذا كنت طالب بالملتقى سابقا وقمت بالإنسحاب أردت التسجيل مرة أخرى فالرجاء
-                            مراجعة ... </div>
+                        <div class="accordion-body"> إذا كنت طالبًا سابقًا بالملتقى وقمت بالانسحاب وأردت التسجيل مرة أخرى فالرجاء إرسال ايميل على البريد الإلكتروني التالي <a href="mailto:quran.forum.hu@gmail.com"> quran.forum.hu@gmail.com</a>  مع إرفاق الاسم والرقم الجامعي </div>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -67,7 +65,7 @@
                                 كطالب
                                 جديد </a>
                             أما في حال أردت <strong> التطوع للإشراف أو اللجان الأخرى </strong> فالرجاء الضغط على الرابط التالي
-                            <a href="/registration/volunteer"> التسجيل للإشراف أو التطوع </a>
+                            <a href="/registration/volunteer"> التطوع بالملتقى</a>
                         </div>
                     </div>
                 </div>

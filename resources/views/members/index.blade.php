@@ -325,14 +325,14 @@
         function freezeStudent(){
             var form = document.getElementById("change-student-status-form");
             var statusInput = document.getElementById("student-status");
-            statusInput.value = "مجمد";
+            statusInput.value = "مجمد/ة";
             form.submit();
         }
 
         function activateStudent(){
             var form = document.getElementById("change-student-status-form");
             var statusInput = document.getElementById("student-status");
-            statusInput.value = "نشط";
+            statusInput.value = "نشط/ة";
             form.submit();
         }
 

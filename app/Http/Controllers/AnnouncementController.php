@@ -36,9 +36,7 @@ class AnnouncementController extends Controller
             'viewNotifyOnLandingPage' => $viewNotifyOnLandingPage ? 'true' : 'false',
         ]);
     }
-    public function indexArchived(){
-        return view('announcement.index_archived');
-    }
+
     public function create()
     {
         return view('announcement.create')->with('announcementTypes', AnnouncementType::all());
