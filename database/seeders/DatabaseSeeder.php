@@ -285,7 +285,7 @@ class DatabaseSeeder extends Seeder
     {
         
         $emails = [
-            'head@gmail.com',
+            'quran.forum.hu@gmail.com',
             'sub.head@gmail.com',
             'supervisor@gmail.com',
             'monitor@gmail.com',

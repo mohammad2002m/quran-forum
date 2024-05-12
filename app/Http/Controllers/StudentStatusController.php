@@ -53,6 +53,10 @@ class StudentStatusController extends Controller
         $user->status = $status;
         $user->save();
 
-        return redirect() -> back() -> with('success', 'تم التجميد بنجاح');
+        if ($status === Constants::STUDENT_STATUS_FREEZED){
+            return redirect() -> back() -> with('success', 'تم التجميد بنجاح');
+        } else {
+            return redirect() -> back() -> with('success', 'تم التنشيط بنجاح');
+        }
     }
 }
