@@ -147,7 +147,7 @@
 
                         <li class="nav-item d-md-none"> <a class="nav-link" href="/contact-us"> اتصل بنا </a> </li>
 
-                        <li class="nav-item d-sm-none"> <a class="nav-link" href="/about-us"> من نحن </a> </li>
+                        <li class="nav-item d-sm-none"> <a class="nav-link" href="/about-us"> عن الملتقى </a> </li>
                         <li class="nav-item d-md-none"> <a class="nav-link" href="/forum-rules"> قوانين الملتقى </a> </li>
                     </ul>
 

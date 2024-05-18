@@ -41,6 +41,7 @@
 
         $groups100 = 0;
 
+        $groups100array = [];
         foreach ($groups as $group) {
             $points = 0;
             $allRecited = true;
@@ -63,26 +64,25 @@
                     $points +=
                         4 * $studentRecitation->memorized_pages +
                         2 * $studentRecitation->repeated_pages +
-                        $studentRecitation->memorization_mark +
                         $studentRecitation->tajweed_mark;
                 }
             }
 
             $allRecited = ($recitedActive == $activeStudents);
 
-            $groups100 += $allRecited && $students->count() ? 1 : 0;
+            $groups100 += ($allRecited && $activeStudents) ? 1 : 0;
 
             $record = [
                 'group_name' => $group->name,
                 'number_of_students' => $students->count(),
                 'pointsAverage' => $students->count() > 0 ? number_format($points / $students->count(), 2) : '0.00',
-                'percentage_recited' => $activeStudents > 0 ? number_format($recitedActive / $activeStudents, 2) : '0.00',
+                'percentage_recited' => $activeStudents > 0 ? strval(number_format(($recitedActive / $activeStudents) * 100, 2)) . "%" : '0.00',
                 'color' => ($allRecited && $activeStudents != 0) ? 'green' : 'white',
             ];
 
             array_push($dataRows, $record);
         }
-        
+
         // sort the dataRow array by points
         usort($dataRows, function ($a, $b) {
             return $b['pointsAverage'] <=> $a['pointsAverage'];
@@ -140,7 +140,7 @@
                 <th colspan="4" class="stat-label"> عدد الحلقات التي بلغ تسميعها 100% </th>
                 <td> {{ $groups100 }} </td>
                 <th colspan="3" class="stat-label"> نسبة التسميع 100% </th>
-                <td> {{ $groups->count() != 0 ? number_format($groups100 / $groups->count(), 2) : 0 }} </td>
+                <td> {{ $groups->count() != 0 ? strval(number_format(($groups100 / $groups->count()) * 100, 2)) . "%" : "0.00" }} </td>
             </tr>
         </tbody>
     </table>

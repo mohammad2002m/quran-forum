@@ -147,7 +147,7 @@ class Constants {
 
     /******** SUCCESS MESSAGES ********/
     const SUCCESS_MESSAGE_SAVED_SUCCESSFULLY = 'تم الحفظ بنجاح';
-    const SUCCESS_MESSAGE_WEEKS_ADDED = 'تم إضافة 53 أسبوعًا بنجاح';
+    const SUCCESS_MESSAGE_WEEKS_ADDED = 'تم إضافة 4 أسابيع بنجاح';
 
     /******** STUDENTS STATUSES ********/
     const STUDENT_STATUS_ACTIVE = 'نشط/ة';
@@ -248,7 +248,6 @@ class Constants {
             self::ACTIVITY_GET_SUPERVISORS, 
             self::ACTIVITY_MANAGE_GROUPS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
-            self::ACTIVITY_APPLICATIONS,
             self::ACTIVITY_API_SUPERVISORS,
             self::ACTIVITY_API_MONITORS,
         ],
@@ -303,7 +302,7 @@ class Constants {
     /******** OTHER ********/
     // number of weeks to add in store
 
-    const NUMBER_OF_WEEKS_TO_ADD_IN_STORE = 53;
+    const NUMBER_OF_WEEKS_TO_ADD_IN_STORE = 4;
 
     /******** WEEKS_NAMES ********/
     const WEEKS_NAMES = [

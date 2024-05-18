@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email" class="mb-1"> تأكيد البريد الإلكتروني </label>
-                            <input type="text" value="{{ old('email_confirmation') }}" class="form-control"
+                            <input id="email-confirmation" type="text" value="{{ old('email_confirmation') }}" class="form-control"
                                 placeholder="تأكيد البريد الإلكتروني" name="email_confirmation">
                         </div>
                     </div>
@@ -257,4 +257,10 @@
 @endsection
 
 @section('scripts')
+    <script>
+        window.onload = () => {
+            const myInput = document.getElementById('email-confirmation');
+            myInput.onpaste = e => e.preventDefault();
+        }
+    </script>
 @endsection

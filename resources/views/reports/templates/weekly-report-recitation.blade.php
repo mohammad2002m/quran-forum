@@ -63,7 +63,6 @@
                 'points' => $hasRecited
                     ? 4 * $studentRecitation->memorized_pages +
                         2 * $studentRecitation->repeated_pages +
-                        $studentRecitation->memorization_mark +
                         $studentRecitation->tajweed_mark
                     : 0,
                 'color' => $hasRecited ? $color : 'red',

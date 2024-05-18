@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="mb-1"> تأكيد البريد الإلكتروني </label>
-                                <input type="text" value="{{ old('email_confirmation') }}" class="form-control"
+                                <input id="email-confirmation" type="text" value="{{ old('email_confirmation') }}" class="form-control"
                                     placeholder="تأكيد البريد الإلكتروني" name="email_confirmation">
                             </div>
                         </div>
@@ -238,6 +238,13 @@
 
 
                     </section>
+                
+                    <script>
+                        window.onload = () => {
+                            const myInput = document.getElementById('email-confirmation');
+                            myInput.onpaste = e => e.preventDefault();
+                        }
+                    </script>
                 @endauth
 
                 <!-- Choose Roles Question -->
@@ -314,12 +321,10 @@
                 </div>
 
                 <div class="text-center">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyEmail"> سجل بالملتقى
-                    </button>
+                    <button class="btn btn-primary" data-bs-toggle="modal"> سجل بالملتقى </button>
                 </div>
 
             </form>
-
             
         </div>
     </div>

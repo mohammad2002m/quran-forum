@@ -96,7 +96,6 @@
         $points = 0;
         $averageTajweedMark = 0;
         $averageMemorizationMark = 0;
-        $partsBeforeCount = $user->parts_before->count();
         if ($is_student && $recitations->count() > 0) {
             foreach ($recitations as $recitation) {
                 $points +=
@@ -145,10 +144,6 @@
                                 <div class="d-none d-md-block ms-4">
                                     <h5> {{ $points }} </h5>
                                     <div class="text-muted"> النقاط </div>
-                                </div>
-                                <div class="d-none d-md-block ms-4">
-                                    <h5> {{ $partsBeforeCount }} </h5>
-                                    <div class="text-muted"> الأجزاء </div>
                                 </div>
                             </div>
                         @endif
@@ -241,7 +236,6 @@
                                     <td> الحفظ </td>
                                     <td> التجويد </td>
                                     <td> النقاط </td>
-                                    <td> الأجزاء </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -249,7 +243,6 @@
                                     <td> {{ $averageMemorizationMark }} </td>
                                     <td> {{ $averageTajweedMark }} </td>
                                     <td> {{ $points }} </td>
-                                    <td> {{ $partsBeforeCount }} </td>
                                 </tr>
                             </tbody>
                         </table>

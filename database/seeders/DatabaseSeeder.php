@@ -36,87 +36,39 @@ class DatabaseSeeder extends Seeder
     }
     function seedGroups()
     {
-        Group::factory()->create([
-            'name' => 'نور الرحمن',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'أحباب القرآن',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'نور على نور',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'أهل الجنة',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'الصابرين',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'حفظة القرآن',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'الطيبات',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'الإسلام العظيم',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'بالقرآن نحيا',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'أصدقاء القرآن',
-            'gender' => "ذكور"
-        ]);
-        Group::factory()->create([
-            'name' => 'وجلت قلوبهم',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'علمه البيان',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'رياض الصالحين',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'يبشرهم ربهم',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'همتي لأمتي',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'بالقرآن نحيا ونرتقي',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'الإخلاص',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'سفينة النجاة',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'أمانينا الجنة',
-            'gender' => "إناث"
-        ]);
-        Group::factory()->create([
-            'name' => 'سباق نحو الجنان',
-            'gender' => "إناث"
-        ]);
+        $names = [
+            'نور الرحمن',
+            'أحباب القرآن',
+            'نور على نور',
+            'أهل الجنة',
+            'الصابرين',
+            'حفظة القرآن',
+            'الطيبات',
+            'الإسلام العظيم',
+            'بالقرآن نحيا',
+            'أصدقاء القرآن',
+            'وجلت قلوبهم',
+            'علمه البيان',
+            'رياض الصالحين',
+            'يبشرهم ربهم',
+            'همتي لأمتي',
+            'بالقرآن نحيا ونرتقي',
+            'الإخلاص',
+            'سفينة النجاة',
+            'أمانينا الجنة',
+            'سباق نحو الجنان',
+        ];
 
+        foreach ($names as $name) {
+            Group::factory()->create([
+                'name' => $name . " ذكور",
+                'gender' => "ذكور",
+            ]);
+            Group::factory()->create([
+                'name' => $name . " إناث",
+                'gender' => "إناث",
+            ]);
+        }
     }
     public static function seedRecitation()
     {
@@ -129,11 +81,11 @@ class DatabaseSeeder extends Seeder
                 $students[] = $user;
             }
         }
-        
+
         foreach ($students as $student) {
-            for ($week_id = 1; $week_id <= 60; $week_id++){
+            for ($week_id = 1; $week_id <= 60; $week_id++) {
                 $rand = rand(1, 100);
-                if ($rand <= 80 && ($student -> status != QFConstants::STUDENT_STATUS_FREEZED)){
+                if ($rand <= 80 && ($student->status != QFConstants::STUDENT_STATUS_FREEZED)) {
                     Recitation::factory()->create([
                         'user_id' => $student->id,
                         'week_id' => $week_id,
@@ -145,7 +97,7 @@ class DatabaseSeeder extends Seeder
                     ]);
                 } else {
                     $addExcuse = rand(0, 1);
-                    if ($addExcuse === 1){
+                    if ($addExcuse === 1) {
                         Excuse::factory()->create([
                             'user_id' => $student->id,
                             'week_id' => $week_id,
@@ -157,7 +109,6 @@ class DatabaseSeeder extends Seeder
                 }
             }
         }
-        
     }
     public static function seedExecuses()
     {
@@ -181,7 +132,7 @@ class DatabaseSeeder extends Seeder
     }
     public static function seedImages()
     {
-        
+
         $width = getimagesize(public_path("images/default/cover.jpg"))[0];
         $height = getimagesize(public_path("images/default/cover.jpg"))[1];
 
@@ -204,7 +155,7 @@ class DatabaseSeeder extends Seeder
             "height" => $height,
         ]);
 
-        for ($c = 1; $c <= 20; $c++){
+        for ($c = 1; $c <= 20; $c++) {
             // get image width and height from full_path
             $width = getimagesize(public_path("images/$c.jpg"))[0];
             $height = getimagesize(public_path("images/$c.jpg"))[1];
@@ -214,6 +165,34 @@ class DatabaseSeeder extends Seeder
                 "full_path" =>  QFConstants::APP_URL . "/images/$c.jpg",
                 "stored" => false,
                 "for" => "announcement",
+                "width" => $width,
+                "height" => $height,
+            ]);
+        }
+        for ($c = 1; $c <= 10; $c++) {
+            // get image width and height from full_path
+            $width = getimagesize(public_path("images/cover-$c.jpg"))[0];
+            $height = getimagesize(public_path("images/cover-$c.jpg"))[1];
+
+
+            Image::factory()->create([
+                "full_path" =>  QFConstants::APP_URL . "/images/cover-$c.jpg",
+                "stored" => false,
+                "for" => "cover",
+                "width" => $width,
+                "height" => $height,
+            ]);
+        }
+        for ($c = 1; $c <= 10; $c++) {
+            // get image width and height from full_path
+            $width = getimagesize(public_path("images/profile-$c.jpg"))[0];
+            $height = getimagesize(public_path("images/profile-$c.jpg"))[1];
+
+
+            Image::factory()->create([
+                "full_path" =>  QFConstants::APP_URL . "/images/profile-$c.jpg",
+                "stored" => false,
+                "for" => "profile",
                 "width" => $width,
                 "height" => $height,
             ]);
@@ -283,7 +262,7 @@ class DatabaseSeeder extends Seeder
     }
     public static function seedUsers()
     {
-        
+
         $emails = [
             'quran.forum.hu@gmail.com',
             'sub.head@gmail.com',
@@ -332,11 +311,11 @@ class DatabaseSeeder extends Seeder
             '0599123456'
         ];
 
-        $genders = [ 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'أنثى', 'أنثى' ];
+        $genders = ['ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'ذكر', 'أنثى', 'أنثى'];
 
-        $years = [ 'خريج', 'أولى', 'ثانية', 'ثالثة', 'رابعة', 'خامسة', 'خريج', 'خريج', 'أولى'];
+        $years = ['خريج', 'أولى', 'ثانية', 'ثالثة', 'رابعة', 'خامسة', 'خريج', 'خريج', 'أولى'];
 
-        $statuses = ["نشط/ة", "نشط/ة", "نشط/ة", "نشط/ة", "نشط/ة","مجمد/ة",  "مجمد/ة", null, null, null];
+        $statuses = ["نشط/ة", "نشط/ة", "نشط/ة", "نشط/ة", "نشط/ة", "مجمد/ة",  "مجمد/ة", null, null, null];
 
         $schedules = [
             'مستقرة بالحرم الجامعي',
@@ -364,7 +343,7 @@ class DatabaseSeeder extends Seeder
 
         $can_be_teachers = [true, false, true, false, false, true, true, true, false];
 
-        $tajweed_certificates = [true, false, false, false, true, false, false, true , false];
+        $tajweed_certificates = [true, false, false, false, true, false, false, true, false];
         $banned = [false, false, false, false, true, false, false, true, false];
 
         $force_information_update = [true, true, false, false, true, false, false, true, false];
@@ -398,24 +377,46 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $user->roles()->attach($role_to_attach[$i]);
-
         }
 
         // add more students using factory
-        User::factory()->count(20)->create();
-    
-        foreach (User::all() as $user){
-            if ($user -> status){
-                $user -> roles() -> attach(QFConstants::ROLE_STUDENT);
+        User::factory()->count(60)->create();
+
+        $group_male_ids = Group::where('gender', "ذكور")->pluck('id')->toArray();
+        $group_female_ids = Group::where('gender', "إناث")->pluck('id')->toArray();
+        foreach (User::all() as $user) {
+            if ($user->status) {
+                $user->roles()->attach(QFConstants::ROLE_STUDENT);
+                $rand = rand(1, 10);
+                if ($rand > 1) {
+                    if ($user->gender == "ذكر") {
+                        $group_ids = $group_male_ids;
+                    } else {
+                        $group_ids = $group_female_ids;
+                    }
+                    $user->group_id = $group_ids[rand(0, count($group_ids) - 1)];
+                    $user->save();
+                }
             }
         }
+
+        $supervisors = User::factory()->count(50)->create();
+        foreach ($supervisors as $supervisor) {
+            $supervisor->roles()->attach(QFConstants::ROLE_SUPERVISOR);
+        }
+        $monitors = User::factory()->count(50)->create();
+        foreach ($monitors as $monitor) {
+            $monitor->roles()->attach(QFConstants::ROLE_MONITORING_COMMITTE_MEMBER);
+        }
+        // create supervisors  and assign them to groups
+
     }
     public static function seedAnnouncementTypes()
     {
-        AnnouncementType::factory()->create([ "name" => "عام", ]);
-        AnnouncementType::factory()->create([ 'name' => "الحصاد", ]);
-        AnnouncementType::factory()->create([ 'name' => "مسابقات", ]);
-        AnnouncementType::factory()->create([ 'name' => "لقاءات إلكترونية", ]);
+        AnnouncementType::factory()->create(["name" => "عام",]);
+        AnnouncementType::factory()->create(['name' => "الحصاد",]);
+        AnnouncementType::factory()->create(['name' => "مسابقات",]);
+        AnnouncementType::factory()->create(['name' => "لقاءات إلكترونية",]);
     }
     public static function seedRoles()
     {
@@ -491,11 +492,9 @@ class DatabaseSeeder extends Seeder
     public static function seedPlans()
     {
     }
-    public static function seedAnnouncements(){
-        
-        $titles = [
+    public static function seedAnnouncements()
+    {
 
-        ];
 
         $descriptions = [
             "لا يَزالُ قارئُ القُرآنِ فِي جنةٍ مِن الدُّنيا ما دامَ يَسـقي قِلبهُ معينَ الآياتْ ، ويَترنمُ بكلامِ ربّ البرياتْ ، إنَّه يَسير بين النَّاس فِي الأرضِ ، أمَّا الروحُ فَسماويةٌ تُرفرفُ هناكْ .  ",
@@ -503,17 +502,17 @@ class DatabaseSeeder extends Seeder
             "أما وآن الأوان للقناديل أن تشعّ نورًا.. 💫
                 نوافيكم مشاركي مسابقة قناديل النور ٢ بمواعيد الاختبار بناء على المستوى الذي شاركتم به.
                 اسرجوا قناديلكم، الهمة الهمة، وحُسن الاستعداد للاختبار، والله ولي التوفيق وحسبكم أن الأجر عليه!",
-                "عن عائشة رضي اللَّه عنها أنها قالت: «كان رسولُ اللَّه صَلّى اللهُ عَلَيْهِ وسَلَّم إذَا دَخَلَ الْعشْرُ أحيا اللَّيْلَ، وأيقظ أهْله، وجدَّ وشَدَّ المِئْزَرَ»
-ندعوكم لحضور ندوتنا الرّمضانية الثالثة،حول فضل العشر الأواخر من شهرنا الكريم.",
+            "عن عائشة رضي اللَّه عنها أنها قالت: «كان رسولُ اللَّه صَلّى اللهُ عَلَيْهِ وسَلَّم إذَا دَخَلَ الْعشْرُ أحيا اللَّيْلَ، وأيقظ أهْله، وجدَّ وشَدَّ المِئْزَرَ»
+            ندعوكم لحضور ندوتنا الرّمضانية الثالثة،حول فضل العشر الأواخر من شهرنا الكريم.",
             "قضىٰ الله بحكمته أنَّ الصبر قرين الفرج، وأن العسر لا يغلب يسرين؛ وإنما هذه البلاءات مُربيات لعباد الله المؤمنين قبل تمكينهم بإذن الله!
-أهل الملتقى الكرام ندعوكم لحضور ندوتنا الرّمضانية الثانية، بعنوان: (لن تُمكن حتى تُبتلى)
-#ملتقى_القرآن_الكريم_جامعة_الخليل",
+            أهل الملتقى الكرام ندعوكم لحضور ندوتنا الرّمضانية الثانية، بعنوان: (لن تُمكن حتى تُبتلى)
+            #ملتقى_القرآن_الكريم_جامعة_الخليل",
 
             "جاءت أعظم آية في الدعاء بعد ذكر الصوم، تنبِئ عن قرب الله سبحانه، ووعده بإجابة الداعي، ولتبين مكانة الدعاء أيام الصيام.🍃",
             "فَتدبَّرِ القُرآنَ إِن رُمتَ الهُدى 
-فالعِلمُ تحتَ تَدبُّرِ القُرآنِ..🌙
- •صَحب المُلتقى ومن يَطيب بهم اللقا؛ ندعوكم لحضور ندوتنا الأولى في شهر رَمضان المبـارَك؛
- وأفضل ما نبدأ به هذه العبادة العظيمة هو تدبر كلام الله عنها، مع الدكتور الفاضل تيسـير الدويـك. ",
+            فالعِلمُ تحتَ تَدبُّرِ القُرآنِ..🌙
+            •صَحب المُلتقى ومن يَطيب بهم اللقا؛ ندعوكم لحضور ندوتنا الأولى في شهر رَمضان المبـارَك؛
+            وأفضل ما نبدأ به هذه العبادة العظيمة هو تدبر كلام الله عنها، مع الدكتور الفاضل تيسـير الدويـك. ",
         ];
 
         $titles = [
@@ -526,7 +525,7 @@ class DatabaseSeeder extends Seeder
             "ندوة الدعاء في رمضان",
         ];
 
-        for ($rep = 0; $rep < 7; $rep++){
+        for ($rep = 0; $rep < 7; $rep++) {
             Announcement::factory()->create([
                 'title' => $titles[$rep],
                 'description' => $descriptions[$rep],

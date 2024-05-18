@@ -109,7 +109,7 @@ trait RegistrationValidators
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'supervisor_notes' => ['present', 'string', 'max:255'],
+                    'supervisor_notes' => ['present', 'max:255'],
                     'max_responsibilities' => ['required', 'numeric', 'max:100'],
                 ],
                 [
@@ -117,7 +117,6 @@ trait RegistrationValidators
                     'max_responsibilities.required' => 'حقل الحد الأقصى للمسؤوليات مطلوب',
                     'max_responsibilities.numeric' => 'حقل الحد الأقصى للمسؤوليات يجب أن يكون رقم',
                     'max_responsibilities.max' => 'حقل الحد الأقصى للمسؤوليات يجب أن يكون أقل من 100',
-                    'supervisor_notes.string' => 'حقل ملاحظات المشرف يجب أن يكون نص',
                     'supervisor_notes.max' => 'حقل ملاحظات المشرف يجب أن يكون أقل من 255 حرف',
                 ]
 
@@ -132,10 +131,9 @@ trait RegistrationValidators
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'monitor_notes' => ['present', 'string', 'max:255'],
+                    'monitor_notes' => ['present', 'max:255'],
                 ],[
                     'monitor_notes.present' => 'حقل ملاحظات المتابع مطلوب',
-                    'monitor_notes.string' => 'حقل ملاحظات المتابع يجب أن يكون نص',
                     'monitor_notes.max' => 'حقل ملاحظات المتابع يجب أن يكون أقل من 255 حرف',
                 ]
 
@@ -154,7 +152,9 @@ trait RegistrationValidators
             $request->all(),
             [
                 'roles' => ['required', 'array'],
-            ],
+            ],[
+                'roles.required' => 'حقل الأدوار مطلوب',
+            ]
         );
 
         if ($validator->fails()) {
@@ -166,14 +166,13 @@ trait RegistrationValidators
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'supervisor_notes' => ['present', 'string', 'max:255'],
+                    'supervisor_notes' => ['present', 'max:255'],
                     'max_responsibilities' => ['required', 'numeric', 'max:100'],
                 ],[
                     'supervisor_notes.present' => 'حقل ملاحظات المشرف مطلوب',
                     'max_responsibilities.required' => 'حقل الحد الأقصى للمسؤوليات مطلوب',
                     'max_responsibilities.numeric' => 'حقل الحد الأقصى للمسؤوليات يجب أن يكون رقم',
                     'max_responsibilities.max' => 'حقل الحد الأقصى للمسؤوليات يجب أن يكون أقل من 100',
-                    'supervisor_notes.string' => 'حقل ملاحظات المشرف يجب أن يكون نص',
                     'supervisor_notes.max' => 'حقل ملاحظات المشرف يجب أن يكون أقل من 255 حرف',
                 ]
             );
@@ -201,11 +200,10 @@ trait RegistrationValidators
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'monitor_notes' => ['present', 'string', 'max:255'],
+                    'monitor_notes' => ['present', 'max:255'],
                 ],
                 [
                     'monitor_notes.present' => 'حقل ملاحظات المتابع مطلوب',
-                    'monitor_notes.string' => 'حقل ملاحظات المتابع يجب أن يكون نص',
                     'monitor_notes.max' => 'حقل ملاحظات المتابع يجب أن يكون أقل من 255 حرف',
                 ]
 
@@ -230,7 +228,7 @@ trait RegistrationValidators
             }
         }
 
-        return ['success', 'تمت عملية التسجيل بنجاح'];
+        return ['success', 'تم تقديم الطلب بنجاح'];
     }
     function isValidOpenRegistration(Request $request)
     {

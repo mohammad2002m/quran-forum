@@ -137,7 +137,6 @@
         var images = @json($images);
 
         function processImages(){
-            images.reverse();
             counter = 1;
             images.forEach(image => {
                 // add key to image
