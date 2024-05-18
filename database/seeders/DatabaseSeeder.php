@@ -525,13 +525,16 @@ class DatabaseSeeder extends Seeder
             "ندوة الدعاء في رمضان",
         ];
 
-        for ($rep = 0; $rep < 7; $rep++) {
+        $images_ids = Image::where('for', 'announcement')->pluck('id')->toArray();
+        $types_ids = AnnouncementType::all()->pluck('id')->toArray();
+        for ($rep = 0; $rep < 50; $rep++) {
             Announcement::factory()->create([
-                'title' => $titles[$rep],
-                'description' => $descriptions[$rep],
+                // random title
+                'title' => $titles[$rep % 7],
+                'description' => $descriptions[$rep % 7],
                 'status' => QFConstants::ANNOUNCEMENT_STATUS_APPROVED,
-                'type_id' => rand(1, 4),
-                'image_id' => $rep + 1,
+                'type_id' => $types_ids[$rep % 4],
+                'image_id' => $images_ids[($rep % 20)],
             ]);
         }
     }
