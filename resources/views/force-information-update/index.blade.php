@@ -27,7 +27,7 @@
 @endsection
 
 @section('content')
-    <div class="row box bg-white">
+    <div class="row box">
         <div class="col-lg-5 p-0">
             <div class="h-100 w-100 m-0 p-0 d-none d-lg-block img-div">
             </div>

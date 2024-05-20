@@ -101,7 +101,6 @@
             var response = await fetch(`{{$QFConstants::APP_URL}}/api/announcements/${batch++}`);
             var announcements = await response.json();
             // reverse the announcements to show the latest first
-            announcements.reverse();
             return announcements;
         }
 

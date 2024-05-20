@@ -85,7 +85,7 @@ class SearchController extends Controller
 
     function getAnnouncementsBatch($batch){
         // get 10 announcements by batch
-        $announcements = Announcement::with(['image','type'])->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> skip($batch * 10) -> take(10) -> get();
+        $announcements = Announcement::with(['image','type'])->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> orderBy('created_at', 'desc') -> skip($batch * 10) -> take(10) -> get();
         return response()->json($announcements);
     }
 
