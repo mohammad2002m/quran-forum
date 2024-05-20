@@ -42,10 +42,12 @@ class GroupController extends Controller
         }
 
         $supervisor_id = $request -> supervisor_id;
+        $monitor_id = $request -> monitor_id;
         $group_name = $request -> group_name;
         
         $group = new Group();
         $group -> supervisor_id = $supervisor_id;
+        $group -> monitor_id = $monitor_id;
         $group -> name = $group_name;
 
         $groupGender = Auth::user() -> gender == "ذكر" ? "ذكور" : "إناث";

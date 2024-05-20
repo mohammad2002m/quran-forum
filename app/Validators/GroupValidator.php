@@ -13,7 +13,7 @@ trait GroupValidator {
             [
                 'group_name' => ['required', Rule::notIn(Group::all() -> pluck('name') -> toArray()), 'max:255'],
                 'supervisor_id' => ['nullable','integer', Rule::exists('users', 'id'), Rule::notIn(Group::all() -> pluck('supervisor_id') -> toArray())],
-                'monitor_id' => ['nullable','integer', Rule::exists('users', 'id'), Rule::notIn(Group::all() -> pluck('supervisor_id') -> toArray())],
+                'monitor_id' => ['nullable','integer', Rule::exists('users', 'id'), Rule::notIn(Group::all() -> pluck('monitor_id') -> toArray())],
             ],
             [
                 'group_name.required' => 'لا يمكن ترك حقل اسم المجموعة فارغًا',
