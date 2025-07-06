@@ -50,8 +50,8 @@ class LoginController extends Controller
 
         // FIXME : check if user updated his infomration, add that field to user database
 
-        if ($user -> locked === true){
-            return redirect() -> back() -> with('error', 'حسابك مقفل الرجاء مراجعة الإدارة');
+        if ($user -> banned == true){
+            return redirect() -> back() -> with('error', 'حسابك محظور الرجاء مراجعة الإدارة');
         }
         
         Auth::login($user);

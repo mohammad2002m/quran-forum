@@ -28,13 +28,15 @@ class ImageController extends Controller
     function store(Request $request){
         $validator = Validator::make($request -> all(), [
             'image_type' => ['required', Rule::in(['profile', 'cover'])],
-            'image' => ['required', 'image', 'mimes:jpeg,png,jpg'],
+            // max size 2MB
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:4096'],
         ], [
             'image_type.required' => 'يجب تحديد نوع الصورة',
             'image_type.in' => 'نوع الصورة غير صحيح',
             'image.required' => 'يجب تحديد الصورة',
             'image.image' => 'الملف يجب أن يكون صورة',
             'image.mimes' => 'الصورة يجب أن تكون من نوع jpeg, png, jpg',
+            'image.max' => 'الصورة يجب أن تكون أقل من 4MB',
         ]);
 
         if ($validator->fails()) {

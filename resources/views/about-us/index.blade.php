@@ -2,34 +2,27 @@
 
 @section('head')
     <title> عن الملتقى </title>
+    <style>
+        
+    </style>
 @endsection
 
 
 @section('content')
-    <div class="container pt-4">
-        <h3> عن الملتقى </h3>
-        <br>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th colspan="1" class="head-cell"> الرقم </th>
-                    <th colspan="2" class="head-cell"> الاسم </th>
-                    <th colspan="2" class="head-cell"> البريد الإلكتروني </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users->take(9) as $user)
-                    <tr>
-                        <td colspan="1"> {{ $user->id }} </td>
-                        <td colspan="2"> {{ $user->name }} </td>
-                        <td colspan="2"> {{ $user->email }} </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <br>
-        <p> password for all accounts is: mozart </p>
+    <div class="container pt-3">
+        <div class="mb-3">
+            <h3> عن الملتقى </h3>
+            <p> فيديو تعريفي عن ملتقى القرآن الكريم تم نشره بكانون الثاني 2024 </p>
+        </div>
+        
+        <center class="mb-4">
+            <video width="100%" controls style="border-radius: 15px;">
+                <source src="{{asset('assets/videos/about-us.mp4')}}" type="video/mp4">
+            </video>
+        </center>
+        <p class="mb-5" style="text-align: justify; text-justify: inter-word;">
+            تأسس الملتقى للقرآن الكريم في جامعة الخليل سنة 1443 للهجرة الموافق 2022 ميلادي, بموافقة ومباركة من كلية الشريعة, يهدف ملتقى القرآن الكريم إلى اجتماع طلاب الجامعة على كلام الله عز وجل في جو روحاني يخرجهم من رتابة الجو الدراسي إلى عالم القرآن يستغلون في ذلك أوقات فراغهم لحفظ كتاب الله ومدارسته فيما بينهم ويضمن الملتقى خمس لجان لم يأل جهدًا في خدمة كتاب الله عز وجل وهذا الملتقى المبارك وهذه اللجان هي لجنة الاختبارات والمتابعة والبيانات وتم استحداث لجنة جديدة وهي لجنة التجويد واللجنة الإعلامية ويبلغ عدد طلاب الملتقى في الوقت الحالة 700 طالب وطالبة موزعين على مائة وعشرين حلقة ويشرف على كل حلقة واحد من الطلاب أو الطالبات الأكفاء الذين تم اختبارهم سابقة من قبل لجنة الاختبارات ويقيم الملتقى ندوات يلقيها نخبة من محاضري كلية الشريعة ويقيم أيضًا مسابقات سنوية ومن ضمن هذه المسابقات المسابقة الرمضانية المسمّاه بقناديل النور
+        </p>
     </div>
     
 @endsection

@@ -8,12 +8,14 @@ use App\Http\Controllers\ContactUs;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ForceInformationUpdate;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\FormersController;
 use App\Http\Controllers\ForumRules;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\MembersController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\ProfileController;
@@ -23,11 +25,10 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\StudentStatusController;
 use App\Http\Controllers\UnauthorizedController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\WeekController;
-use Illuminate\Console\Application;
 use QF\Constants as QFConstants;
 
 
@@ -140,7 +141,8 @@ Route::group([], function () {
     Route::get('/monitoring/index', [MonitoringController::class, 'index'])->name(QFConstants::ROUTE_NAME_MONITORING_INDEX)->middleware('auth');
     Route::post('/monitoring/update', [MonitoringController::class, 'update'])->name(QFConstants::ROUTE_NAME_MONITORING_UPDATE)->middleware('auth');
 
-    Route::get('/students/index', [StudentsController::class, 'index'])->name(QFConstants::ROUTE_NAME_STUDENTS_INDEX)->middleware('auth');
+    Route::get('/members/index', [MembersController::class, 'index'])->name(QFConstants::ROUTE_NAME_MEMBERS_INDEX)->middleware('auth');
+    Route::get('/formers/index', [FormersController::class, 'index'])->name(QFConstants::ROUTE_NAME_FORMERS_INDEX)->middleware('auth');
 
     Route::get('/api/supervisors/by-user-gender', [SearchController::class, 'getSupervisors'])->name(QFConstants::ROUTE_NAME_API_SUPERVISORS)->middleware('auth');
     Route::get('/api/monitors/by-user-gender', [SearchController::class, 'getMonitors'])->name(QFConstants::ROUTE_NAME_API_MONITORS)->middleware('auth');
@@ -151,7 +153,8 @@ Route::group([], function () {
     Route::get('/api/weeks/{year}', [SearchController::class, 'weeksByYear'])->name(QFConstants::ROUTE_NAME_API_WEEKS)->middleware('auth');
     Route::get('/api/reports/{weekId}/{gender}', [ReportsController::class, 'getReport'])->name(QFConstants::ROUTE_NAME_API_WEEKLY_REPORT)->middleware('auth');
     Route::get('/api/announcements', [SearchController::class, 'getAnnouncements'])->name(QFConstants::ROUTE_NAME_API_GET_ANNOUNCEMENTS);
-    Route::get('/api/users', [SearchController::class, 'getUsers'])->name(QFConstants::ROUTE_NAME_API_GET_USERS)->middleware('auth');
+    Route::get('/api/members', [MembersController::class, 'getMembers'])->name(QFConstants::ROUTE_NAME_API_GET_MEMBERS)->middleware('auth');
+    Route::get('/api/formers', [FormersController::class, 'getFormers'])->name(QFConstants::ROUTE_NAME_API_GET_FORMERS)->middleware('auth');
     Route::get('/api/announcements/{batch}', [SearchController::class, 'getAnnouncementsBatch'])->name(QFConstants::ROUTE_NAME_API_GET_ANNOUNCEMENTS);
 
     Route::get('/api/applications/supervising', [ApplicationsController::class, 'getSupervisingApplication'])->name(QFConstants::ROUTE_NAME_API_GET_SUPERVISING_APPLICATIONS) -> middleware('auth');
@@ -165,4 +168,7 @@ Route::group([], function () {
     // Route::get("action-supervisor-application"
 
     Route::post('/change-roles', [RoleController::class, 'changeRoles'])->name(QFConstants::ROUTE_NAME_CHANGE_ROLES)->middleware('auth');
+    Route::post('/change-student-status', [StudentStatusController::class, 'changeStatus'])->name(QFConstants::ROUTE_NAME_CHANGE_STUDENT_STATUS)->middleware('auth');
+    Route::post('/ban-member', [MembersController::class, 'banMember'])->name(QFConstants::ROUTE_NAME_BAN_MEMBER)->middleware('auth');
+    Route::post('/restore-former', [FormersController::class, 'restoreFormer'])->name(QFConstants::ROUTE_NAME_RESTORE_FORMER)->middleware('auth');
 });

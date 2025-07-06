@@ -34,15 +34,15 @@
                         onkeyup="searchGroup()">
                     <div class="overflow-scroll mb-3" style="max-height: 50vh;">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="table-light">
+                            <table class="table table-bordered table-hover">
+                                <thead>
                                     <tr>
                                         <th> اسم الحلقة </th>
-                                        <th> اسم المشرف </th>
-                                        <th> اسم المتابع </th>
+                                        <th> اسم المشرفة/ة </th>
+                                        <th> اسم المتابع/ة </th>
                                         <th> عدد الأفراد </th>
-                                        <th class="text-center"> تغيير المشرف </th>
-                                        <th class="text-center"> تغيير المتابع </th>
+                                        <th class="text-center"> تغيير المشرفة/ة </th>
+                                        <th class="text-center"> تغيير المتابع/ة </th>
                                         <th class="text-center"> حذف </th>
                                     </tr>
                                 </thead>
@@ -61,8 +61,8 @@
                         onkeyup="searchStudent()">
                     <div class="mb-3 overflow-scroll" style="max-height: 50vh;">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="table-light">
+                            <table class="table table-bordered table-hover">
+                                <thead>
                                     <tr>
                                         <th> <button class="btn p-0 m-0 fw-bold" onclick="addSortBy('name')"> اسم الطالب <i
                                                     id="name-sort-icon" class="fa-solid fa-sort"
@@ -106,14 +106,14 @@
                                 <input name="group_name" type="text" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label for="group-supervisor-name" class="col-form-label"> اسم المشرف </label> <br>
+                                <label for="group-supervisor-name" class="col-form-label"> اسم المشرفة/ة </label> <br>
                                 <select class="supervisor-select2-store" name="supervisor_id" style="width:100%;"></select>
                             </div>
                             <div class="mb-3">
-                                <label for="group-monitor-name" class="col-form-label"> اسم المتابع </label> <br>
+                                <label for="group-monitor-name" class="col-form-label"> اسم المتابع/ة </label> <br>
                                 <select class="monitor-select2-store" name="monitor_id" style="width:100%;"></select>
                             </div>
-                            <span> يمكن إنشاء حلقة من دون تعيين مشرف أو متابع </span>
+                            <span> يمكن إنشاء حلقة من دون تعيين مشرفة/ة أو متابع/ة </span>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> إلغاء </button>
@@ -154,14 +154,14 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"> تعديل المشرف </h5>
+                            <h5 class="modal-title"> تعديل المشرفة/ة </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <input type="text" id="supervisor-update-group-id" name="group_id" hidden>
                             <div class="mb-3">
-                                <label for="group-supervisor-name-update" class="col-form-label"> اسم المشرف </label> <br>
+                                <label for="group-supervisor-name-update" class="col-form-label"> اسم المشرفة/ة </label> <br>
                                 <select class="supervisor-select2-update" name="supervisor_id"
                                     style="width:100%;"></select>
                             </div>
@@ -181,14 +181,14 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"> تعديل المتابع </h5>
+                            <h5 class="modal-title"> تعديل المتابع/ة </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <input type="text" id="monitor-update-group-id" name="group_id" hidden>
                             <div class="mb-3">
-                                <label for="group-monitor-name-update" class="col-form-label"> اسم عضو لجنة المتابعة </label> <br>
+                                <label for="group-monitor-name-update" class="col-form-label"> اسم عضو لجنة المتابع/ةة </label> <br>
                                 <select class="monitor-select2-update" name="monitor_id" style="width:100%;"></select>
                             </div>
                         </div>
@@ -218,11 +218,11 @@
                                 <select class="groups-select2" name="group_id" style="width:100%;"></select>
                             </div>
                             <div class="mb-3">
-                                <label for="student-group-supervisor" class="col-form-label"> اسم المشرف </label> <br>
+                                <label for="student-group-supervisor" class="col-form-label"> اسم المشرفة/ة </label> <br>
                                 <input id="student-group-supervisor" type="text" class="form-control" disabled>
                             </div>
                             <div class="mb-3">
-                                <label for="student-group-monitor" class="col-form-label"> اسم المتابع </label> <br>
+                                <label for="student-group-monitor" class="col-form-label"> اسم المتابع/ة </label> <br>
                                 <input id="student-group-monitor" type="text" class="form-control" disabled>
                             </div>
                         </div>
@@ -262,7 +262,7 @@
                         var isAssigned = groups.some((group) => group.supervisor_id === data.id);
                         return {
                             id: supervisor.id,
-                            text: supervisor.name + (isAssigned ? ' (مشرف على حلقة أخرى)' : '')
+                            text: supervisor.name + (isAssigned ? ' (مشرفة/ة على حلقة أخرى)' : '')
                         }
                     });
                     return {
@@ -283,7 +283,7 @@
                         var isAssigned = groups.some((group) => group.monitor_id === data.id);
                         return {
                             id: monitor.id,
-                            text: monitor.name + (isAssigned ? ' (مشرف على حلقة أخرى)' : '')
+                            text: monitor.name + (isAssigned ? ' (متابع/ة على حلقة أخرى)' : '')
                         }
                     });
                     return {
@@ -304,7 +304,7 @@
                         var isAssigned = groups.some((group) => group.supervisor_id === data.id);
                         return {
                             id: supervisor.id,
-                            text: supervisor.name + (isAssigned ? ' (مشرف على حلقة أخرى)' : '')
+                            text: supervisor.name + (isAssigned ? ' (مشرفة/ة على حلقة أخرى)' : '')
                         }
                     });
                     return {
@@ -326,7 +326,7 @@
                         var isAssigned = groups.some((group) => group.monitor_id === data.id);
                         return {
                             id: monitor.id,
-                            text: monitor.name + (isAssigned ? ' (مشرف على حلقة أخرى)' : '')
+                            text: monitor.name + (isAssigned ? ' (متابع/ة على حلقة أخرى)' : '')
                         }
 
                     });
@@ -348,10 +348,10 @@
                     var isAssignedMonitor = groups.some((group) => group.monitor_id === data.id);
 
                     results = data.map((group) => {
-                        var supervisorText = group.supervisor ? `المشرف: ${group.supervisor.name}ّ` :
-                            'لا يوجد مشرف';
-                        var monitorText = group.monitor ? `المتابع: ${group.monitor.name}` :
-                            'لا يوجد متابع';
+                        var supervisorText = group.supervisor ? `المشرفة/ة: ${group.supervisor.name}ّ` :
+                            'لا يوجد مشرفة/ة';
+                        var monitorText = group.monitor ? `المتابع/ة: ${group.monitor.name}` :
+                            'لا يوجد متابع/ة';
                         return {
                             id: group.id,
                             text: group.name,
@@ -373,9 +373,9 @@
             var selectedGroupId = document.querySelector('.groups-select2').value;
             var selectedGroup = groups.find(group => group.id == selectedGroupId);
 
-            studentGroupMonitorInput.value = selectedGroup.monitor ? selectedGroup.monitor.name : 'لا يوجد متابع';
+            studentGroupMonitorInput.value = selectedGroup.monitor ? selectedGroup.monitor.name : 'لا يوجد متابع/ة';
             studentGroupSupervisorInput.value = selectedGroup.supervisor ? selectedGroup.supervisor.name :
-                'لا يوجد مشرف';
+                'لا يوجد مشرفة/ة';
         });
 
         function openDeleteModal(id) {
@@ -429,8 +429,8 @@
                 groupTblBody.innerHTML += `
                     <tr>
                         <td> ${group.name} </td>
-                        <td> ${group.supervisor ? group.supervisor.name : 'لا يوجد مشرف'} </td>
-                        <td> ${group.monitor ? group.monitor.name : 'لا يوجد مشرف'} </td>
+                        <td> ${group.supervisor ? group.supervisor.name : 'لا يوجد مشرفة/ة'} </td>
+                        <td> ${group.monitor ? group.monitor.name : 'لا يوجد متابع/ة'} </td>
                         <td> ${group.students.length} </td>
                         <td class="text-center"> <button class="btn btn-primary btn-sm" onclick="openUpdateModalSupervisor(${group.id})" data-bs-toggle="modal" data-bs-target="#update-group-supervisor-modal"> تغيير </button></td>
                         <td class="text-center"> <button class="btn btn-primary btn-sm" onclick="openUpdateModalMonitor(${group.id})" data-bs-toggle="modal" data-bs-target="#update-group-monitor-modal"> تغيير </button></td>

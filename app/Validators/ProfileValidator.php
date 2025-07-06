@@ -10,16 +10,12 @@ trait ProfileValidator {
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => ['required'],
-                'gender' => ['required', Rule::in(['ذكر', 'أنثى'])],
                 'phone_number' => ['required','regex:/(05)[0-9]{8}$/', ],
                 'college_id' => ['required', 'integer', Rule::exists('colleges', 'id')],
                 'year' => ['required', Rule::in(QuestionsAnswers::WhatIsYourStudyYear)],
                 'schedule' => ['required', Rule::in(QuestionsAnswers::WhatIsYourSchedule)]
             ],
             [
-                'name.required' => 'حقل الاسم مطلوب',
-                'gender.required' => 'حقل الجنس مطلوب',
                 'phone_number.required' => 'حقل رقم الهاتف مطلوب',
                 'college_id.required' => 'حقل الكلية مطلوب',
                 'year.required' => 'حقل السنة مطلوب',

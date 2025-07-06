@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\College;
+use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,6 +64,7 @@ class ForceInformationUpdate extends Controller
     {
         DB::statement("DELETE FROM `sessions`");
         DB::statement("UPDATE `users` SET `force_information_update` = true");
+        Settings::set('last_force_information_update_date', date("jS F Y"));
         return redirect()->route(QFConstants::ROUTE_NAME_LOGIN_PAGE);
     }
 }

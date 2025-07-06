@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email" class="mb-1"> تأكيد البريد الإلكتروني </label>
-                            <input type="text" value="{{ old('email_confirmation') }}" class="form-control"
+                            <input id="email-confirmation" type="text" value="{{ old('email_confirmation') }}" class="form-control"
                                 placeholder="تأكيد البريد الإلكتروني" name="email_confirmation">
                         </div>
                     </div>
@@ -156,8 +156,8 @@
                         <label class="mb-1"> ما هي الأجزاء الي تحفظها من القرآن الكريم </label>
                         <div>
                             <div class="table-responsive">
-                                <table id="parts-tbl" class="table table-sm table-bordered ">
-                                    <thead class="table-light">
+                                <table id="parts-tbl" class="table table-sm table-bordered table-hover">
+                                    <thead>
                                         <tr id="head-tbl-row">
                                             <th class="text-start"> رقم الجزء </th>
                                             <th class="text-center"></th>
@@ -240,7 +240,7 @@
                 </section>
 
                 <div class="mb-4">
-                    <strong class="text-danger">  الرجاء مراجعة مسؤوليات لجنة الإشراف ولجنة المتابعة في خان قوانين الملتقى قبل التسجيل   </strong>
+                    <strong class="text-danger"> الرجاء مراجعة القوانين في صفحة القوانين قبل التسجيل أو التطوع </strong>
                 </div>
 
                 
@@ -257,4 +257,10 @@
 @endsection
 
 @section('scripts')
+    <script>
+        window.onload = () => {
+            const myInput = document.getElementById('email-confirmation');
+            myInput.onpaste = e => e.preventDefault();
+        }
+    </script>
 @endsection

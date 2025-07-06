@@ -52,10 +52,11 @@
 
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
+                    <table class="table table-bordered table-hover">
+                        <thead>
                             <tr>
                                 <th> الطالب/ة</th>
+                                <th> رقم الطالب </th>
                                 <th> المشرف/ة</th>
                                 <th> حالة الطالب/ة </th>
                                 <th> سبب عدم التسميع </th>
@@ -163,7 +164,9 @@
         var weeks = @php echo json_encode($weeks); @endphp;
 
         var excuses = @php echo json_encode($excuses); @endphp;
-
+        
+        console.log(students)
+        console.log(excuses)
         var changedExcuses = [];
     </script>
     <script>
@@ -171,7 +174,7 @@
             var excuse = excuses.find(excuse => excuse.key === key);
             document.getElementById('excuse-key').value = excuse.key;
             document.getElementById('student-name').value = excuse.user.name;
-            document.getElementById('supervisor-name').value = excuse.user.supervisor.name;
+            document.getElementById('supervisor-name').value = excuse.user.supervisor ? excuse.user.supervisor.name : "لا يوجد مشرفة/ة";
             document.getElementById('student-status').value = excuse.user.status;
             document.getElementById('student-excuse').value = excuse.excuse;
             document.getElementById('excuse-notes').value = excuse.notes;
@@ -216,10 +219,12 @@
             var tableBody = document.getElementById('tbl-body');
             tableBody.innerHTML = '';
             currentExcuses.forEach(excuse => {
+                console.log("test", excuse)
                 tableBody.innerHTML += `
                     <tr>
                         <td> ${excuse.user.name} </td>
-                        <td> ${excuse.user.supervisor.name}   </td>
+                        <td> ${excuse.user.phone_number} </td>
+                        <td> ${excuse.user.supervisor ? excuse.user.supervisor.name : "لا يوجد مشرفة/ة"}   </td>
                         <td> ${excuse.user.status} </td>
                         <td> ${excuse.excuse} </td>
                         <td> ${excuse.status} </td>

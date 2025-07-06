@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email" class="mb-1"> تأكيد البريد الإلكتروني </label>
-                                <input type="text" value="{{ old('email_confirmation') }}" class="form-control"
+                                <input id="email-confirmation" type="text" value="{{ old('email_confirmation') }}" class="form-control"
                                     placeholder="تأكيد البريد الإلكتروني" name="email_confirmation">
                             </div>
                         </div>
@@ -154,8 +154,8 @@
                             <label class="mb-1"> ما هي الأجزاء الي تحفظها من القرآن الكريم </label>
                             <div>
                                 <div class="table-responsive">
-                                    <table id="parts-tbl" class="table table-sm table-bordered ">
-                                        <thead class="table-light">
+                                    <table id="parts-tbl" class="table table-sm table-bordered table-hover">
+                                        <thead>
                                             <tr id="head-tbl-row">
                                                 <th class="text-start"> رقم الجزء </th>
                                                 <th class="text-center"></th>
@@ -238,6 +238,13 @@
 
 
                     </section>
+                
+                    <script>
+                        window.onload = () => {
+                            const myInput = document.getElementById('email-confirmation');
+                            myInput.onpaste = e => e.preventDefault();
+                        }
+                    </script>
                 @endauth
 
                 <!-- Choose Roles Question -->
@@ -247,8 +254,8 @@
                     </div>
                     <label class="mb-1"> ما هي اللجان التي تود التطوع بها في الملتقى
                     </label>
-                    <table class="table table-sm table-bordered">
-                        <thead class="table-light">
+                    <table class="table table-sm table-bordered table-hover">
+                        <thead>
                             <tr>
                                 <th class="text-start"> اللجنة </th>
                                 <th class="text-center"> أود التطوع </th>
@@ -302,36 +309,6 @@
                         <h5> خاص بلجنة المتابعة </h5>
                     </div>
 
-
-                    <div class="table-responsive mb-3">
-                        <table class="table table-bordered">
-                            <thead class="table-light">
-                                <tr>
-                                    <td> العبارة </td>
-                                    <td class="text-center"> أوافق </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td> هل أنت مستعد للالتزام بالتواصل مع الطلاب في الموعد المحدد؟ </td>
-                                    <td class="text-center"> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
-                                </tr>
-                                <tr>
-                                    <td> هل أنت مستعد لتعبئة الأعذار التي يقدمها الطلبة في جدول المتابعة في الموعد المحدد؟ </td>
-                                    <td class="text-center"> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
-                                </tr>
-                                <tr>
-                                    <td> هل تعتبر نفسك قادراً على تشجيع الطلاب على الحفظ باستمرار؟ </td>
-                                    <td class="text-center"> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
-                                </tr>
-                                <tr>
-                                    <td> هل أنت مستعد للتعامل بروح الفريق مع بقية أعضاء اللجنة؟ </td>
-                                    <td class="text-center"> <input type="checkbox" name="agree[]" class="form-check-input" > </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
                     <div>
                         <label for="name" class="mb-1"> ملاحظات (اختياري)</label>
                         <input type="text" value="{{ old('monitor_notes') }}" class="form-control"
@@ -340,16 +317,14 @@
                 </section>
 
                 <div class="mb-5">
-                    <strong class="text-danger">  الرجاء مراجعة مسؤوليات لجنة الإشراف ولجنة المتابعة في خان قوانين الملتقى قبل التسجيل   </strong>
+                    <strong class="text-danger"> الرجاء مراجعة القوانين في صفحة القوانين قبل التسجيل أو التطوع </strong>
                 </div>
 
                 <div class="text-center">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyEmail"> سجل بالملتقى
-                    </button>
+                    <button class="btn btn-primary" data-bs-toggle="modal"> سجل بالملتقى </button>
                 </div>
 
             </form>
-
             
         </div>
     </div>
@@ -359,7 +334,6 @@
     <script>
         function hideShowSection() {
             const choosenRolesCheckBoxs = document.getElementsByName("roles[]");
-            console.log(choosenRolesCheckBoxs)
             choosenRolesCheckBoxs.forEach((roleCheckBox) => {
                 var isChecked = roleCheckBox.checked;
                 var section = document.getElementById(roleCheckBox.value + "-section");
@@ -368,13 +342,7 @@
         }
     
         function checkAgree(){
-            // get all checkboxes with name agree[]
-            const agreeCheckBoxs = document.getElementsByName("agree[]");
-
-            // check if all checkboxes are checked
-            const allChecked = Array.from(agreeCheckBoxs).every((checkbox) => checkbox.checked);
-
-            // check if monitor role is checked\
+            // check if at least one role is checked
             const roles = document.getElementsByName("roles[]");
             var hasMonitorRole = false;
             var hasSupervisorRole = false;
@@ -387,10 +355,6 @@
                 }
             });
             
-            if(!allChecked && hasMonitorRole){
-                alert("يجب الموافقة على كل شروط لجنة المتابعة");
-                return false;
-            }
 
             if (!hasMonitorRole && !hasSupervisorRole){
                 alert("يجب اختيار لجنة على الأقل");

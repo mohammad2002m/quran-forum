@@ -36,9 +36,7 @@ class AnnouncementController extends Controller
             'viewNotifyOnLandingPage' => $viewNotifyOnLandingPage ? 'true' : 'false',
         ]);
     }
-    public function indexArchived(){
-        return view('announcement.index_archived');
-    }
+
     public function create()
     {
         return view('announcement.create')->with('announcementTypes', AnnouncementType::all());
@@ -58,12 +56,9 @@ class AnnouncementController extends Controller
 
     public function store(Request $request)
     {
-        /** TODO  **/
-        /* authenticate */
-        /* authorize */
+
         /* fix uploaded file vulnerability */
 
-        /* validate */ 
         [$status, $message] = $this->isValidAnnouncementStore($request);
         
         if ($status === 'error'){

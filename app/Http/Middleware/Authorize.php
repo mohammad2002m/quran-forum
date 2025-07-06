@@ -77,9 +77,15 @@ class Authorize
         QFConstants::ROUTE_NAME_REPORTS_INDEX => [QFConstants::ACTIVITY_REPORTS],
         QFConstants::ROUTE_NAME_API_GET_ANNOUNCEMENTS => null,
         QFConstants::ROUTE_NAME_SHOW_ANNOUNCEMENT => null,
-        QFConstants::ROUTE_NAME_API_GET_USERS => [QFConstants::ACTIVITY_API_USERS, QFConstants::ACTIVITY_MANAGE_FORUM],
-        QFConstants::ROUTE_NAME_STUDENTS_INDEX => [QFConstants::ACTIVITY_STUDENTS],
-        QFConstants::ROUTE_NAME_CHANGE_ROLES => [QFConstants::ACTIVITY_STUDENTS],
+
+        QFConstants::ROUTE_NAME_API_GET_MEMBERS => [QFConstants::ACTIVITY_USERS],
+        QFConstants::ROUTE_NAME_API_GET_FORMERS => [QFConstants::ACTIVITY_USERS],
+
+        QFConstants::ROUTE_NAME_MEMBERS_INDEX => [QFConstants::ACTIVITY_USERS],
+        QFConstants::ROUTE_NAME_FORMERS_INDEX => [QFConstants::ACTIVITY_USERS],
+
+        QFConstants::ROUTE_NAME_CHANGE_ROLES => [QFConstants::ACTIVITY_USERS],
+
         QFConstants::ROUTE_NAME_OPEN_REGISTRATION => [QFConstants::ACTIVITY_MANAGE_FORUM],
         QFConstants::ROUTE_NAME_APPLICATION_INDEX_SUPERVISING => [QFConstants::ACTIVITY_APPLICATIONS],
         QFConstants::ROUTE_NAME_APPLICATION_INDEX_MONITORING => [QFConstants::ACTIVITY_APPLICATIONS],
@@ -95,6 +101,10 @@ class Authorize
         QFConstants::ROUTE_NAME_IMAGE_UPLOAD_INDEX => [QFConstants::ACTIVITY_UPLOAD_IMAGE],
         QFConstants::ROUTE_NAME_IMAGE_UPLOAD_STORE => [QFConstants::ACTIVITY_UPLOAD_IMAGE],
         QFConstants::ROUTE_NAME_IMAGE_DELETE => [QFConstants::ACTIVITY_UPLOAD_IMAGE],
+
+        QFConstants::ROUTE_NAME_BAN_MEMBER => [QFConstants::ACTIVITY_USERS],
+        QFConstants::ROUTE_NAME_RESTORE_FORMER => [QFConstants::ACTIVITY_USERS],
+        QFConstants::ROUTE_NAME_CHANGE_STUDENT_STATUS => [QFConstants::ACTIVITY_USERS],
     ];
 
     public function handle(Request $request, Closure $next): Response

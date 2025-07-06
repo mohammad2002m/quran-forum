@@ -21,8 +21,8 @@
 
                 
                 <div class="table-responsive">
-                    <table class="table table-hover table-bordered">
-                        <thead class="table-light">
+                    <table class="tabletable-bordereda table-hover">
+                        <thead>
                             <tr>
                                 <th></th>
                                 <th> المرسل </th>

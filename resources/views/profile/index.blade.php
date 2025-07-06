@@ -96,7 +96,6 @@
         $points = 0;
         $averageTajweedMark = 0;
         $averageMemorizationMark = 0;
-        $partsBeforeCount = $user->parts_before->count();
         if ($is_student && $recitations->count() > 0) {
             foreach ($recitations as $recitation) {
                 $points +=
@@ -146,10 +145,6 @@
                                     <h5> {{ $points }} </h5>
                                     <div class="text-muted"> النقاط </div>
                                 </div>
-                                <div class="d-none d-md-block ms-4">
-                                    <h5> {{ $partsBeforeCount }} </h5>
-                                    <div class="text-muted"> الأجزاء </div>
-                                </div>
                             </div>
                         @endif
 
@@ -178,8 +173,8 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light">
+                    <table class="table table-bordered table-hover">
+                        <thead>
                             <tr>
                                 <td colspan="2"> المعلومات الشخصية </td>
                             </tr>
@@ -235,13 +230,12 @@
 
                 @if ($is_student)
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead class="table-light">
+                        <table class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
                                     <td> الحفظ </td>
                                     <td> التجويد </td>
                                     <td> النقاط </td>
-                                    <td> الأجزاء </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -249,7 +243,6 @@
                                     <td> {{ $averageMemorizationMark }} </td>
                                     <td> {{ $averageTajweedMark }} </td>
                                     <td> {{ $points }} </td>
-                                    <td> {{ $partsBeforeCount }} </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -267,8 +260,8 @@
                         $recitations = $recitations->reverse();
                     @endphp
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead class="table-light">
+                        <table class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
                                     <td class="text-center" colspan="7"> المتابعة الأسبوعية </td>
                                 </tr>

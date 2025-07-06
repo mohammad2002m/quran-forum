@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recitation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use QF\Constants;
 use QFLogger;
 
 class RecitationController extends Controller
@@ -54,6 +56,10 @@ class RecitationController extends Controller
                     'tajweed_mark' => $recitation->tajweed_mark,
                     'notes' => ''
                 ]);
+
+                $user = User::find($recitation->user->id);
+                $user-> status = Constants::STUDENT_STATUS_ACTIVE;
+                $user -> save();
             } else {
                 $oldRecitation = Recitation::find($recitation->id);
                 $oldRecitation->memorized_pages = $recitation->memorized_pages;

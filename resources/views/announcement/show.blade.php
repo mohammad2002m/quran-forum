@@ -13,8 +13,7 @@
     <div class="container main-container mt-4">
         <div class="row">
             <div class="col-lg-8 col-md-8 mb-4">
-                <div class="d-flex justify-contenct-center align-items-center mb-3 rounded position-relative"
-                    style="max-height: 80vh; overflow:hidden;">
+                <div class="d-flex justify-contenct-center align-items-center mb-3 rounded position-relative overflow-hidden">
                     <img src="{{ $announcement->image->full_path }}" class="w-100">
                     @if (Auth::check() && isUserAllowedToDoActivity(Auth::user()->id, $QFConstants::ACTIVITY_MANAGE_ANNOUNCEMENT))
                         <button class="position-absolute btn btn-close fs-4" style="top: 15px; left: 15px;" data-bs-toggle="modal" data-bs-target="#confirm-delete"></button>
@@ -131,7 +130,7 @@
             announcements.forEach(announcement => {
                 var li = document.createElement('li');
                 li.innerHTML = `
-                <a href='/announcement/show/${announcement.id}' class="text-decoration-none text-dark fw-semibold"> ${announcement.title} </a>
+                <a href='/announcement/show/${announcement.id}' class="btn text-decoration-none fw-semibold"> <span> ${announcement.title} </span>  </a>
                 <p class="text-muted"> ${formatDate(announcement.created_at)} </p>
             `;
                 ul.appendChild(li);

@@ -15,7 +15,7 @@ class SearchController extends Controller
     {
 
         $input = $request->query('term');
-        $users = User::with('roles') -> where('name', 'LIKE', "%$input%")
+        $users = User::with('roles') -> where('name', 'LIKE', "%$input%")-> where("banned", false)
             -> where('gender' , Auth::user()->gender) -> get()->toArray();
 
 
@@ -33,7 +33,7 @@ class SearchController extends Controller
     function getMonitors(Request $request)
     {
         $input = $request->query('term');
-        $users = User::with('roles') -> where('name', 'LIKE', "%$input%")
+        $users = User::with('roles') -> where('name', 'LIKE', "%$input%")-> where("banned", false)
             -> where('gender' , Auth::user()->gender) -> get()->toArray();
 
 
@@ -73,7 +73,7 @@ class SearchController extends Controller
     }
 
     function getAnnouncements(Request $request){
-        $announcements = Announcement::with('image')->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> get();
+        $announcements = Announcement::with(['image', 'type'])->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> get();
         return response()->json($announcements);
     }
 
@@ -85,13 +85,9 @@ class SearchController extends Controller
 
     function getAnnouncementsBatch($batch){
         // get 10 announcements by batch
-        $announcements = Announcement::with('image')->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> skip($batch * 10) -> take(10) -> get();
+        $announcements = Announcement::with(['image','type'])->where('status', QFConstants::ANNOUNCEMENT_STATUS_APPROVED) -> orderBy('created_at', 'desc') -> skip($batch * 10) -> take(10) -> get();
         return response()->json($announcements);
     }
 
 
-    function getUsers(Request $request){
-        $users = User::with(['group','supervisor','college', 'roles']) -> get();
-        return response()->json($users);
-    }
 }

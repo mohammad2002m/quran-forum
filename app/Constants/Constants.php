@@ -67,7 +67,8 @@ class Constants {
     const ROUTE_NAME_API_RECITATIONS = 'api.recitations';
     const ROUTE_NAME_API_SUPERVISORS = 'api.supervisors';
     const ROUTE_NAME_API_GET_ANNOUNCEMENTS = 'api.announcements';
-    const ROUTE_NAME_API_GET_USERS = 'api.users';
+    const ROUTE_NAME_API_GET_MEMBERS = 'api.members';
+    const ROUTE_NAME_API_GET_FORMERS = 'api.formers';
     const ROUTE_NAME_API_MONITORS = 'api.monitors';
     const ROUTE_NAME_API_GROUPS = 'api.groups';
 
@@ -100,7 +101,8 @@ class Constants {
 
 
     const ROUTE_NAME_REPORTS_INDEX = 'reports.index';
-    const ROUTE_NAME_STUDENTS_INDEX = 'students.index';
+    const ROUTE_NAME_MEMBERS_INDEX = 'members.index';
+    const ROUTE_NAME_FORMERS_INDEX = 'formers.index';
     const ROUTE_NAME_CHANGE_ROLES = 'roles.change';
     const ROUTE_NAME_APPLICATION_INDEX_SUPERVISING = 'applications.index.supervising';
     const ROUTE_NAME_APPLICATION_INDEX_MONITORING = 'applications.index.monitoring';
@@ -118,6 +120,11 @@ class Constants {
     const ROUTE_NAME_IMAGE_UPLOAD_INDEX = 'image.upload.index';
     const ROUTE_NAME_IMAGE_UPLOAD_STORE = 'image.upload.store';
     const ROUTE_NAME_IMAGE_DELETE = 'image.delete';
+
+    const ROUTE_NAME_BAN_MEMBER = 'ban.member';
+    const ROUTE_NAME_RESTORE_FORMER = 'restore.former';
+
+    const ROUTE_NAME_CHANGE_STUDENT_STATUS = 'change.student.status';
 
     /******** EXTRA ********/
     const MAX_WEEKS_ALLOWED = 10; // max number of extra years to add on current year date
@@ -140,19 +147,18 @@ class Constants {
 
     /******** SUCCESS MESSAGES ********/
     const SUCCESS_MESSAGE_SAVED_SUCCESSFULLY = 'تم الحفظ بنجاح';
-    const SUCCESS_MESSAGE_WEEKS_ADDED = 'تم إضافة 53 أسبوعًا بنجاح';
+    const SUCCESS_MESSAGE_WEEKS_ADDED = 'تم إضافة 4 أسابيع بنجاح';
 
     /******** STUDENTS STATUSES ********/
-    const STUDENT_STATUS_ACTIVE = 'نشط';
-    const STUDENT_STATUS_FREEZED = 'مجمد';
+    const STUDENT_STATUS_ACTIVE = 'نشط/ة';
+    const STUDENT_STATUS_FREEZED = 'مجمد/ة';
     const STUDENT_STATUS_STOPPED = 'موقوف';
     const STUDENT_STATUS_LEFT = 'منسحب';
 
+    // We don't have stopped status in the database
     const STUDENT_STATUSES = [
         self::STUDENT_STATUS_ACTIVE,
         self::STUDENT_STATUS_FREEZED,
-        self::STUDENT_STATUS_STOPPED,
-        self::STUDENT_STATUS_LEFT,
     ];
     
     /* APPLICATION STATUSES */
@@ -177,18 +183,21 @@ class Constants {
     const ACTIVITY_GET_SUPERVISORS = 7;
     const ACTIVITY_MANAGE_GROUPS = 8;
     const ACTIVITY_MANAGE_FORUM = 9;
-    const ACTIVITY_STUDENTS = 10;
+    const ACTIVITY_MEMBERS = 10;
     const ACTIVITY_APPLICATIONS = 11;
     const ACTIVITY_SUPERVISING_EXAMS = 12;
+    const ACTIVITY_FORMERS = 13;
 
-    const ACTIVITY_API_WEEKS = 13;
-    const ACTIVITY_API_EXECUSES = 14;
-    const ACTIVITY_API_RECITATIONS = 15;
-    const ACTIVITY_API_SUPERVISORS = 16;
-    const ACTIVITY_API_MONITORS = 17;
-    const ACTIVITY_API_ANNOUNCEMENTS = 18;
-    const ACTIVITY_API_USERS = 19;
-    const ACTIVITY_UPLOAD_IMAGE = 20;
+    const ACTIVITY_API_WEEKS = 14;
+    const ACTIVITY_API_EXECUSES = 15;
+    const ACTIVITY_API_RECITATIONS = 16;
+    const ACTIVITY_API_SUPERVISORS = 17;
+    const ACTIVITY_API_MONITORS = 18;
+    const ACTIVITY_API_ANNOUNCEMENTS = 19;
+    const ACTIVITY_API_USERS = 20;
+    const ACTIVITY_UPLOAD_IMAGE = 21;
+
+    const ACTIVITY_USERS = 22; // get members and formers page
     
 
     /******** IMAGES TYPES ********/
@@ -211,7 +220,7 @@ class Constants {
             self::ACTIVITY_MANAGE_WEEKS,
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
-            self::ACTIVITY_STUDENTS,
+            self::ACTIVITY_USERS,
             self::ACTIVITY_APPLICATIONS,
             self::ACTIVITY_UPLOAD_IMAGE,
         ],
@@ -221,7 +230,7 @@ class Constants {
             self::ACTIVITY_MANAGE_WEEKS,
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
-            self::ACTIVITY_STUDENTS,
+            self::ACTIVITY_USERS,
             self::ACTIVITY_APPLICATIONS,
             self::ACTIVITY_UPLOAD_IMAGE,
         ],
@@ -239,7 +248,6 @@ class Constants {
             self::ACTIVITY_GET_SUPERVISORS, 
             self::ACTIVITY_MANAGE_GROUPS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
-            self::ACTIVITY_APPLICATIONS,
             self::ACTIVITY_API_SUPERVISORS,
             self::ACTIVITY_API_MONITORS,
         ],
@@ -247,14 +255,13 @@ class Constants {
             self::ACTIVITY_MANAGE_ANNOUNCEMENT,
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_API_ANNOUNCEMENTS,
-            self::ACTIVITY_UPLOAD_IMAGE,
         ],
         self::ROLE_DATA_COMMITTE_MEMBER => [
             self::ACTIVITY_MANAGE_WEEKS,
             self::ACTIVITY_REPORTS,
             self::ACTIVITY_MANAGE_FORUM,
             self::ACTIVITY_API_ANNOUNCEMENTS,
-            self::ACTIVITY_STUDENTS,
+            self::ACTIVITY_USERS,
         ],
         self::ROLE_SECRETARY_GENERAL => [
             self::ACTIVITY_API_ANNOUNCEMENTS,
@@ -295,7 +302,7 @@ class Constants {
     /******** OTHER ********/
     // number of weeks to add in store
 
-    const NUMBER_OF_WEEKS_TO_ADD_IN_STORE = 53;
+    const NUMBER_OF_WEEKS_TO_ADD_IN_STORE = 4;
 
     /******** WEEKS_NAMES ********/
     const WEEKS_NAMES = [

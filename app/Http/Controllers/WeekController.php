@@ -20,9 +20,6 @@ class WeekController extends Controller
 
     }
     function update(Request $request){
-        
-        
-
         [$status, $message] = $this -> isValidWeekUpdate($request);
 
         if ($status === 'error'){
