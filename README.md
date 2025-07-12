@@ -7,3 +7,4 @@
 - Open Docker Desktop, check the container logs and see when it finishes installing the packages/dependencies then move to the next step
 - Run this command to setup the database with sample data: `docker compose exec app php artisan migrate:fresh --seed`
 - The app should be running successfully on `localhost:8000`
+
