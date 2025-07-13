@@ -59,13 +59,9 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
 
-                            @foreach ($errors as $error)
-                                <div class="mb-4">
-                                    <button type="submit" class="btn btn-primary prm w-100 p-2"> التالي </button>
-                                </div>
-                            @endforeach
+                                <span> الرجوع لصفحة <a href="/login"> تسجيل الدخول </a></span>
+                            </div>
                         </div>
                     </div>
                 </div>
