@@ -34,12 +34,12 @@ class VerifyEmailController extends Controller
         [$status, $message] = $this -> isValidResendEmailVerification($request);
 
         if ($status === 'error'){
-            return redirect() -> back() -> withInput();
+            return redirect() -> back() -> withInput() -> with($status, $message);
         }
 
         $user = getUserWithEmailHashedPassword($request -> session() -> email_for_verification ,$request -> session() ->  password_for_verification);
         
-        $user->sendEmailVerificationNotification();
+        # $user->sendEmailVerificationNotification();
     
         return back()->with('success', 'تم إرسال الرابط مرة أخرى بنجاح');
     }

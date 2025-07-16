@@ -90,7 +90,8 @@ class RegistrationController extends Controller
 
         Session::put('email_for_verification', $user -> email);
         Session::put('password_for_verification', Hash::make($user -> password));
-        $user -> sendEmailVerificationNotification();
+        // $user -> sendEmailVerificationNotification();
+        $user -> markEmailAsVerified();
 
         return redirect() -> route('verification.notice') -> with([$status => $message]);
     }
@@ -204,7 +205,8 @@ class RegistrationController extends Controller
         Session::put('email_for_verification', $user -> email);
         Session::put('password_for_verification', Hash::make($user -> password));
 
-        $user -> sendEmailVerificationNotification();
+        // $user -> sendEmailVerificationNotification();
+        $user -> markEmailAsVerified();
 
         $this->applyApplications($request, $user -> id);
 
